@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: actual_version_panel/infusion_db.php
+| Filename: team/infusion_db.php
 | Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -19,12 +19,14 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-\PHPFusion\Admins::getInstance()->setAdminPageIcons('AV', '<i class="fa fa-code-fork fa-lg"></i>');
+\PHPFusion\Admins::getInstance()->setAdminPageIcons('TEAM', '<i class="fa fa-users fa-lg"></i>');
 
-if (!defined('AV_LOCALE')) {
-    if (file_exists(INFUSIONS.'actual_version_panel/locale/'.LANGUAGE.'.php')) {
-        define('AV_LOCALE', INFUSIONS.'actual_version_panel/locale/'.LANGUAGE.'.php');
+if (!defined('TEAM_LOCALE')) {
+    if (file_exists(INFUSIONS.'team/locale/'.LANGUAGE.'.php')) {
+        define('TEAM_LOCALE', INFUSIONS.'team/locale/'.LANGUAGE.'.php');
     } else {
-        define('AV_LOCALE', INFUSIONS.'actual_version_panel/locale/English.php');
+        define('TEAM_LOCALE', INFUSIONS.'team/locale/English.php');
     }
 }
+
+define('DB_TEAM', DB_PREFIX.'team');

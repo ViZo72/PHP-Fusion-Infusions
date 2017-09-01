@@ -17,6 +17,7 @@
 +--------------------------------------------------------*/
 require_once '../../maincore.php';
 require_once THEMES.'templates/admin_header.php';
+
 pageAccess('CC');
 
 require_once CONTENT_CREATOR.'ContentCreator.php';

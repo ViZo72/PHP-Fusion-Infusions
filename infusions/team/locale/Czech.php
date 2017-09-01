@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: actual_version_panel/infusion_db.php
+| Filename: team/locale/Czech.php
 | Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -15,16 +15,17 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-if (!defined('IN_FUSION')) {
-    die('Access Denied');
-}
-
-\PHPFusion\Admins::getInstance()->setAdminPageIcons('AV', '<i class="fa fa-code-fork fa-lg"></i>');
-
-if (!defined('AV_LOCALE')) {
-    if (file_exists(INFUSIONS.'actual_version_panel/locale/'.LANGUAGE.'.php')) {
-        define('AV_LOCALE', INFUSIONS.'actual_version_panel/locale/'.LANGUAGE.'.php');
-    } else {
-        define('AV_LOCALE', INFUSIONS.'actual_version_panel/locale/English.php');
-    }
-}
+$locale['TEAM_title'] = 'Team';
+$locale['TEAM_desc'] = 'Team List';
+$locale['TEAM_title_admin'] = 'Team Admin';
+$locale['TEAM_001'] = 'Jméno';
+$locale['TEAM_002'] = 'Pozice';
+$locale['TEAM_003'] = 'Profese';
+$locale['TEAM_004'] = 'Datum přihlášení';
+$locale['TEAM_005'] = 'SZ';
+$locale['TEAM_006'] = 'Akce';
+$locale['TEAM_007'] = 'Žádní uživatelé';
+$locale['TEAM_008'] = 'Vyberte uživatele';
+$locale['TEAM_009'] = 'Uživatel byl přidán';
+$locale['TEAM_010'] = 'Uživatel byl aktualizován';
+$locale['TEAM_011'] = 'Uživatel byl smazán';

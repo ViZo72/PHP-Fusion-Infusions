@@ -30,36 +30,35 @@ class ContentCreator {
     private $users       = 0;
 
     public function __construct() {
-        if (file_exists(CONTENT_CREATOR.'/locale/'.LANGUAGE.'.php')) {
-            $this->locale = fusion_get_locale('', CONTENT_CREATOR.'/locale/'.LANGUAGE.'.php');
-        } else {
-            $this->locale = fusion_get_locale('', CONTENT_CREATOR.'/locale/English.php');
-        }
+        $this->locale = fusion_get_locale('', CONTENT_CREATOR_LOCALE);
 
         add_to_title($this->locale['CC_title']);
-        BreadCrumbs::getInstance()->addBreadCrumb(['link' => CONTENT_CREATOR.'/content_creator_admin.php'.fusion_get_aidlink(), 'title' => $this->locale['CC_title']]);
+        BreadCrumbs::getInstance()->addBreadCrumb([
+            'link'  => CONTENT_CREATOR.'/content_creator_admin.php'.fusion_get_aidlink(),
+            'title' => $this->locale['CC_title']
+        ]);
 
-        $this->snippet     = '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum aliquam felis nunc, in dignissim metus suscipit eget. Nunc scelerisque laoreet purus, in ullamcorper magna sagittis eget. Aliquam ac rhoncus orci, a lacinia ante. Integer sed erat ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce ullamcorper sapien mauris, et tempus mi tincidunt laoreet. Proin aliquam vulputate felis in viverra.</p>';
-        $this->body        = $this->snippet."\n<p>Duis sed lorem vitae nibh sagittis tempus sed sed enim. Mauris egestas varius purus, a varius odio vehicula quis. Donec cursus interdum libero, et ornare tellus mattis vitae. Phasellus et ligula velit. Vivamus ac turpis dictum, congue metus facilisis, ultrices lorem. Cras imperdiet lacus in tincidunt pellentesque. Sed consectetur nunc vitae fringilla volutpat. Mauris nibh justo, luctus eu dapibus in, pellentesque non urna. Nulla ullamcorper varius lacus, ut finibus eros interdum id. Proin at pellentesque sapien. Integer imperdiet, sapien nec tristique laoreet, sapien lacus porta nunc, tincidunt cursus risus mauris id quam.</p>";
-        $this->short_text  = '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tempor aliquam nulla eu dapibus. Donec pulvinar porttitor urna, in ultrices dolor cursus et. Quisque vitae eros imperdiet, dictum orci lacinia, scelerisque est.</p>';
-        $this->shout_text  = [
+        $this->snippet    = '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum aliquam felis nunc, in dignissim metus suscipit eget. Nunc scelerisque laoreet purus, in ullamcorper magna sagittis eget. Aliquam ac rhoncus orci, a lacinia ante. Integer sed erat ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce ullamcorper sapien mauris, et tempus mi tincidunt laoreet. Proin aliquam vulputate felis in viverra.</p>';
+        $this->body       = $this->snippet."\n<p>Duis sed lorem vitae nibh sagittis tempus sed sed enim. Mauris egestas varius purus, a varius odio vehicula quis. Donec cursus interdum libero, et ornare tellus mattis vitae. Phasellus et ligula velit. Vivamus ac turpis dictum, congue metus facilisis, ultrices lorem. Cras imperdiet lacus in tincidunt pellentesque. Sed consectetur nunc vitae fringilla volutpat. Mauris nibh justo, luctus eu dapibus in, pellentesque non urna. Nulla ullamcorper varius lacus, ut finibus eros interdum id. Proin at pellentesque sapien. Integer imperdiet, sapien nec tristique laoreet, sapien lacus porta nunc, tincidunt cursus risus mauris id quam.</p>";
+        $this->short_text = '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tempor aliquam nulla eu dapibus. Donec pulvinar porttitor urna, in ultrices dolor cursus et. Quisque vitae eros imperdiet, dictum orci lacinia, scelerisque est.</p>';
+        $this->shout_text = [
             1 => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. :D',
             2 => 'Aliquam ac rhoncus orci, a lacinia ante.',
             3 => 'Mauris nibh justo, luctus eu dapibus in, pellentesque non urna. Nulla ullamcorper varius lacus, ut finibus eros interdum id. :)',
             4 => 'Quisque vitae eros imperdiet, dictum orci lacinia, scelerisque est.',
             5 => 'Proin aliquam vulputate felis in viverra.'
         ];
-        $this->users       = dbcount('(user_id)', DB_USERS, 'user_status = 0');
+        $this->users      = dbcount('(user_id)', DB_USERS, 'user_status = 0');
     }
 
     private function NumField($id) {
         $select = form_text('num_'.$id, $this->locale['CC_001'], 10, [
-            'type'       => 'number',
-            'number_min' => 1,
-            'number_max' => 2000,
-            'inline'     => TRUE,
-            'class'      => 'm-b-0',
-            'inner_class'=> 'input-sm'
+            'type'        => 'number',
+            'number_min'  => 1,
+            'number_max'  => 2000,
+            'inline'      => TRUE,
+            'class'       => 'm-b-0',
+            'inner_class' => 'input-sm'
         ]);
 
         return $select;
@@ -544,7 +543,8 @@ class ContentCreator {
                     echo '<td>'.$this->Button('user_groups', TRUE).'</td>';
                 echo '</tr>';
 
-                if (infusion_exists('articles')) {
+                $articles = function_exists('infusion_exists') ? infusion_exists('articles') : db_exists(DB_PREFIX.'articles');
+                if ($articles) {
                     $this->Articles();
 
                     echo '<tr><td colspan="4" class="text-center strong">'.$this->locale['CC_012'].'</td></tr>';
@@ -569,7 +569,8 @@ class ContentCreator {
                     }
                 }
 
-                if (infusion_exists('blog')) {
+                $blog = function_exists('infusion_exists') ? infusion_exists('blog') : db_exists(DB_PREFIX.'blog');
+                if ($blog) {
                     $this->Blogs();
 
                     echo '<tr><td colspan="4" class="text-center strong">'.$this->locale['CC_015'].'</td></tr>';
@@ -604,7 +605,8 @@ class ContentCreator {
                     echo '<td>'.$this->Button('custom_pages', TRUE).'</td>';
                 echo '</tr>';
 
-                if (infusion_exists('downloads')) {
+                $downloads = function_exists('infusion_exists') ? infusion_exists('downloads') : db_exists(DB_PREFIX.'downloads');
+                if ($downloads) {
                     $this->Downloads();
 
                     echo '<tr><td colspan="4" class="text-center strong">'.$this->locale['CC_020'].'</td></tr>';
@@ -629,7 +631,8 @@ class ContentCreator {
                     }
                 }
 
-                if (infusion_exists('faq')) {
+                $faqs = function_exists('infusion_exists') ? infusion_exists('faq') : db_exists(DB_PREFIX.'faqs');
+                if ($faqs) {
                     $this->Faqs();
 
                     echo '<tr><td colspan="4" class="text-center strong">'.$this->locale['CC_023'].'</td></tr>';
@@ -654,7 +657,8 @@ class ContentCreator {
                     }
                 }
 
-                if (infusion_exists('news')) {
+                $news = function_exists('infusion_exists') ? infusion_exists('news') : db_exists(DB_PREFIX.'news');
+                if ($news) {
                     $this->News();
 
                     echo '<tr><td colspan="4" class="text-center strong">'.$this->locale['CC_026'].'</td></tr>';
@@ -679,7 +683,8 @@ class ContentCreator {
                     }
                 }
 
-                if (infusion_exists('member_poll_panel')) {
+                $polls = function_exists('infusion_exists') ? infusion_exists('member_poll_panel') : db_exists(DB_PREFIX.'polls');
+                if ($polls) {
                     $this->Polls();
 
                     echo '<tr><td colspan="4" class="text-center strong">'.$this->locale['CC_030'].'</td></tr>';
@@ -692,7 +697,8 @@ class ContentCreator {
                     echo '</tr>';
                 }
 
-                if (infusion_exists('shoutbox_panel')) {
+                $shoutbox = function_exists('infusion_exists') ? infusion_exists('shoutbox_panel') : db_exists(DB_PREFIX.'shoutbox');
+                if ($shoutbox) {
                     $this->Shouts();
 
                     echo '<tr><td colspan="4" class="text-center strong">'.$this->locale['CC_032'].'</td></tr>';
@@ -705,7 +711,8 @@ class ContentCreator {
                     echo '</tr>';
                 }
 
-                if (infusion_exists('weblinks')) {
+                $weblinks = function_exists('infusion_exists') ? infusion_exists('weblinks') : db_exists(DB_PREFIX.'weblinks');
+                if ($weblinks) {
                     $this->Weblinks();
 
                     echo '<tr><td colspan="4" class="text-center strong">'.$this->locale['CC_035'].'</td></tr>';

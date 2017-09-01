@@ -15,8 +15,8 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-if (!defined("IN_FUSION")) {
-    die("Access Denied");
+if (!defined('IN_FUSION')) {
+    die('Access Denied');
 }
 
 $locale = fusion_get_locale('', AV_LOCALE);
@@ -31,14 +31,14 @@ $inf_folder      = 'actual_version_panel';
 $inf_image       = 'version.svg';
 
 $inf_adminpanel[] = [
-    'title'  => $locale['AV_title'],
+    'title'  => $inf_title,
     'image'  => $inf_image,
     'panel'  => 'admin.php',
     'rights' => 'AV',
     'page'   => 5
 ];
 
-$inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction) VALUES ('".$locale['AV_title']."', '".$inf_folder."', '', '2', '1', 'file', '0', '1', '1', '', '3')";
+$inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction) VALUES ('".$inf_title."', '".$inf_folder."', '', '2', '1', 'file', '0', '1', '1', '', '3')";
 $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES
     ('actual_version', '9.0 - 27.4. 2017', '".$inf_folder."'),
     ('phpfusion_dl_link', 'https://sourceforge.net/projects/php-fusion/files/PHP-Fusion%20Archives/9.x/PHP-Fusion%209.0.zip/download', '".$inf_folder."'),

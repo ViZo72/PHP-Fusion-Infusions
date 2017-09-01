@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: content_creator/infusion.php
+| Filename: team/infusion.php
 | Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -19,21 +19,31 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-$locale = fusion_get_locale('', CONTENT_CREATOR_LOCALE);
+$locale = fusion_get_locale('', TEAM_LOCALE);
 
-$inf_title       = $locale['CC_title'];
-$inf_description = $locale['CC_descr'];
-$inf_version     = '1.0.1';
+$inf_title       = $locale['TEAM_title'];
+$inf_description = $locale['TEAM_desc'];
+$inf_version     = '1.00';
 $inf_developer   = 'RobiNN';
 $inf_email       = 'kelcakrobo@gmail.com';
 $inf_weburl      = 'https://github.com/RobiNN1';
-$inf_folder      = 'content_creator';
-$inf_image       = 'content_creator.svg';
+$inf_folder      = 'team';
+$inf_image       = 'team.svg';
 
 $inf_adminpanel[] = [
+    'title'  => $locale['TEAM_title_admin'],
     'image'  => $inf_image,
-    'page'   => 5,
-    'rights' => 'CC',
-    'title'  => $inf_title,
-    'panel'  => 'content_creator.php',
+    'panel'  => 'admin.php',
+    'rights' => 'TEAM',
+    'page'   => 5
 ];
+
+$inf_newtable[] = DB_TEAM." (
+    team_id MEDIUMINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+    userid MEDIUMINT(8) NOT NULL DEFAULT 0,
+    position VARCHAR(50) NOT NULL DEFAULT '',
+    profession VARCHAR(50) NOT NULL DEFAULT '',
+    PRIMARY KEY (team_id)
+) ENGINE=MyISAM DEFAULT CHARSET=UTF8 COLLATE=utf8_unicode_ci";
+
+$inf_droptable[] = DB_TEAM;

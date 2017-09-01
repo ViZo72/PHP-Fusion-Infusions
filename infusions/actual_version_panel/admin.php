@@ -23,7 +23,10 @@ pageAccess('AV');
 $locale = fusion_get_locale('', AV_LOCALE);
 $settings = get_settings('actual_version_panel');
 
-add_breadcrumb(['link' => INFUSIONS.'actual_version_panel/admin.php'.fusion_get_aidlink(), 'title' => $locale['AV_title']]);
+\PHPFusion\BreadCrumbs::getInstance()->addBreadCrumb([
+    'link'  => INFUSIONS.'actual_version_panel/admin.php'.fusion_get_aidlink(),
+    'title' => $locale['AV_title']
+]);
 
 if (isset($_POST['save_settings'])) {
     $settings = [
@@ -44,20 +47,16 @@ if (isset($_POST['save_settings'])) {
         }
 
         addNotice('success', $locale['AV_notice']);
-        redirect(FUSION_REQUEST);
+        redirect(FUSION_SELF.fusion_get_aidlink());
     }
 }
 
 echo opentable($locale['AV_title']);
-echo openform('av_settings', 'post', FUSION_REQUEST);
+echo openform('av_settings', 'post', FUSION_SELF.fusion_get_aidlink());
     echo form_text('actual_version', $locale['AV_100'], $settings['actual_version'], ['inline' => TRUE]);
     echo form_text('phpfusion_dl_link', $locale['AV_101'], $settings['phpfusion_dl_link'], ['inline' => TRUE]);
     echo form_text('translate_dl_link', $locale['AV_102'], $settings['translate_dl_link'], ['inline' => TRUE]);
-
-    echo form_button('save_settings', $locale['save'], $locale['save'], [
-        'class' => 'btn-success',
-        'icon'  => 'fa fa-hdd-o'
-    ]);
+    echo form_button('save_settings', $locale['save'], $locale['save'], ['class' => 'btn-success', 'icon' => 'fa fa-hdd-o']);
 echo closeform();
 echo closetable();
 
