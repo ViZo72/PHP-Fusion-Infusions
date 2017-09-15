@@ -124,7 +124,7 @@ class Team {
             echo form_user_select('user', $this->locale['TEAM_008'], $this->data['userid'], ['inline' => TRUE, 'allow_self' => TRUE]);
             echo form_text('position', $this->locale['TEAM_002'], $this->data['position'], ['inline' => TRUE]);
             echo form_text('profession', $this->locale['TEAM_003'], $this->data['profession'], ['inline' => TRUE]);
-            echo form_button('save', $this->locale['save'], 'edit', ['class' => 'btn-success']);
+            echo form_button('save', $this->locale['save'], 'save', ['class' => 'btn-success']);
         echo closeform();
     }
 

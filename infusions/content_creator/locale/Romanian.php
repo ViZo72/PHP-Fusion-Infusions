@@ -57,3 +57,4 @@ $locale['CC_037'] = 'A nu se utiliza &#238;ntr-un sait online!';
 $locale['CC_038'] = 'Te po&#355;i conecta ca orice membru cu';
 $locale['CC_039'] = 'Parol&#259;';
 $locale['CC_040'] = 'Parol&#259; administrare';
+$locale['CC_041'] = 'Mesaje private';

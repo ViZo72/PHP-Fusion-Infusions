@@ -57,3 +57,4 @@ $locale['CC_037'] = 'Nepoužívať v živom prostredí!';
 $locale['CC_038'] = 'Môžete sa prihlásit ako člen s';
 $locale['CC_039'] = 'Heslo';
 $locale['CC_040'] = 'Admin heslo';
+$locale['CC_041'] = 'Súkromné správy';

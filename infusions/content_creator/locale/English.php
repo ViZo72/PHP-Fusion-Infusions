@@ -57,3 +57,4 @@ $locale['CC_037'] = 'Not for use in a live environment!';
 $locale['CC_038'] = 'You can login as any member with';
 $locale['CC_039'] = 'Password';
 $locale['CC_040'] = 'Admin Password';
+$locale['CC_041'] = 'Private Messages';

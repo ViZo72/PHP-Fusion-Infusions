@@ -57,3 +57,4 @@ $locale['CC_037'] = 'Nie do użytku live environment!';
 $locale['CC_038'] = 'Możesz się zalogować jako dowolny użytkownik';
 $locale['CC_039'] = 'Hasło';
 $locale['CC_040'] = 'Hasło Admina';
+$locale['CC_041'] = 'Prywatne wiadomości';
