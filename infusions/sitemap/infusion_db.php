@@ -19,7 +19,7 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-\PHPFusion\Admins::getInstance()->setAdminPageIcons('SM', '<i class="fa fa-sitemap fa-lg"></i>');
+\PHPFusion\Admins::getInstance()->setAdminPageIcons('SMG', '<i class="fa fa-sitemap fa-lg"></i>');
 
 if (!defined('SM_LOCALE')) {
     if (file_exists(INFUSIONS.'sitemap/locale/'.LANGUAGE.'.php')) {

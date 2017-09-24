@@ -20,7 +20,7 @@ require_once THEMES.'templates/admin_header.php';
 
 require_once INFUSIONS.'sitemap/Sitemap.php';
 
-pageAccess('SM');
+pageAccess('SMG');
 
 use \PHPFusion\BreadCrumbs;
 use samdark\sitemap\Sitemap;

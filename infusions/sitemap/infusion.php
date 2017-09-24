@@ -34,7 +34,7 @@ $inf_adminpanel[] = [
     'title'  => $locale['SM_title_admin'],
     'image'  => $inf_image,
     'panel'  => 'admin.php',
-    'rights' => 'SM',
+    'rights' => 'SMG',
     'page'   => 5
 ];
 
