@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: sitemap/infusion_db.php
+| Filename: sitemap_panel/admin.php
 | Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -15,18 +15,15 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-if (!defined('IN_FUSION')) {
-    die('Access Denied');
-}
+require_once '../../maincore.php';
+require_once THEMES.'templates/admin_header.php';
 
-\PHPFusion\Admins::getInstance()->setAdminPageIcons('SMG', '<i class="fa fa-sitemap fa-lg"></i>');
+require_once INFUSIONS.'sitemap_panel/Sitemap.php';
+require_once INFUSIONS.'sitemap_panel/SitemapGenerator.php';
 
-if (!defined('SM_LOCALE')) {
-    if (file_exists(INFUSIONS.'sitemap/locale/'.LANGUAGE.'.php')) {
-        define('SM_LOCALE', INFUSIONS.'sitemap/locale/'.LANGUAGE.'.php');
-    } else {
-        define('SM_LOCALE', INFUSIONS.'sitemap/locale/English.php');
-    }
-}
+pageAccess('SMG');
 
-define('DB_SM_LINKS', DB_PREFIX.'sitemap_links');
+$smg = new SitemapGenerator();
+$smg->DisplayAdmin();
+
+require_once THEMES.'templates/footer.php';

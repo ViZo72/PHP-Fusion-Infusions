@@ -1,16 +1,32 @@
 <?php
+/*-------------------------------------------------------+
+| PHP-Fusion Content Management System
+| Copyright (C) PHP-Fusion Inc
+| https://www.php-fusion.co.uk/
++--------------------------------------------------------+
+| Filename: sitemap_panel/Sitemap.php
+| Author: Alexander Makarov <sam@rmcreative.ru>
+| Github: https://github.com/samdark/sitemap
++--------------------------------------------------------+
+| This program is released as free software under the
+| Affero GPL license. You can redistribute it and/or
+| modify it under the terms of this license which you
+| can read by viewing the included agpl.txt or online
+| at www.gnu.org/licenses/agpl.html. Removal of this
+| copyright header is strictly prohibited without
+| written permission from the original author(s).
++--------------------------------------------------------*/
 namespace samdark\sitemap;
 
 use XMLWriter;
 
 /**
+ * Class Sitemap
  * A class for generating Sitemaps (http://www.sitemaps.org/)
  *
- * @author Alexander Makarov <sam@rmcreative.ru>
- * @github https://github.com/samdark/sitemap
+ * @package samdark\sitemap
  */
-class Sitemap
-{
+class Sitemap {
     const ALWAYS = 'always';
     const HOURLY = 'hourly';
     const DAILY = 'daily';
@@ -57,7 +73,7 @@ class Sitemap
     /**
      * @var array valid values for frequency parameter
      */
-    private $validFrequencies = array(
+    private $validFrequencies = [
         self::ALWAYS,
         self::HOURLY,
         self::DAILY,
@@ -65,7 +81,7 @@ class Sitemap
         self::MONTHLY,
         self::YEARLY,
         self::NEVER
-    );
+    ];
 
     /**
      * @var bool whether to gzip the resulting files or not
@@ -91,8 +107,7 @@ class Sitemap
      * @param string $filePath path of the file to write to
      * @throws \InvalidArgumentException
      */
-    public function __construct($filePath)
-    {
+    public function __construct($filePath) {
         $dir = dirname($filePath);
         if (!is_dir($dir)) {
             throw new \InvalidArgumentException(
@@ -107,8 +122,7 @@ class Sitemap
      * Get array of generated files
      * @return array
      */
-    public function getWrittenFilePath()
-    {
+    public function getWrittenFilePath() {
         return $this->writtenFilePaths;
     }
 
@@ -116,8 +130,7 @@ class Sitemap
      * Creates new file
      * @throws \RuntimeException if file is not writeable
      */
-    private function createNewFile()
-    {
+    private function createNewFile() {
         $this->fileCount++;
         $filePath = $this->getCurrentFilePath();
         $this->writtenFilePaths[] = $filePath;
@@ -142,8 +155,7 @@ class Sitemap
     /**
      * Writes closing tags to current file
      */
-    private function finishFile()
-    {
+    private function finishFile() {
         if ($this->writer !== null) {
             $this->writer->endElement();
             $this->writer->endDocument();
@@ -154,8 +166,7 @@ class Sitemap
     /**
      * Finishes writing
      */
-    public function write()
-    {
+    public function write() {
         $this->finishFile();
     }
 
@@ -163,12 +174,12 @@ class Sitemap
      * Flushes buffer into file
      * @param bool $finishFile Pass true to close the file to write to, used only when useGzip is true
      */
-    private function flush($finishFile = false)
-    {
+    private function flush($finishFile = false) {
         if ($this->useGzip) {
             $this->flushGzip($finishFile);
             return;
         }
+
         file_put_contents($this->getCurrentFilePath(), $this->writer->flush(true), FILE_APPEND);
     }
 
@@ -181,6 +192,7 @@ class Sitemap
             $this->flushWithIncrementalDeflate($finishFile);
             return;
         }
+
         $this->flushWithTempFileFallback($finishFile);
     }
 
@@ -215,7 +227,7 @@ class Sitemap
         fwrite($this->tempFile, $this->writer->flush(true));
 
         if ($finishFile) {
-            $file = fopen('compress.zlib://' . $this->getCurrentFilePath(), 'w');
+            $file = fopen('compress.zlib://'.$this->getCurrentFilePath(), 'w');
             rewind($this->tempFile);
             stream_copy_to_stream($this->tempFile, $file);
             fclose($file);
@@ -248,8 +260,7 @@ class Sitemap
      *
      * @throws \InvalidArgumentException
      */
-    public function addItem($location, $lastModified = null, $changeFrequency = null, $priority = null)
-    {
+    public function addItem($location, $lastModified = null, $changeFrequency = null, $priority = null) {
         if ($this->urlsCount === 0) {
             $this->createNewFile();
         } elseif ($this->urlsCount % $this->maxUrls === 0) {
@@ -260,35 +271,43 @@ class Sitemap
         if ($this->urlsCount % $this->bufferSize === 0) {
             $this->flush();
         }
+
         $this->writer->startElement('url');
 
         $this->validateLocation($location);
 
         $this->writer->writeElement('loc', $location);
 
-        if ($lastModified !== null) {
-            $this->writer->writeElement('lastmod', date('c', $lastModified));
+        if (!empty($lastModified)) {
+            if ($lastModified !== null) {
+                $this->writer->writeElement('lastmod', date('c', $lastModified));
+            }
         }
 
-        if ($changeFrequency !== null) {
-            if (!in_array($changeFrequency, $this->validFrequencies, true)) {
-                throw new \InvalidArgumentException(
-                    'Please specify valid changeFrequency. Valid values are: '
-                    . implode(', ', $this->validFrequencies)
-                    . "You have specified: {$changeFrequency}."
-                );
-            }
+        if (!empty($changeFrequency)) {
+            if ($changeFrequency !== null) {
+                if (!in_array($changeFrequency, $this->validFrequencies, true)) {
+                    throw new \InvalidArgumentException(
+                        'Please specify valid changeFrequency. Valid values are: '
+                        .implode(', ', $this->validFrequencies)
+                        ."You have specified: {$changeFrequency}."
+                    );
+                }
 
-            $this->writer->writeElement('changefreq', $changeFrequency);
+                $this->writer->writeElement('changefreq', $changeFrequency);
+            }
         }
 
-        if ($priority !== null) {
-            if (!is_numeric($priority) || $priority < 0 || $priority > 1) {
-                throw new \InvalidArgumentException(
-                    "Please specify valid priority. Valid values range from 0.0 to 1.0. You have specified: {$priority}."
-                );
+        if (!empty($priority)) {
+            if ($priority !== null) {
+                if (!is_numeric($priority) || $priority < 0 || $priority > 1) {
+                    throw new \InvalidArgumentException(
+                        "Please specify valid priority. Valid values range from 0.0 to 1.0. You have specified: {$priority}."
+                    );
+                }
+
+                $this->writer->writeElement('priority', number_format($priority, 1, '.', ','));
             }
-            $this->writer->writeElement('priority', number_format($priority, 1, '.', ','));
         }
 
         $this->writer->endElement();
@@ -299,21 +318,22 @@ class Sitemap
     /**
      * @return string path of currently opened file
      */
-    private function getCurrentFilePath()
-    {
+    private function getCurrentFilePath() {
         if ($this->fileCount < 2) {
             return $this->filePath;
         }
 
         $parts = pathinfo($this->filePath);
+
         if ($parts['extension'] === 'gz') {
             $filenameParts = pathinfo($parts['filename']);
             if (!empty($filenameParts['extension'])) {
                 $parts['filename'] = $filenameParts['filename'];
-                $parts['extension'] = $filenameParts['extension'] . '.gz';
+                $parts['extension'] = $filenameParts['extension'].'.gz';
             }
         }
-        return $parts['dirname'] . DIRECTORY_SEPARATOR . $parts['filename'] . '_' . $this->fileCount . '.' . $parts['extension'];
+
+        return $parts['dirname'].DIRECTORY_SEPARATOR.$parts['filename'].'_'.$this->fileCount.'.'.$parts['extension'];
     }
 
     /**
@@ -322,12 +342,12 @@ class Sitemap
      * @param string $baseUrl base URL of all the sitemaps written
      * @return array URLs of sitemaps written
      */
-    public function getSitemapUrls($baseUrl)
-    {
-        $urls = array();
+    public function getSitemapUrls($baseUrl) {
+        $urls = [];
         foreach ($this->writtenFilePaths as $file) {
-            $urls[] = $baseUrl . pathinfo($file, PATHINFO_BASENAME);
+            $urls[] = $baseUrl.pathinfo($file, PATHINFO_BASENAME);
         }
+
         return $urls;
     }
 
@@ -336,8 +356,7 @@ class Sitemap
      * Default is 50000.
      * @param integer $number
      */
-    public function setMaxUrls($number)
-    {
+    public function setMaxUrls($number) {
         $this->maxUrls = (int)$number;
     }
 
@@ -347,11 +366,9 @@ class Sitemap
      *
      * @param integer $number
      */
-    public function setBufferSize($number)
-    {
+    public function setBufferSize($number) {
         $this->bufferSize = (int)$number;
     }
-
 
     /**
      * Sets if XML should be indented.
@@ -359,8 +376,7 @@ class Sitemap
      *
      * @param bool $value
      */
-    public function setUseIndent($value)
-    {
+    public function setUseIndent($value) {
         $this->useIndent = (bool)$value;
     }
 
@@ -370,14 +386,15 @@ class Sitemap
      * @throws \RuntimeException when trying to enable gzip while zlib is not available or when trying to change
      * setting when some items are already written
      */
-    public function setUseGzip($value)
-    {
+    public function setUseGzip($value) {
         if ($value && !extension_loaded('zlib')) {
             throw new \RuntimeException('Zlib extension must be enabled to gzip the sitemap.');
         }
+
         if ($this->urlsCount && $value != $this->useGzip) {
             throw new \RuntimeException('Cannot change the gzip value once items have been added to the sitemap.');
         }
+
         $this->useGzip = $value;
     }
 }
