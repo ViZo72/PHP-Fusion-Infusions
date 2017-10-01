@@ -24,8 +24,10 @@ require_once INFUSIONS.'sitemap_panel/SitemapGenerator.php';
 
 $smg = new SitemapGenerator();
 
-if ($smg->sitemap_settings['auto_update'] == 1) {
-    if ((TIME - filemtime($smg->sitemap_file)) > $smg->sitemap_settings['update_interval']) {
-        $smg->GenerateXML();
+if (file_exists($smg->sitemap_file)) {
+    if ($smg->sitemap_settings['auto_update'] == 1) {
+        if ((TIME - filemtime($smg->sitemap_file)) > $smg->sitemap_settings['update_interval']) {
+            $smg->GenerateXML();
+        }
     }
 }
