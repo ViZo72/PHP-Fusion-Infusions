@@ -6,3 +6,4 @@ Infusions:
  - [Content Creator](https://github.com/RobiNN1/PHP-Fusion-Infusions/tree/master/infusions/content_creator)
  - [Sitemap Generator](https://github.com/RobiNN1/PHP-Fusion-Infusions/tree/master/infusions/sitemap_panel)
  - [Team](https://github.com/RobiNN1/PHP-Fusion-Infusions/tree/master/infusions/team)
+ - [Theme Switcher](https://github.com/RobiNN1/PHP-Fusion-Infusions/tree/master/infusions/theme_switcher_panel)
