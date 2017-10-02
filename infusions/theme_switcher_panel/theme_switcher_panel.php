@@ -25,18 +25,20 @@ if (file_exists(INFUSIONS.'theme_switcher_panel/locale'.LANGUAGE.'php')) {
     $locale = fusion_get_locale('', INFUSIONS.'theme_switcher_panel/locale/English.php');
 }
 
-$theme = fusion_get_settings('theme');
+$theme = isset($_COOKIE[COOKIE_PREFIX.'theme']) ? $_COOKIE[COOKIE_PREFIX.'theme'] : fusion_get_settings('theme');
 
 if (isset($_POST['change'])) {
     $theme = form_sanitizer($_POST['theme'], $theme, 'theme');
 
     if (\defender::safe()) {
-        $data = [
+        /*$data = [
             'settings_name'  => 'theme',
             'settings_value' => $theme
         ];
 
-        dbquery_insert(DB_SETTINGS, $data, 'update', ['primary_key' => 'settings_name']);
+        dbquery_insert(DB_SETTINGS, $data, 'update', ['primary_key' => 'settings_name']);*/
+
+        setcookie(COOKIE_PREFIX.'theme', $theme);
 
         addNotice('success', $locale['TS_02']);
         redirect(FUSION_REQUEST);
@@ -65,7 +67,6 @@ foreach ($themes as $file) {
     $opts[$file] = $file;
 }
 
-echo form_hidden('changetheme', '', 1);
 echo form_select('theme', '', $theme, [
     'options'        => $opts,
     'callback_check' => 'theme_exists',
