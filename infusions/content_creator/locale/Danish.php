@@ -58,3 +58,4 @@ $locale['CC_038'] = 'Du kan logge ind som bruger med';
 $locale['CC_039'] = 'Kodeord';
 $locale['CC_040'] = 'Admin kodeord';
 $locale['CC_041'] = 'Private meddelelser';
+$locale['CC_042'] = 'Samlede brugere';

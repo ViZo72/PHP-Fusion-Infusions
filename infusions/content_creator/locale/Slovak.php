@@ -58,3 +58,4 @@ $locale['CC_038'] = 'Môžete sa prihlásit ako člen s';
 $locale['CC_039'] = 'Heslo';
 $locale['CC_040'] = 'Admin heslo';
 $locale['CC_041'] = 'Súkromné správy';
+$locale['CC_042'] = 'Celkom užívateľov';

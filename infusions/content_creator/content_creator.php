@@ -540,7 +540,7 @@ class ContentCreator {
             echo '<tbody>';
                 $this->Users();
                 $total_users = dbcount('(user_id)', DB_USERS, 'user_status=0');
-                echo '<tr><td colspan="4" class="text-center strong">Total Users: '.$total_users.'</td></tr>';
+                echo '<tr><td colspan="4" class="text-center strong">'.$this->locale['CC_042'].': '.$total_users.'</td></tr>';
                 echo '<tr>';
                     echo '<td>'.$this->NumField('users').'</td>';
                     echo '<td>'.$this->Button('users').'</td>';

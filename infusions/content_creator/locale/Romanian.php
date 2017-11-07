@@ -58,3 +58,4 @@ $locale['CC_038'] = 'Te po&#355;i conecta ca orice membru cu';
 $locale['CC_039'] = 'Parol&#259;';
 $locale['CC_040'] = 'Parol&#259; administrare';
 $locale['CC_041'] = 'Mesaje private';
+$locale['CC_042'] = 'Total utilizatori';

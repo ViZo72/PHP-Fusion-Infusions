@@ -865,11 +865,11 @@ class SitemapGenerator {
 
         add_to_jquery('
             var checkbox = $(\'input[id ^= "enabled_"]\');
-            
+
             if ($(\'input[id ^= "enabled_"]:checked\').length == checkbox.length) {
                 $("#selectall").prop("checked", true);
             }
-            
+
             $("#selectall").click(function() {
                 checkbox.prop("checked", !checkbox.prop("checked"));
             });

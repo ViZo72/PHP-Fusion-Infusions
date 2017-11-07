@@ -19,7 +19,7 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-if (file_exists(INFUSIONS.'theme_switcher_panel/locale'.LANGUAGE.'php')) {
+if (file_exists(INFUSIONS.'theme_switcher_panel/locale/'.LANGUAGE.'php')) {
     $locale = fusion_get_locale('', INFUSIONS.'theme_switcher_panel/locale/'.LANGUAGE.'.php');
 } else {
     $locale = fusion_get_locale('', INFUSIONS.'theme_switcher_panel/locale/English.php');
@@ -62,17 +62,17 @@ if (file_exists(INFUSIONS.'theme_switcher_panel/preview/'.$theme.'.png')) {
 }
 
 echo openform('themeswitcher', 'post', FUSION_REQUEST);
-$opts = [];
-foreach ($themes as $file) {
-    $opts[$file] = $file;
-}
+    $opts = [];
+    foreach ($themes as $file) {
+        $opts[$file] = $file;
+    }
 
-echo form_select('theme', '', $theme, [
-    'options'        => $opts,
-    'callback_check' => 'theme_exists',
-    'width'          => '100%',
-    'inline'         => TRUE
-]);
-echo form_button('change', $locale['TS_03'], 'change');
+    echo form_select('theme', '', $theme, [
+        'options'        => $opts,
+        'callback_check' => 'theme_exists',
+        'width'          => '100%',
+        'inline'         => TRUE
+    ]);
+    echo form_button('change', $locale['TS_03'], 'change');
 echo closeform();
 closeside();
