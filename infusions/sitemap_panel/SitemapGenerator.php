@@ -829,7 +829,7 @@ class SitemapGenerator {
         add_to_head('<style>#sitemaptable .form-group{margin-bottom: 0;}</style>');
 
         echo openform('savesettings', 'post', FUSION_REQUEST, ['class' => 'm-t-15']);
-        echo openside();
+        openside();
             echo '<div class="row">';
             echo '<div class="col-xs-12 col-sm-3">';
                 echo form_checkbox('auto_update', $this->locale['SMG_015'], $this->sitemap_settings['auto_update'], ['toggle' => TRUE]);
@@ -844,7 +844,7 @@ class SitemapGenerator {
                 echo form_button('save_settings', $this->locale['save'], 'save', ['class' => 'btn-success m-t-5']);
             echo '</div>';
             echo '</div>';
-        echo closeside();
+        closeside();
         echo closeform();
 
         echo openform('savechanges', 'post', FUSION_REQUEST, ['class' => 'm-t-15']);
@@ -886,7 +886,7 @@ class SitemapGenerator {
             $result = dbquery("SELECT * FROM ".DB_SITEMAP_LINKS);
 
             if (dbrows($result) > 0) {
-                echo openside($this->locale['SMG_type_01']);
+                openside($this->locale['SMG_type_01']);
                 while ($data = dbarray($result)) {
                     echo '<div>';
                         echo '<span class="badge">'.$data['url'].'</span> ';
@@ -897,20 +897,20 @@ class SitemapGenerator {
                         echo '</span>';
                     echo '</div>';
                 }
-                echo closeside();
+                closeside();
             }
         echo '</div>';
         echo '<div class="col-xs-12 col-sm-6">';
             $this->Link();
 
-            echo openside();
+            openside();
             echo openform('addlink', 'post', FUSION_REQUEST);
                 echo form_hidden('link_id', '', $this->custom_links['link_id']);
                 echo form_text('url', $this->locale['SMG_005'], $this->custom_links['url'], ['type' => 'url', 'inline' => TRUE]);
                 echo form_button('save', $this->locale['save'], 'save', ['class' => 'btn-success']);
                 echo form_button('cancel', $this->locale['cancel'], 'cancel');
             echo closeform();
-            echo closeside();
+            closeside();
         echo '</div>';
 
         echo '</div>';

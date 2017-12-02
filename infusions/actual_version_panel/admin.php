@@ -51,13 +51,13 @@ if (isset($_POST['save_settings'])) {
     }
 }
 
-echo opentable($locale['AV_title']);
+opentable($locale['AV_title']);
 echo openform('av_settings', 'post', FUSION_SELF.fusion_get_aidlink());
     echo form_text('actual_version', $locale['AV_100'], $settings['actual_version'], ['inline' => TRUE]);
     echo form_text('phpfusion_dl_link', $locale['AV_101'], $settings['phpfusion_dl_link'], ['inline' => TRUE]);
     echo form_text('translate_dl_link', $locale['AV_102'], $settings['translate_dl_link'], ['inline' => TRUE]);
     echo form_button('save_settings', $locale['save'], $locale['save'], ['class' => 'btn-success', 'icon' => 'fa fa-hdd-o']);
 echo closeform();
-echo closetable();
+closetable();
 
 require_once THEMES.'templates/footer.php';
