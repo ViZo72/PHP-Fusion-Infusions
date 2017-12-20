@@ -19,8 +19,6 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-\PHPFusion\Admins::getInstance()->setAdminPageIcons('CC', '<i class="admin-ico fa fa-fw fa-microphone"></i>');
-
 if (!defined('CONTENT_CREATOR_LOCALE')) {
     if (file_exists(INFUSIONS.'content_creator/locale/'.LANGUAGE.'.php')) {
         define('CONTENT_CREATOR_LOCALE', INFUSIONS.'content_creator/locale/'.LANGUAGE.'.php');
@@ -28,3 +26,5 @@ if (!defined('CONTENT_CREATOR_LOCALE')) {
         define('CONTENT_CREATOR_LOCALE', INFUSIONS.'content_creator/locale/English.php');
     }
 }
+
+\PHPFusion\Admins::getInstance()->setAdminPageIcons('CC', '<i class="admin-ico fa fa-fw fa-microphone"></i>');

@@ -19,8 +19,6 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-\PHPFusion\Admins::getInstance()->setAdminPageIcons('TEAM', '<i class="fa fa-users fa-lg"></i>');
-
 if (!defined('TEAM_LOCALE')) {
     if (file_exists(INFUSIONS.'team/locale/'.LANGUAGE.'.php')) {
         define('TEAM_LOCALE', INFUSIONS.'team/locale/'.LANGUAGE.'.php');
@@ -30,3 +28,5 @@ if (!defined('TEAM_LOCALE')) {
 }
 
 define('DB_TEAM', DB_PREFIX.'team');
+
+\PHPFusion\Admins::getInstance()->setAdminPageIcons('TEAM', '<i class="fa fa-users fa-lg"></i>');

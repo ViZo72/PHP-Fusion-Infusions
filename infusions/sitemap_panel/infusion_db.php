@@ -19,8 +19,6 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-\PHPFusion\Admins::getInstance()->setAdminPageIcons('SMG', '<i class="fa fa-sitemap fa-lg"></i>');
-
 if (!defined('SMG_LOCALE')) {
     if (file_exists(INFUSIONS.'sitemap_panel/locale/'.LANGUAGE.'.php')) {
         define('SMG_LOCALE', INFUSIONS.'sitemap_panel/locale/'.LANGUAGE.'.php');
@@ -31,3 +29,5 @@ if (!defined('SMG_LOCALE')) {
 
 define('DB_SITEMAP', DB_PREFIX.'sitemap');
 define('DB_SITEMAP_LINKS', DB_PREFIX.'sitemap_links');
+
+\PHPFusion\Admins::getInstance()->setAdminPageIcons('SMG', '<i class="fa fa-sitemap fa-lg"></i>');

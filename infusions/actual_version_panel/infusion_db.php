@@ -19,8 +19,6 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-\PHPFusion\Admins::getInstance()->setAdminPageIcons('AV', '<i class="fa fa-code-fork fa-lg"></i>');
-
 if (!defined('AV_LOCALE')) {
     if (file_exists(INFUSIONS.'actual_version_panel/locale/'.LANGUAGE.'.php')) {
         define('AV_LOCALE', INFUSIONS.'actual_version_panel/locale/'.LANGUAGE.'.php');
@@ -28,3 +26,5 @@ if (!defined('AV_LOCALE')) {
         define('AV_LOCALE', INFUSIONS.'actual_version_panel/locale/English.php');
     }
 }
+
+\PHPFusion\Admins::getInstance()->setAdminPageIcons('AV', '<i class="fa fa-code-fork fa-lg"></i>');

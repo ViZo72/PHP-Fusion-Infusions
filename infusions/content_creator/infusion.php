@@ -23,7 +23,7 @@ $locale = fusion_get_locale('', CONTENT_CREATOR_LOCALE);
 
 $inf_title       = $locale['CC_title'];
 $inf_description = $locale['CC_descr'];
-$inf_version     = '1.0.1';
+$inf_version     = '1.1.1';
 $inf_developer   = 'RobiNN';
 $inf_email       = 'kelcakrobo@gmail.com';
 $inf_weburl      = 'https://github.com/RobiNN1';
@@ -37,3 +37,5 @@ $inf_adminpanel[] = [
     'title'  => $inf_title,
     'panel'  => 'content_creator.php',
 ];
+
+$inf_deldbrow[] = DB_ADMIN." WHERE admin_rights='CC'";
