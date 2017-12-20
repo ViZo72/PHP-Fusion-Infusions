@@ -16,7 +16,7 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 $locale['CC_title'] = 'Creator con&#355;inut';
-$locale['CC_descr'] = 'Un simplu creator de con&#355;inut pentru dezvoltatori.';
+$locale['CC_desc'] = 'Un simplu creator de con&#355;inut pentru dezvoltatori.';
 $locale['CC_001'] = 'Creaz&#259;';
 $locale['CC_002'] = 'Elementele au fost &#351;terse.';
 $locale['CC_003'] = 'Elementele au fost create.';

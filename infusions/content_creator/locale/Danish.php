@@ -16,7 +16,7 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 $locale['CC_title'] = 'Indholdsudfylder';
-$locale['CC_descr'] = 'En enkel indholdsudfylder til udviklere.';
+$locale['CC_desc'] = 'En enkel indholdsudfylder til udviklere.';
 $locale['CC_001'] = 'Opret';
 $locale['CC_002'] = 'Elementer er blevet slettet.';
 $locale['CC_003'] = 'Elementer er blevet oprettet.';

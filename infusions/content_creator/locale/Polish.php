@@ -16,7 +16,7 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 $locale['CC_title'] = 'Content Creator';
-$locale['CC_descr'] = 'Łatwy Content Creator dla programistów.';
+$locale['CC_desc'] = 'Łatwy Content Creator dla programistów.';
 $locale['CC_001'] = 'Utwórz';
 $locale['CC_002'] = 'Elementy zostały usunięte.';
 $locale['CC_003'] = 'Elementy zostały utworzone.';

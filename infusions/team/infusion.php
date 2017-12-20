@@ -46,7 +46,7 @@ $inf_newtable[] = DB_TEAM." (
     PRIMARY KEY (team_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=UTF8 COLLATE=utf8_unicode_ci";
 
-$inf_insertdbrow[] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES('".$locale['VID_title']."', 'infusions/team/team.php', '0', '2', '0', '10', '1', '".LANGUAGE."')";
+$inf_insertdbrow[] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES('".$locale['TEAM_title']."', 'infusions/team/team.php', '0', '2', '0', '10', '1', '".LANGUAGE."')";
 
 $inf_droptable[] = DB_TEAM;
 $inf_deldbrow[] = DB_ADMIN." WHERE admin_rights='TEAM'";

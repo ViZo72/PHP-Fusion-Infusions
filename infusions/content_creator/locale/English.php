@@ -16,7 +16,7 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 $locale['CC_title'] = 'Content Creator';
-$locale['CC_descr'] = 'Simple Content Creator for developers.';
+$locale['CC_desc'] = 'Simple Content Creator for developers.';
 $locale['CC_001'] = 'Create';
 $locale['CC_002'] = 'Items has been deleted.';
 $locale['CC_003'] = 'Items has been created.';

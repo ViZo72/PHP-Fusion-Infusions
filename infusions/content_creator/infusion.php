@@ -19,10 +19,10 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-$locale = fusion_get_locale('', CONTENT_CREATOR_LOCALE);
+$locale = fusion_get_locale('', CC_LOCALE);
 
 $inf_title       = $locale['CC_title'];
-$inf_description = $locale['CC_descr'];
+$inf_description = $locale['CC_desc'];
 $inf_version     = '1.1.1';
 $inf_developer   = 'RobiNN';
 $inf_email       = 'kelcakrobo@gmail.com';
@@ -31,11 +31,11 @@ $inf_folder      = 'content_creator';
 $inf_image       = 'content_creator.svg';
 
 $inf_adminpanel[] = [
-    'image'  => $inf_image,
-    'page'   => 5,
-    'rights' => 'CC',
     'title'  => $inf_title,
+    'image'  => $inf_image,
     'panel'  => 'content_creator.php',
+    'rights' => 'CC',
+    'page'   => 5
 ];
 
 $inf_deldbrow[] = DB_ADMIN." WHERE admin_rights='CC'";

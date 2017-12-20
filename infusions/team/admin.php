@@ -79,10 +79,8 @@ class Team {
 
     public function Display() {
         add_to_title($this->locale['TEAM_title_admin']);
-        BreadCrumbs::getInstance()->addBreadCrumb([
-            'link'  => INFUSIONS.'team/admin.php'.fusion_get_aidlink(),
-            'title' => $this->locale['TEAM_title_admin']
-        ]);
+
+        BreadCrumbs::getInstance()->addBreadCrumb(['link' => INFUSIONS.'team/admin.php'.fusion_get_aidlink(), 'title' => $this->locale['TEAM_title_admin']]);
 
         opentable($this->locale['TEAM_title_admin']);
 
@@ -108,6 +106,11 @@ class Team {
             switch ($_GET['section']) {
                 case 'form':
                     $this->Form();
+                    if ($edit) {
+                        BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['edit']]);
+                    } else {
+                        BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['add']]);
+                    }
                     break;
                 default:
                     $this->Listing();

@@ -31,13 +31,6 @@ if (isset($_POST['change'])) {
     $theme = form_sanitizer($_POST['theme'], $theme, 'theme');
 
     if (\defender::safe()) {
-        /*$data = [
-            'settings_name'  => 'theme',
-            'settings_value' => $theme
-        ];
-
-        dbquery_insert(DB_SETTINGS, $data, 'update', ['primary_key' => 'settings_name']);*/
-
         setcookie(COOKIE_PREFIX.'theme', $theme);
 
         addNotice('success', $locale['TS_02']);

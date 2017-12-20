@@ -19,11 +19,11 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-if (!defined('CONTENT_CREATOR_LOCALE')) {
+if (!defined('CC_LOCALE')) {
     if (file_exists(INFUSIONS.'content_creator/locale/'.LANGUAGE.'.php')) {
-        define('CONTENT_CREATOR_LOCALE', INFUSIONS.'content_creator/locale/'.LANGUAGE.'.php');
+        define('CC_LOCALE', INFUSIONS.'content_creator/locale/'.LANGUAGE.'.php');
     } else {
-        define('CONTENT_CREATOR_LOCALE', INFUSIONS.'content_creator/locale/English.php');
+        define('CC_LOCALE', INFUSIONS.'content_creator/locale/English.php');
     }
 }
 

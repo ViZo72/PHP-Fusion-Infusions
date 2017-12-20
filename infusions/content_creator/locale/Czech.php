@@ -16,7 +16,7 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 $locale['CC_title'] = 'Tvůrce obsahu';
-$locale['CC_descr'] = 'Jednoduchý tvůrce obsahu pro vývojáře.';
+$locale['CC_desc'] = 'Jednoduchý tvůrce obsahu pro vývojáře.';
 $locale['CC_001'] = 'Vytvořit';
 $locale['CC_002'] = 'Položky byly odstraněny.';
 $locale['CC_003'] = 'Položky byly vytvořeny.';

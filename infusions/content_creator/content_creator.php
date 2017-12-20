@@ -32,13 +32,7 @@ class ContentCreator {
     private $users        = 0;
 
     public function __construct() {
-        $this->locale = fusion_get_locale('', CONTENT_CREATOR_LOCALE);
-
-        add_to_title($this->locale['CC_title']);
-        BreadCrumbs::getInstance()->addBreadCrumb([
-            'link'  => INFUSIONS.'content_creator/content_creator_admin.php'.fusion_get_aidlink(),
-            'title' => $this->locale['CC_title']
-        ]);
+        $this->locale = fusion_get_locale('', CC_LOCALE);
 
         $this->snippet      = '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum aliquam felis nunc, in dignissim metus suscipit eget. Nunc scelerisque laoreet purus, in ullamcorper magna sagittis eget. Aliquam ac rhoncus orci, a lacinia ante. Integer sed erat ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce ullamcorper sapien mauris, et tempus mi tincidunt laoreet. Proin aliquam vulputate felis in viverra.</p>';
         $this->body         = $this->snippet."\n<p>Duis sed lorem vitae nibh sagittis tempus sed sed enim. Mauris egestas varius purus, a varius odio vehicula quis. Donec cursus interdum libero, et ornare tellus mattis vitae. Phasellus et ligula velit. Vivamus ac turpis dictum, congue metus facilisis, ultrices lorem. Cras imperdiet lacus in tincidunt pellentesque. Sed consectetur nunc vitae fringilla volutpat. Mauris nibh justo, luctus eu dapibus in, pellentesque non urna. Nulla ullamcorper varius lacus, ut finibus eros interdum id. Proin at pellentesque sapien. Integer imperdiet, sapien nec tristique laoreet, sapien lacus porta nunc, tincidunt cursus risus mauris id quam.</p>";
@@ -52,7 +46,7 @@ class ContentCreator {
         ];
         $this->message_text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a tempus lectus, eu posuere ipsum. Etiam et odio laoreet quam cursus sollicitudin. Donec ac eros non mi lacinia volutpat quis ultrices odio.';
 
-        $this->users      = dbcount('(user_id)', DB_USERS, 'user_status = 0');
+        $this->users = dbcount('(user_id)', DB_USERS, 'user_status = 0');
     }
 
     private function NumField($id) {
@@ -525,13 +519,20 @@ class ContentCreator {
     }
 
     public function DisplayAdmin() {
+        add_to_title($this->locale['CC_title']);
+
+        BreadCrumbs::getInstance()->addBreadCrumb([
+            'link'  => INFUSIONS.'content_creator/content_creator.php'.fusion_get_aidlink(),
+            'title' => $this->locale['CC_title']
+        ]);
+
         opentable($this->locale['CC_title']);
 
         echo '<div class="well">';
-        echo '<strong class="text-danger">'.$this->locale['CC_037'].'</strong><br />';
-        echo $this->locale['CC_038'].'<br />';
-        echo $this->locale['CC_039'].': <strong>test123456</strong><br />';
-        echo $this->locale['CC_040'].': <strong> test123456789</strong>';
+            echo '<strong class="text-danger">'.$this->locale['CC_037'].'</strong><br />';
+            echo $this->locale['CC_038'].'<br />';
+            echo $this->locale['CC_039'].': <strong>test123456</strong><br />';
+            echo $this->locale['CC_040'].': <strong> test123456789</strong>';
         echo '</div>';
 
         echo openform('content', 'post', FUSION_REQUEST);
