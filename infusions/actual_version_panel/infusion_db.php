@@ -27,4 +27,4 @@ if (!defined('AV_LOCALE')) {
     }
 }
 
-\PHPFusion\Admins::getInstance()->setAdminPageIcons('AV', '<i class="fa fa-code-fork fa-lg"></i>');
+\PHPFusion\Admins::getInstance()->setAdminPageIcons('AV', '<i class="admin-ico fa fa-fw fa-code-fork"></i>');

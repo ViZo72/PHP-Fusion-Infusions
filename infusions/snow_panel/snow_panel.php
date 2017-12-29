@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: sitemap_panel/admin.php
+| Filename: snow_panel.php
 | Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -15,14 +15,18 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-require_once '../../maincore.php';
-require_once THEMES.'templates/admin_header.php';
+add_to_footer('<script type="text/javascript" src="'.INFUSIONS.'snow_panel/js/jsnow.min.js"></script>');
 
-require_once INFUSIONS.'sitemap_panel/SitemapGenerator.php';
-
-pageAccess('SMG');
-
-$smg = new SitemapGenerator();
-$smg->DisplayAdmin();
-
-require_once THEMES.'templates/footer.php';
+add_to_jquery('jQuery().jSnow({
+    followScroll: true,
+    flakes: 25,
+    fallingSpeedMin: 1,
+    fallingSpeedMax: 3,
+    flakeMaxSize: 20,
+    flakeMinSize: 10,
+    flakeColor: [ "#efefef" ],
+    vSize: 500,
+    fadeAway: 1,
+    zIndex: 100000,
+    flakeCode: ["&#10053;"]
+});');

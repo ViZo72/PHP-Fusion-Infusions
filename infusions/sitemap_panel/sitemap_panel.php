@@ -19,7 +19,6 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-require_once INFUSIONS.'sitemap_panel/Sitemap.php';
 require_once INFUSIONS.'sitemap_panel/SitemapGenerator.php';
 
 $smg = new SitemapGenerator();

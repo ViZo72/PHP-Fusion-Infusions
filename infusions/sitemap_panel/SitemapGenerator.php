@@ -19,8 +19,11 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
+require_once INFUSIONS.'sitemap_panel/Sitemap.php';
+
 use \PHPFusion\BreadCrumbs;
 use samdark\sitemap\Sitemap;
+
 
 class SitemapGenerator {
     private $locale = [];
@@ -878,41 +881,41 @@ class SitemapGenerator {
         echo closeform();
 
         echo openform('generatexml', 'post', FUSION_REQUEST, ['class' => 'm-t-15']);
-        echo form_button('generate', $this->locale['SMG_004'], 'generate', ['class' => 'btn-default text-center']);
+            echo form_button('generate', $this->locale['SMG_004'], 'generate', ['class' => 'btn-default text-center']);
         echo closeform();
 
         echo '<div class="row m-t-30">';
-        echo '<div class="col-xs-12 col-sm-6">';
-            $result = dbquery("SELECT * FROM ".DB_SITEMAP_LINKS);
+            echo '<div class="col-xs-12 col-sm-6">';
+                $this->Link();
 
-            if (dbrows($result) > 0) {
-                openside($this->locale['SMG_type_01']);
-                while ($data = dbarray($result)) {
-                    echo '<div>';
-                        echo '<span class="badge">'.$data['url'].'</span> ';
-                        echo '<span class="pull-right">';
-                            echo '<a href="'.FUSION_SELF.fusion_get_aidlink().'&amp;action=edit&amp;link_id='.$data['link_id'].'">'.$this->locale['edit'].'</a>';
-                            echo ' | ';
-                            echo '<a href="'.FUSION_SELF.fusion_get_aidlink().'&amp;action=delete&amp;link_id='.$data['link_id'].'">'.$this->locale['delete'].'</a>';
-                        echo '</span>';
-                    echo '</div>';
-                }
+                openside();
+                echo openform('addlink', 'post', FUSION_REQUEST);
+                    echo form_hidden('link_id', '', $this->custom_links['link_id']);
+                    echo form_text('url', $this->locale['SMG_005'], $this->custom_links['url'], ['type' => 'url', 'inline' => TRUE]);
+                    echo form_button('save', $this->locale['save'], 'save', ['class' => 'btn-success']);
+                    echo form_button('cancel', $this->locale['cancel'], 'cancel');
+                echo closeform();
                 closeside();
-            }
-        echo '</div>';
-        echo '<div class="col-xs-12 col-sm-6">';
-            $this->Link();
+            echo '</div>';
 
-            openside();
-            echo openform('addlink', 'post', FUSION_REQUEST);
-                echo form_hidden('link_id', '', $this->custom_links['link_id']);
-                echo form_text('url', $this->locale['SMG_005'], $this->custom_links['url'], ['type' => 'url', 'inline' => TRUE]);
-                echo form_button('save', $this->locale['save'], 'save', ['class' => 'btn-success']);
-                echo form_button('cancel', $this->locale['cancel'], 'cancel');
-            echo closeform();
-            closeside();
-        echo '</div>';
+            echo '<div class="col-xs-12 col-sm-6">';
+                $result = dbquery("SELECT * FROM ".DB_SITEMAP_LINKS);
 
+                if (dbrows($result) > 0) {
+                    openside($this->locale['SMG_type_01']);
+                    while ($data = dbarray($result)) {
+                        echo '<div>';
+                            echo '<span class="badge">'.$data['url'].'</span> ';
+                            echo '<span class="pull-right">';
+                                echo '<a href="'.FUSION_SELF.fusion_get_aidlink().'&amp;action=edit&amp;link_id='.$data['link_id'].'">'.$this->locale['edit'].'</a>';
+                                echo ' | ';
+                                echo '<a href="'.FUSION_SELF.fusion_get_aidlink().'&amp;action=delete&amp;link_id='.$data['link_id'].'">'.$this->locale['delete'].'</a>';
+                            echo '</span>';
+                        echo '</div>';
+                    }
+                    closeside();
+                }
+            echo '</div>';
         echo '</div>';
 
         closetable();

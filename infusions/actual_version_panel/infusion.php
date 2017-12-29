@@ -39,11 +39,16 @@ $inf_adminpanel[] = [
 ];
 
 $inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction, panel_languages) VALUES ('".$inf_title."', '".$inf_folder."', '', '2', '1', 'file', '0', '1', '1', '', '3', '".fusion_get_settings('enabled_languages')."')";
-$inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES
-    ('actual_version', '9.0 - 27.4. 2017', '".$inf_folder."'),
-    ('phpfusion_dl_link', 'https://sourceforge.net/projects/php-fusion/files/PHP-Fusion%20Archives/9.x/PHP-Fusion%209.0.zip/download', '".$inf_folder."'),
-    ('translate_dl_link', 'https://github.com/php-fusion/PHP-Fusion-9-Locale/tree/master/Czech', '".$inf_folder."')
-";
+
+$settings = [
+    'actual_version'    => '9.0 - 27.4. 2017',
+    'phpfusion_dl_link' => 'https://sourceforge.net/projects/php-fusion/files/PHP-Fusion%20Archives/9.x/PHP-Fusion%209.0.zip/download',
+    'translate_dl_link' => 'https://github.com/php-fusion/PHP-Fusion-9-Locale'
+];
+
+foreach ($settings as $name => $value) {
+    $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES ('".$name."', '".$value."', '".$inf_folder."')";
+}
 
 $inf_deldbrow[] = DB_ADMIN." WHERE admin_rights='AV'";
 $inf_deldbrow[] = DB_PANELS." WHERE panel_filename='".$inf_folder."'";

@@ -1,15 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 21.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="content_creator" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
-<path fill="#c0392b" d="M44,0H9C8.4,0,8,0.4,8,1c0,0.6,0.4,1,1,1h35c0.6,0,1-0.4,1-1C45,0.4,44.6,0,44,0z"/>
-<path fill="#e74c3c" d="M45,47c0,0.6-0.4,1-1,1H9c-0.6,0-1-0.4-1-1V5c0-0.6,0.4-1,1-1h35c0.6,0,1,0.4,1,1V47z"/>
-<polygon fill="#f39c12" points="15,28 21,18 27,28 "/>
-<polygon fill="#f1c40f" points="20,28 28,14 36,28 "/>
+<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="content_creator" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+     y="0px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
 <g>
-    <path fill="#2c3e50" d="M29.5,40h-8c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1h8c0.6,0,1,0.4,1,1C30.5,39.6,30.1,40,29.5,40z"/>
-    <path fill="#2c3e50" d="M33.5,36h-16c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1h16c0.6,0,1,0.4,1,1C34.5,35.6,34.1,36,33.5,36z"/>
+    <path fill="#3A556A" d="M46.8,0H1.2C0.5,0,0,0.5,0,1.2v7.1h48V1.2C48,0.5,47.5,0,46.8,0z"/>
+    <ellipse fill="#FCD462" cx="35.7" cy="4.1" rx="1.3" ry="1.4"/>
+    <ellipse fill="#44C4A1" cx="40.4" cy="4.1" rx="1.3" ry="1.4"/>
+    <ellipse fill="#E56353" cx="45.1" cy="4.1" rx="1.3" ry="1.4"/>
+    <path fill="#EBF0F3" d="M10.5,7.4h8.1l-0.5-1.5c-0.1-0.2-0.3-0.4-0.5-0.4H9.9c0,0,0,0.1,0.1,0.1L10.5,7.4z"/>
+    <path fill="#64798A" d="M48,8.3H10.3c-0.2,0-0.5-0.2-0.5-0.4l-0.6-2C9,5.7,8.8,5.5,8.5,5.5H2.6c-0.2,0-0.5,0.2-0.5,0.4l-0.6,2
+        C1.3,8.1,1.1,8.3,0.9,8.3H0v4.1h48V8.3z"/>
+    <g>
+        <path fill="#EDEDED" d="M0,46.8C0,47.5,0.5,48,1.2,48h45.7c0.6,0,1.2-0.5,1.2-1.2V12.4H0L0,46.8L0,46.8z"/>
+        <path fill="#EDEDED" d="M8.7,10.9H3.5c-0.3,0-0.5-0.2-0.5-0.5c0-0.3,0.2-0.5,0.5-0.5h5.2c0.3,0,0.5,0.2,0.5,0.5
+            C9.2,10.7,9,10.9,8.7,10.9z"/>
+        <path fill="#EDEDED" d="M17.7,10.9h-5.2c-0.3,0-0.5-0.2-0.5-0.5c0-0.3,0.2-0.5,0.5-0.5h5.2c0.3,0,0.5,0.2,0.5,0.5
+            C18.2,10.7,18,10.9,17.7,10.9z"/>
+        <path fill="#EDEDED" d="M26.6,10.9h-5.2c-0.3,0-0.5-0.2-0.5-0.5c0-0.3,0.2-0.5,0.5-0.5h5.2c0.3,0,0.5,0.2,0.5,0.5
+            C27.1,10.7,26.9,10.9,26.6,10.9z"/>
+        <path fill="#EDEDED" d="M35.6,10.9h-5.2c-0.3,0-0.5-0.2-0.5-0.5c0-0.3,0.2-0.5,0.5-0.5h5.2c0.3,0,0.5,0.2,0.5,0.5
+            C36.1,10.7,35.9,10.9,35.6,10.9z"/>
+        <path fill="#EDEDED" d="M44.5,10.9h-5.2c-0.3,0-0.5-0.2-0.5-0.5c0-0.3,0.2-0.5,0.5-0.5h5.2c0.3,0,0.5,0.2,0.5,0.5
+            C45,10.7,44.8,10.9,44.5,10.9z"/>
+    </g>
+    <path fill="#EBF0F3" d="M12.3,14.4H2.8c-0.6,0-1.1,0.5-1.1,1.1V45c0,0.6,0.5,1.1,1.1,1.1h9.4c0.6,0,1.1-0.5,1.1-1.1V15.5
+        C13.3,14.9,12.8,14.4,12.3,14.4z"/>
+    <ellipse fill="#E56353" cx="7.4" cy="20" rx="3.5" ry="3.6"/>
+    <g>
+        <rect x="3.4" y="27.2" fill="#D5D6DB" width="8.4" height="0.9"/>
+        <rect x="3.4" y="30.3" fill="#D5D6DB" width="8.4" height="0.9"/>
+        <rect x="3.4" y="33.5" fill="#D5D6DB" width="8.4" height="0.9"/>
+        <rect x="3.4" y="36.7" fill="#D5D6DB" width="8.4" height="0.9"/>
+        <rect x="3.4" y="39.9" fill="#D5D6DB" width="8.4" height="0.9"/>
+        <rect x="3.4" y="43.1" fill="#D5D6DB" width="8.4" height="0.9"/>
+    </g>
+    <rect x="17.4" y="15.3" fill="#FCD462" width="7.7" height="8"/>
+    <rect x="17.4" y="25.5" fill="#27A2DB" width="7.7" height="8"/>
+    <ellipse fill="#64798A" cx="40.1" cy="41.7" rx="4.7" ry="4.9"/>
+    <g>
+        <ellipse fill="#EBF0F3" cx="40.1" cy="39.2" rx="1.8" ry="1.8"/>
+        <path fill="#EBF0F3" d="M40.1,45.7c1.4,0,2.6-0.8,3.3-1.9c-0.6-1.3-1.8-2.2-3.3-2.2c-1.5,0-2.7,0.9-3.3,2.2
+            C37.5,45,38.7,45.7,40.1,45.7z"/>
+    </g>
+    <ellipse fill="#FCD462" cx="22.2" cy="41.7" rx="4.7" ry="4.9"/>
+    <g>
+        <ellipse fill="#DC8744" cx="22.2" cy="39.2" rx="1.8" ry="1.8"/>
+        <path fill="#DC8744" d="M22.2,45.7c1.4,0,2.6-0.8,3.3-1.9c-0.6-1.3-1.8-2.2-3.3-2.2c-1.5,0-2.7,0.9-3.3,2.2
+            C19.5,45,20.8,45.7,22.2,45.7z"/>
+    </g>
+    <g>
+        <rect x="27.8" y="16" fill="#D5D6DB" width="17.5" height="0.9"/>
+        <rect x="27.8" y="18.8" fill="#D5D6DB" width="17.5" height="0.9"/>
+        <rect x="27.8" y="21.6" fill="#D5D6DB" width="12.3" height="0.9"/>
+        <rect x="27.8" y="26.3" fill="#D5D6DB" width="17.5" height="0.9"/>
+        <rect x="27.8" y="29.1" fill="#D5D6DB" width="17.5" height="0.9"/>
+        <rect x="27.8" y="31.9" fill="#D5D6DB" width="12.3" height="0.9"/>
+    </g>
 </g>
-<path fill="#34495e" d="M6,0C4.3,0,3,1.3,3,3v42c0,1.7,1.3,3,3,3h3V0H6z"/>
-<path fill="#F5F7FA" d="M7,2c-0.6,0-1,0.4-1,1c0,0.6,0.5,1,1,1h37V2H7z"/>
 </svg>

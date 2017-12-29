@@ -78,8 +78,15 @@ foreach ($modules as $name => $data) {
 }
 
 $inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction, panel_languages) VALUES ('".$inf_title."', '".$inf_folder."', '', '3', '1', 'file', '0', '1', '1', '', '3', '".fusion_get_settings('enabled_languages')."')";
-$inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('auto_update', 1, '".$inf_folder."')";
-$inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('update_interval', '43200', '".$inf_folder."')";
+
+$settings = [
+    'auto_update'     => 1,
+    'update_interval' => 43200
+];
+
+foreach ($settings as $name => $value) {
+    $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('".$name."', '".$value."', '".$inf_folder."')";
+}
 
 $inf_droptable[] = DB_SITEMAP_LINKS;
 $inf_droptable[] = DB_SITEMAP;
