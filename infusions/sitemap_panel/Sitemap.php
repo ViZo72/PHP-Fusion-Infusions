@@ -105,14 +105,11 @@ class Sitemap {
 
     /**
      * @param string $filePath path of the file to write to
-     * @throws \InvalidArgumentException
      */
     public function __construct($filePath) {
         $dir = dirname($filePath);
         if (!is_dir($dir)) {
-            throw new \InvalidArgumentException(
-                "Please specify valid file path. Directory not exists. You have specified: {$dir}."
-            );
+            $this->saveError("Please specify valid file path. Directory not exists. You have specified: {$dir}.");
         }
 
         $this->filePath = $filePath;
@@ -128,7 +125,6 @@ class Sitemap {
 
     /**
      * Creates new file
-     * @throws \RuntimeException if file is not writeable
      */
     private function createNewFile() {
         $this->fileCount++;
@@ -140,7 +136,7 @@ class Sitemap {
             if (is_writable($filePath)) {
                 unlink($filePath);
             } else {
-                throw new \RuntimeException("File \"$filePath\" is not writable.");
+                $this->saveError("File \"$filePath\" is not writable.");
             }
         }
 
@@ -240,13 +236,10 @@ class Sitemap {
      * is a valid url
      *
      * @param string $location
-     * @throws \InvalidArgumentException
      */
     protected function validateLocation($location) {
         if (false === filter_var($location, FILTER_VALIDATE_URL)) {
-            throw new \InvalidArgumentException(
-                "The location must be a valid URL. You have specified: {$location}."
-            );
+            $this->saveError("The location must be a valid URL. You have specified: {$location}.");
         }
     }
 
@@ -257,8 +250,6 @@ class Sitemap {
      * @param integer $lastModified last modification timestamp
      * @param float $changeFrequency change frequency. Use one of self:: constants here
      * @param string $priority item's priority (0.0-1.0). Default null is equal to 0.5
-     *
-     * @throws \InvalidArgumentException
      */
     public function addItem($location, $lastModified = null, $changeFrequency = null, $priority = null) {
         if ($this->urlsCount === 0) {
@@ -287,11 +278,7 @@ class Sitemap {
         if (!empty($changeFrequency)) {
             if ($changeFrequency !== null) {
                 if (!in_array($changeFrequency, $this->validFrequencies, true)) {
-                    throw new \InvalidArgumentException(
-                        'Please specify valid changeFrequency. Valid values are: '
-                        .implode(', ', $this->validFrequencies)
-                        ."You have specified: {$changeFrequency}."
-                    );
+                    $this->saveError('Please specify valid changeFrequency. Valid values are: '.implode(', ', $this->validFrequencies)."You have specified: {$changeFrequency}.");
                 }
 
                 $this->writer->writeElement('changefreq', $changeFrequency);
@@ -301,9 +288,7 @@ class Sitemap {
         if (!empty($priority)) {
             if ($priority !== null) {
                 if (!is_numeric($priority) || $priority < 0 || $priority > 1) {
-                    throw new \InvalidArgumentException(
-                        "Please specify valid priority. Valid values range from 0.0 to 1.0. You have specified: {$priority}."
-                    );
+                    $this->saveError("Please specify valid priority. Valid values range from 0.0 to 1.0. You have specified: {$priority}.");
                 }
 
                 $this->writer->writeElement('priority', number_format($priority, 1, '.', ','));
@@ -383,18 +368,24 @@ class Sitemap {
     /**
      * Sets whether the resulting files will be gzipped or not.
      * @param bool $value
-     * @throws \RuntimeException when trying to enable gzip while zlib is not available or when trying to change
-     * setting when some items are already written
      */
     public function setUseGzip($value) {
         if ($value && !extension_loaded('zlib')) {
-            throw new \RuntimeException('Zlib extension must be enabled to gzip the sitemap.');
+            $this->saveError('Zlib extension must be enabled to gzip the sitemap.');
         }
 
         if ($this->urlsCount && $value != $this->useGzip) {
-            throw new \RuntimeException('Cannot change the gzip value once items have been added to the sitemap.');
+            $this->saveError('Cannot change the gzip value once items have been added to the sitemap.');
         }
 
         $this->useGzip = $value;
+    }
+
+    /**
+     * Custom error handler
+     * @param string $message
+     */
+    private function saveError($message) {
+        setError(2, $message, debug_backtrace()[1]['file'], debug_backtrace()[1]['line'], '');
     }
 }

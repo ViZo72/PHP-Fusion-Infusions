@@ -344,12 +344,18 @@ class SitemapGenerator {
                 }
             }
         } else {
-            require_once WEBLINKS_CLASS.'autoloader.php';
+            $result = dbquery("SELECT w.*, wc.*
+                 FROM ".DB_WEBLINKS." w
+                 LEFT JOIN ".DB_WEBLINK_CATS." wc ON wc.weblink_cat_id=w.weblink_cat
+                 WHERE w.weblink_status='1' AND ".groupaccess('w.weblink_visibility')." AND wc.weblink_cat_status='1' AND ".groupaccess('wc.weblink_cat_visibility')."
+                 ".(multilang_table('WL') ? " AND w.weblink_language='".LANGUAGE."' AND wc.weblink_cat_language='".LANGUAGE."'" : '')."
+                 GROUP BY w.weblink_id
+            ");
 
-            $items = \PHPFusion\Weblinks\WeblinksServer::Weblinks()->get_WeblinkItems();
-
-            foreach ($items['weblink_items'] as $id => $data) {
-                $this->sitemap->addItem($this->siteurl.'infusions/weblinks/weblinks.php?weblink_id='.$data['weblink_id'], $data['weblink_datestamp'], $options['frequency'], $options['priority']);
+            if (dbrows($result) > 0) {
+                while ($data = dbarray($result)) {
+                    $this->sitemap->addItem($this->siteurl.'infusions/weblinks/weblinks.php?weblink_id='.$data['weblink_id'], $data['weblink_datestamp'], $options['frequency'], $options['priority']);
+                }
             }
         }
     }
@@ -698,8 +704,8 @@ class SitemapGenerator {
             $modules = [
                 'customlinks'    => [
                     'enabled'   => isset($_POST['enabled_customlinks']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_customlinks'], '', 'frequency_customlinks'),
-                    'priority'  => form_sanitizer($_POST['priority_customlinks'], '', 'priority_customlinks')
+                    'frequency' => isset($_POST['frequency_customlinks']) ? form_sanitizer($_POST['frequency_customlinks'], '', 'frequency_customlinks') : '',
+                    'priority'  => isset($_POST['priority_customlinks']) ? form_sanitizer($_POST['priority_customlinks'], '', 'priority_customlinks') : ''
                 ],
                 'profiles'       => [
                     'enabled'   => isset($_POST['enabled_profiles']) ? 1 : 0,
