@@ -709,8 +709,8 @@ class SitemapGenerator {
                 ],
                 'profiles'       => [
                     'enabled'   => isset($_POST['enabled_profiles']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_profiles'], '', 'frequency_profiles'),
-                    'priority'  => form_sanitizer($_POST['priority_profiles'], '', 'priority_profiles')
+                    'frequency' => isset($_POST['frequency_profiles']) ? form_sanitizer($_POST['frequency_profiles'], '', 'frequency_profiles') : '',
+                    'priority'  => isset($_POST['priority_profiles']) ? form_sanitizer($_POST['priority_profiles'], '', 'priority_profiles') : ''
                 ],
                 'articles'       => [
                     'enabled'   => isset($_POST['enabled_articles']) ? 1 : 0,
