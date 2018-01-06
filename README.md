@@ -8,3 +8,4 @@ Infusions:
  - [Snow Effect](https://github.com/RobiNN1/PHP-Fusion-Infusions/tree/master/infusions/snow_panel)
  - [Team](https://github.com/RobiNN1/PHP-Fusion-Infusions/tree/master/infusions/team)
  - [Theme Switcher](https://github.com/RobiNN1/PHP-Fusion-Infusions/tree/master/infusions/theme_switcher_panel)
+ - [Videos](https://github.com/RobiNN1/PHP-Fusion-Infusions/tree/master/infusions/videos)
