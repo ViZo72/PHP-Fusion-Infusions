@@ -34,7 +34,7 @@ $video_settings = get_settings('videos');
 \PHPFusion\BreadCrumbs::getInstance()->addBreadCrumb(['link' => INFUSIONS.'videos/videos.php', 'title' => \PHPFusion\SiteLinks::get_current_SiteLinks('infusions/videos/videos.php', 'link_name')]);
 
 if (file_exists(INFUSIONS.'rss_feeds_panel/feeds/rss_videos.php')) {
-    add_to_head('<link rel="alternate" type="application/rss+xml" title="'.fusion_get_locale('video_1000').' - RSS Feed" href="'.fusion_get_settings('siteurl').'infusions/rss_feeds_panel/feeds/rss_videos.php"/>');
+    add_to_head('<link rel="alternate" type="application/rss+xml" title="'.fusion_get_locale('VID_title').' - RSS Feed" href="'.fusion_get_settings('siteurl').'infusions/rss_feeds_panel/feeds/rss_videos.php"/>');
 }
 
 $info = [
