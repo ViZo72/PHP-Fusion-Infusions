@@ -413,7 +413,11 @@ function parse_video_info($data) {
     $locale = fusion_get_locale();
 
     if ($data['video_type'] == 'youtube') {
-        $thumbnail = 'https://img.youtube.com/vi/'.$data['video_url'].'/maxresdefault.jpg';
+        if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
+            $thumbnail = VIDEOS.'images/'.$data['video_image'];
+        } else {
+            $thumbnail = 'https://img.youtube.com/vi/'.$data['video_url'].'/maxresdefault.jpg';
+        }
     } else if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
         $thumbnail = VIDEOS.'images/'.$data['video_image'];
     } else {
