@@ -17,7 +17,7 @@
 +--------------------------------------------------------*/
 $locale['VID_title'] = 'Videos';
 $locale['VID_desc'] = 'A Standard Videos System.';
-$locale['VID_latest'] = 'Latest Videos Panel';
+$locale['VID_latest'] = 'Latest Videos';
 $locale['VID_submit'] = 'Submit Video';
 $locale['VID_submit_0007'] = '%s Videos';
 $locale['VID_001'] = 'Categories';

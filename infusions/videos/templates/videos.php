@@ -83,7 +83,12 @@ if (!function_exists('display_video_index')) {
         $locale = fusion_get_locale();
 
         if (!empty($info['video_item'])) {
-            echo '<div class="row">';
+            add_to_head('<style type="text/css">
+                .row.videos {display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;flex-wrap: wrap;}
+                .row.videos > [class*=\'col-\'] {display: flex;flex-direction: column;}
+            </style>');
+
+            echo '<div class="row videos">';
 
             foreach ($info['video_item'] as $video_id => $data) {
                 echo '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">';

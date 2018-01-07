@@ -210,15 +210,32 @@ echo '<div class="row">';
             'inline'   => TRUE
         ]);
 
-        add_to_jquery('$("#video_type").on("change", function (e) {
-            if ($(this).val() == "file") {
-                $("#videotab li #tab-videofile").tab("show");
-            } else if ($(this).val() == "url" || $(this).val() == "youtube") {
-                $("#videotab li #tab-videourl").tab("show");
-            } else if ($(this).val() == "embed") {
-                $("#videotab li #tab-videoembed").tab("show");
-            }
-        });');
+        add_to_jquery('
+            $("#video_type").on("change", function (e) {
+                if ($(this).val() == "file") {
+                    $("#videotab li #tab-videofile").tab("show");
+                } else if ($(this).val() == "url" || $(this).val() == "youtube") {
+                    $("#videotab li #tab-videourl").tab("show");
+                } else if ($(this).val() == "embed") {
+                    $("#videotab li #tab-videoembed").tab("show");
+                }
+            });
+            
+            $("#videotab a[data-toggle=\"tab\"]").on("shown.bs.tab", function (e) {
+                var tab_id = $(e.target).attr("id");
+                
+                if (tab_id == "tab-videofile") {
+                    $("#video_type").val("file").attr("selected", true);
+                    $("#video_type").select2("val", "file");
+                } else if (tab_id == "tab-videourl") {
+                    $("#video_type").val("url").attr("selected", true);
+                    $("#video_type").select2("val", "url");
+                } else if (tab_id == "tab-videoembed") {
+                    $("#video_type").val("embed").attr("selected", true);
+                    $("#video_type").select2("val", "embed");
+                }
+            });
+        ');
 
         $tab_video_type['title'][] = $locale['VID_018'];
         $tab_video_type['id'][]    = 'videofile';

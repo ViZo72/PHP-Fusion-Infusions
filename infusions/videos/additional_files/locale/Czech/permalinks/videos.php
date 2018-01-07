@@ -15,5 +15,5 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['pl_videos_title'] = 'Videá';
-$locale['pl_videos_desc'] = 'Povolit trvalé odkazy pro videá na webu.';
+$locale['pl_videos_title'] = 'Videa';
+$locale['pl_videos_desc'] = 'Povolit trvalé odkazy pro videa na webu.';

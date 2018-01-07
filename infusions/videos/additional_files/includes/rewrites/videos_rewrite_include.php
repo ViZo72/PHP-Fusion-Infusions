@@ -33,8 +33,8 @@ $regex = [
 ];
 
 $pattern = [
-    'submit-%stype%/files'                                         => 'submit.php?stype=%stype%',
-    'submit-%stype%/files/submitted-and-thank-you'                 => 'submit.php?stype=%stype%&amp;submitted=v',
+    'submit-%stype%/video'                                         => 'submit.php?stype=%stype%',
+    'submit-%stype%/video/submitted-and-thank-you'                 => 'submit.php?stype=%stype%&amp;submitted=v',
     'videos/author/%author_id%/%author_name%'                      => 'infusions/videos/videos.php?author=%author_id%',
     'videos/filter/%filter_type%'                                  => 'infusions/videos/videos.php?type=%filter_type%',
     'videos/filter/%filter_type%/category/%video_cat_id%'          => 'infusions/videos/videos.php?cat_id=%video_cat_id%&amp;type=%filter_type%',

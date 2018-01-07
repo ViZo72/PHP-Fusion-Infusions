@@ -17,7 +17,7 @@
 +--------------------------------------------------------*/
 $locale['VID_title'] = 'Videók';
 $locale['VID_desc'] = 'Alap Videó Rendszer.';
-$locale['VID_latest'] = 'Legújabb Videók Panel';
+$locale['VID_latest'] = 'Legújabb Videók';
 $locale['VID_submit'] = 'Videó Beküldés';
 $locale['VID_submit_0007'] = '%s Videó';
 $locale['VID_001'] = 'Kategóriák';
