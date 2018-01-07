@@ -111,8 +111,10 @@ class SitemapGenerator {
 
             $items = \PHPFusion\Articles\ArticlesServer::Articles()->get_ArticleItems();
 
-            foreach ($items['article_items'] as $id => $data) {
-                $this->sitemap->addItem($this->siteurl.'infusions/articles/articles.php?article_id='.$data['article_id'], $data['article_datestamp'], $options['frequency'], $options['priority']);
+            if (!empty($items['article_items'])) {
+                foreach ($items['article_items'] as $id => $data) {
+                    $this->sitemap->addItem($this->siteurl.'infusions/articles/articles.php?article_id='.$data['article_id'], $data['article_datestamp'], $options['frequency'], $options['priority']);
+                }
             }
         }
     }
@@ -319,8 +321,10 @@ class SitemapGenerator {
 
             $items = \PHPFusion\News\NewsView::News()->get_NewsItem();
 
-            foreach ($items['news_items'] as $id => $data) {
-                $this->sitemap->addItem($this->siteurl.'infusions/news/news.php?readmore='.$data['news_id'], $data['news_datestamp'], $options['frequency'], $options['priority']);
+            if (!empty($items['news_items'])) {
+                foreach ($items['news_items'] as $id => $data) {
+                    $this->sitemap->addItem($this->siteurl.'infusions/news/news.php?readmore='.$data['news_id'], $data['news_datestamp'], $options['frequency'], $options['priority']);
+                }
             }
         }
     }

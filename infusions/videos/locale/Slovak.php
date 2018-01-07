@@ -18,7 +18,7 @@
 $locale['VID_title'] = 'Videa';
 $locale['VID_desc'] = 'Štandardný video systém';
 $locale['VID_latest'] = 'Najnovšie videa';
-$locale['VID_submit'] = 'Odoslať video';
+$locale['VID_submit'] = 'Pridať video';
 $locale['VID_submit_0007'] = '%s videa';
 $locale['VID_001'] = 'Kategórie';
 $locale['VID_002'] = 'Na schválenie';
