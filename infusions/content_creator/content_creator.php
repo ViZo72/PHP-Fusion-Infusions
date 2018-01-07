@@ -224,7 +224,7 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $article_cats = dbcount('(article_cat_id)', DB_ARTICLE_CATS);
                 $article_cats = rand(1, $article_cats);
-                $values .= "('".$this->locale['CC_010']." ".$i."', ".$article_cats.", '".$this->snippet."', '".$this->body."', 'y', 1, '".(time()-rand(0, time()/2))."', '".rand(1, 10000)."', 1, 1, '".LANGUAGE."')";
+                $values .= "('".$this->locale['CC_010']." ".$i."', ".$article_cats.", '".$this->snippet."', '".$this->body."', 'y', '".rand(1, $this->users)."', '".(time()-rand(0, time()/2))."', '".rand(1, 10000)."', 1, 1, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
@@ -266,7 +266,7 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $blog_cats = dbcount('(blog_cat_id)', DB_BLOG_CATS);
                 $blog_cats = rand(1, $blog_cats);
-                $values .= "('".$this->locale['CC_013']." ".$i."', ".$blog_cats.", '".$this->snippet."', '".$this->body."', 'y', 1, '".(time()-rand(0, time()/2))."', '".rand(1, 10000)."', 1, 1, '".LANGUAGE."')";
+                $values .= "('".$this->locale['CC_013']." ".$i."', ".$blog_cats.", '".$this->snippet."', '".$this->body."', 'y', '".rand(1, $this->users)."', '".(time()-rand(0, time()/2))."', '".rand(1, 10000)."', 1, 1, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
@@ -331,7 +331,7 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $download_cats = dbcount('(download_cat_id)', DB_DOWNLOAD_CATS);
                 $download_cats = rand(1, $download_cats);
-                $values .= "(1, '".$this->locale['CC_018']." ".$i."', '".$this->short_text."', '".$this->body."', 'https://www.php-fusion.co.uk/home.php', ".$download_cats.", '".(time()-rand(0, time()/2))."', 0, ".rand(1, 10000).", 1, 0)";
+                $values .= "('".rand(1, $this->users)."', '".$this->locale['CC_018']." ".$i."', '".$this->short_text."', '".$this->body."', 'https://www.php-fusion.co.uk/home.php', ".$download_cats.", '".(time()-rand(0, time()/2))."', 0, ".rand(1, 10000).", 1, 0)";
                 $values .= $i < $num ? ', ' : ';';
             }
 
@@ -373,7 +373,7 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $faq_cats = dbcount('(faq_cat_id)', DB_FAQ_CATS);
                 $faq_cats = rand(1, $faq_cats);
-                $values .= "(".$faq_cats.", '".$this->locale['CC_021']." ".$i."', '".$this->short_text."', 'y', 1, '".(time()-rand(0, time()/2))."', 0, 1, '".LANGUAGE."')";
+                $values .= "(".$faq_cats.", '".$this->locale['CC_021']." ".$i."', '".$this->short_text."', 'y', '".rand(1, $this->users)."', '".(time()-rand(0, time()/2))."', 0, 1, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
@@ -415,7 +415,7 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $news_cats = dbcount('(news_cat_id)', DB_NEWS_CATS);
                 $news_cats = rand(1, $news_cats);
-                $values .= "('".$this->locale['CC_024']." ".$i."', ".$news_cats.", '".$this->snippet."', '".$this->body."', 'y', 1, '".(time()-rand(0, time()/2))."', 0, ".rand(1, 10000).", 1, 1, '".LANGUAGE."')";
+                $values .= "('".$this->locale['CC_024']." ".$i."', ".$news_cats.", '".$this->snippet."', '".$this->body."', 'y', '".rand(1, $this->users)."', '".(time()-rand(0, time()/2))."', 0, ".rand(1, 10000).", 1, 1, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
@@ -462,7 +462,7 @@ class ContentCreator {
             $values = '';
 
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "(".rand(1, $this->users).", '".$this->shout_text[rand(1, 5)]."', '".(time()-rand(0, time()/2))."', '".$this->MakeIP()."', 4, 0, '".LANGUAGE."')";
+                $values .= "('".rand(1, $this->users)."', '".$this->shout_text[rand(1, 5)]."', '".(time()-rand(0, time()/2))."', '".$this->MakeIP()."', 4, 0, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
