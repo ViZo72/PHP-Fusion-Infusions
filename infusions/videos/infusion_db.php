@@ -49,3 +49,12 @@ if (method_exists(\PHPFusion\Admins::getInstance(), 'setSubmitData')) {
     \PHPFusion\Admins::getInstance()->setSubmitType('VID', fusion_get_locale('VID_title', VID_LOCALE));
     \PHPFusion\Admins::getInstance()->setSubmitLink('VID', INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&amp;section=submissions&amp;submit_id=%s');
 }
+
+if (method_exists(\PHPFusion\Admins::getInstance(), 'setFolderPermissions')) {
+    \PHPFusion\Admins::getInstance()->setFolderPermissions([
+        'infusions/videos/videos/'             => TRUE,
+        'infusions/videos/images/'             => TRUE,
+        'infusions/videos/submissions/'        => TRUE,
+        'infusions/videos/submissions/images/' => TRUE
+    ]);
+}
