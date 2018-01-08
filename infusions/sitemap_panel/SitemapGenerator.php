@@ -47,9 +47,9 @@ class SitemapGenerator {
     private $weblinks;
 
     public function __construct() {
-        $this->locale  = fusion_get_locale('', SMG_LOCALE);
-        $this->siteurl = fusion_get_settings('siteurl');
-        $this->sitemap = new Sitemap($this->sitemap_file);
+        $this->locale           = fusion_get_locale('', SMG_LOCALE);
+        $this->siteurl          = fusion_get_settings('siteurl');
+        $this->sitemap          = new Sitemap($this->sitemap_file);
         $this->sitemap_settings = get_settings('sitemap_panel');
 
         $this->customlinks = dbcount('(link_id)', DB_SITEMAP_LINKS) == 0 ? FALSE : TRUE;
@@ -107,12 +107,16 @@ class SitemapGenerator {
                 }
             }
         } else {
-            require_once ARTICLE_CLASS.'autoloader.php';
+            $result = dbquery("SELECT a.article_id, a.article_datestamp, a.article_language, a.article_visibility, a.article_draft
+                FROM ".DB_ARTICLES." AS a
+                LEFT JOIN ".DB_ARTICLE_CATS." AS ac ON a.article_cat = ac.article_cat_id
+                ".(multilang_table('AR') ? "WHERE a.article_language='".LANGUAGE."' AND ac.article_cat_language='".LANGUAGE."' AND " : "WHERE ")."
+                a.article_draft = 0 AND ".groupaccess('a.article_visibility')." AND ac.article_cat_status='1' AND ".groupaccess('ac.article_cat_visibility')."
+                ORDER BY article_datestamp DESC
+            ");
 
-            $items = \PHPFusion\Articles\ArticlesServer::Articles()->get_ArticleItems();
-
-            if (!empty($items['article_items'])) {
-                foreach ($items['article_items'] as $id => $data) {
+            if (dbrows($result) > 0) {
+                while ($data = dbarray($result)) {
                     $this->sitemap->addItem($this->siteurl.'infusions/articles/articles.php?article_id='.$data['article_id'], $data['article_datestamp'], $options['frequency'], $options['priority']);
                 }
             }
@@ -317,12 +321,15 @@ class SitemapGenerator {
                 }
             }
         } else {
-            require_once NEWS_CLASS.'autoloader.php';
+            $result = dbquery("SELECT news_id, news_datestamp, news_language, news_visibility, news_draft
+                FROM ".DB_NEWS."
+                ".(multilang_table('NS') ? "WHERE news_language = '".LANGUAGE."' AND " : "WHERE ").groupaccess('news_visibility')." AND (news_start = 0 || news_start <= '".TIME."')
+                AND (news_end = 0 || news_end >= '".TIME."') AND news_draft = 0
+                ORDER BY news_datestamp DESC
+            ");
 
-            $items = \PHPFusion\News\NewsView::News()->get_NewsItem();
-
-            if (!empty($items['news_items'])) {
-                foreach ($items['news_items'] as $id => $data) {
+            if (dbrows($result) > 0) {
+                while ($data = dbarray($result)) {
                     $this->sitemap->addItem($this->siteurl.'infusions/news/news.php?readmore='.$data['news_id'], $data['news_datestamp'], $options['frequency'], $options['priority']);
                 }
             }
@@ -839,7 +846,7 @@ class SitemapGenerator {
             echo '</div>';
         }
 
-        add_to_head('<style>#sitemaptable .form-group{margin-bottom: 0;}</style>');
+        add_to_head('<style>#sitemaptable .form-group {margin-bottom: 0;}</style>');
 
         echo openform('savesettings', 'post', FUSION_REQUEST, ['class' => 'm-t-15']);
         openside();

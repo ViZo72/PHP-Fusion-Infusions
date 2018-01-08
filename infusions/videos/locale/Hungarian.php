@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: video/locale/Hungarian.php
+| Filename: videos/locale/Hungarian.php
 | Author: karrak
 +--------------------------------------------------------+
 | This program is released as free software under the

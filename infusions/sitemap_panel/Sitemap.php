@@ -6,6 +6,7 @@
 +--------------------------------------------------------+
 | Filename: sitemap_panel/Sitemap.php
 | Author: Alexander Makarov <sam@rmcreative.ru>
+| Co-Author: RobiNN - several code modifications for PHP-Fusion 9
 | Github: https://github.com/samdark/sitemap
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -23,7 +24,6 @@ use XMLWriter;
 /**
  * Class Sitemap
  * A class for generating Sitemaps (http://www.sitemaps.org/)
- *
  * @package samdark\sitemap
  */
 class Sitemap {
@@ -58,7 +58,7 @@ class Sitemap {
     /**
      * @var array path of files written
      */
-    private $writtenFilePaths = array();
+    private $writtenFilePaths = [];
 
     /**
      * @var integer number of URLs to be kept in memory before writing it to file
@@ -68,7 +68,7 @@ class Sitemap {
     /**
      * @var bool if XML should be indented
      */
-    private $useIndent = true;
+    private $useIndent = TRUE;
 
     /**
      * @var array valid values for frequency parameter
@@ -86,7 +86,7 @@ class Sitemap {
     /**
      * @var bool whether to gzip the resulting files or not
      */
-    private $useGzip = false;
+    private $useGzip = FALSE;
 
     /**
      * @var XMLWriter
@@ -144,6 +144,7 @@ class Sitemap {
         $this->writer->openMemory();
         $this->writer->startDocument('1.0', 'UTF-8');
         $this->writer->setIndent($this->useIndent);
+        $this->writer->writeComment('XML Sitemap generator by RobiNN <https://github.com/RobiNN1>');
         $this->writer->startElement('urlset');
         $this->writer->writeAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
     }
@@ -152,10 +153,10 @@ class Sitemap {
      * Writes closing tags to current file
      */
     private function finishFile() {
-        if ($this->writer !== null) {
+        if ($this->writer !== NULL) {
             $this->writer->endElement();
             $this->writer->endDocument();
-            $this->flush(true);
+            $this->flush(TRUE);
         }
     }
 
@@ -168,22 +169,24 @@ class Sitemap {
 
     /**
      * Flushes buffer into file
+     *
      * @param bool $finishFile Pass true to close the file to write to, used only when useGzip is true
      */
-    private function flush($finishFile = false) {
+    private function flush($finishFile = FALSE) {
         if ($this->useGzip) {
             $this->flushGzip($finishFile);
             return;
         }
 
-        file_put_contents($this->getCurrentFilePath(), $this->writer->flush(true), FILE_APPEND);
+        file_put_contents($this->getCurrentFilePath(), $this->writer->flush(TRUE), FILE_APPEND);
     }
 
     /**
      * Decides how to flush buffer into compressed file
+     *
      * @param bool $finishFile Pass true to close the file to write to
      */
-    private function flushGzip($finishFile = false) {
+    private function flushGzip($finishFile = FALSE) {
         if (function_exists('deflate_init') && function_exists('deflate_add')) {
             $this->flushWithIncrementalDeflate($finishFile);
             return;
@@ -194,33 +197,35 @@ class Sitemap {
 
     /**
      * Flushes buffer into file with incremental deflating data, available in php 7.0+
+     *
      * @param bool $finishFile Pass true to write last chunk with closing headers
      */
-    private function flushWithIncrementalDeflate($finishFile = false) {
+    private function flushWithIncrementalDeflate($finishFile = FALSE) {
         $flushMode = $finishFile ? ZLIB_FINISH : ZLIB_NO_FLUSH;
 
         if (empty($this->deflateContext)) {
             $this->deflateContext = deflate_init(ZLIB_ENCODING_GZIP);
         }
 
-        $compressedChunk = deflate_add($this->deflateContext, $this->writer->flush(true), $flushMode);
+        $compressedChunk = deflate_add($this->deflateContext, $this->writer->flush(TRUE), $flushMode);
         file_put_contents($this->getCurrentFilePath(), $compressedChunk, FILE_APPEND);
 
         if ($finishFile) {
-            $this->deflateContext = null;
+            $this->deflateContext = NULL;
         }
     }
 
     /**
      * Flushes buffer into temporary stream and compresses stream into a file on finish
+     *
      * @param bool $finishFile Pass true to compress temporary stream into desired file
      */
-    private function flushWithTempFileFallback($finishFile = false) {
+    private function flushWithTempFileFallback($finishFile = FALSE) {
         if (empty($this->tempFile) || !is_resource($this->tempFile)) {
             $this->tempFile = fopen('php://temp/', 'w');
         }
 
-        fwrite($this->tempFile, $this->writer->flush(true));
+        fwrite($this->tempFile, $this->writer->flush(TRUE));
 
         if ($finishFile) {
             $file = fopen('compress.zlib://'.$this->getCurrentFilePath(), 'w');
@@ -238,7 +243,7 @@ class Sitemap {
      * @param string $location
      */
     protected function validateLocation($location) {
-        if (false === filter_var($location, FILTER_VALIDATE_URL)) {
+        if (FALSE === filter_var($location, FILTER_VALIDATE_URL)) {
             $this->saveError("The location must be a valid URL. You have specified: {$location}.");
         }
     }
@@ -246,15 +251,15 @@ class Sitemap {
     /**
      * Adds a new item to sitemap
      *
-     * @param string $location location item URL
+     * @param string  $location location item URL
      * @param integer $lastModified last modification timestamp
-     * @param float $changeFrequency change frequency. Use one of self:: constants here
-     * @param string $priority item's priority (0.0-1.0). Default null is equal to 0.5
+     * @param float   $changeFrequency change frequency. Use one of self:: constants here
+     * @param string  $priority item's priority (0.0-1.0). Default null is equal to 0.5
      */
-    public function addItem($location, $lastModified = null, $changeFrequency = null, $priority = null) {
+    public function addItem($location, $lastModified = NULL, $changeFrequency = NULL, $priority = NULL) {
         if ($this->urlsCount === 0) {
             $this->createNewFile();
-        } elseif ($this->urlsCount % $this->maxUrls === 0) {
+        } else if ($this->urlsCount % $this->maxUrls === 0) {
             $this->finishFile();
             $this->createNewFile();
         }
@@ -270,14 +275,14 @@ class Sitemap {
         $this->writer->writeElement('loc', $location);
 
         if (!empty($lastModified)) {
-            if ($lastModified !== null) {
+            if ($lastModified !== NULL) {
                 $this->writer->writeElement('lastmod', date('c', $lastModified));
             }
         }
 
         if (!empty($changeFrequency)) {
-            if ($changeFrequency !== null) {
-                if (!in_array($changeFrequency, $this->validFrequencies, true)) {
+            if ($changeFrequency !== NULL) {
+                if (!in_array($changeFrequency, $this->validFrequencies, TRUE)) {
                     $this->saveError('Please specify valid changeFrequency. Valid values are: '.implode(', ', $this->validFrequencies)."You have specified: {$changeFrequency}.");
                 }
 
@@ -286,7 +291,7 @@ class Sitemap {
         }
 
         if (!empty($priority)) {
-            if ($priority !== null) {
+            if ($priority !== NULL) {
                 if (!is_numeric($priority) || $priority < 0 || $priority > 1) {
                     $this->saveError("Please specify valid priority. Valid values range from 0.0 to 1.0. You have specified: {$priority}.");
                 }
@@ -325,6 +330,7 @@ class Sitemap {
      * Returns an array of URLs written
      *
      * @param string $baseUrl base URL of all the sitemaps written
+     *
      * @return array URLs of sitemaps written
      */
     public function getSitemapUrls($baseUrl) {
@@ -339,6 +345,7 @@ class Sitemap {
     /**
      * Sets maximum number of URLs to write in a single file.
      * Default is 50000.
+     *
      * @param integer $number
      */
     public function setMaxUrls($number) {
@@ -367,6 +374,7 @@ class Sitemap {
 
     /**
      * Sets whether the resulting files will be gzipped or not.
+     *
      * @param bool $value
      */
     public function setUseGzip($value) {
@@ -383,6 +391,7 @@ class Sitemap {
 
     /**
      * Custom error handler
+     *
      * @param string $message
      */
     private function saveError($message) {

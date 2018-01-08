@@ -88,8 +88,8 @@ foreach ($settings as $name => $value) {
     $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('".$name."', '".$value."', '".$inf_folder."')";
 }
 
-$inf_droptable[] = DB_SITEMAP_LINKS;
 $inf_droptable[] = DB_SITEMAP;
+$inf_droptable[] = DB_SITEMAP_LINKS;
 $inf_deldbrow[] = DB_ADMIN." WHERE admin_rights='SMG'";
 $inf_deldbrow[] = DB_PANELS." WHERE panel_filename='".$inf_folder."'";
 $inf_deldbrow[] = DB_SETTINGS_INF." WHERE settings_inf='".$inf_folder."'";

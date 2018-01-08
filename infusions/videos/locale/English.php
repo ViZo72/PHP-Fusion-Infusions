@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: video/locale/English.php
+| Filename: videos/locale/English.php
 | Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
