@@ -27,9 +27,17 @@ if (!defined('VID_LOCALE')) {
     }
 }
 
-define('VIDEOS', INFUSIONS.'videos/');
-define('DB_VIDEOS', DB_PREFIX.'videos');
-define('DB_VIDEO_CATS', DB_PREFIX.'video_cats');
+if (!defined('VIDEOS')) {
+    define('VIDEOS', INFUSIONS.'videos/');
+}
+
+if (!defined('DB_VIDEOS')) {
+    define('DB_VIDEOS', DB_PREFIX.'videos');
+}
+
+if (!defined('DB_VIDEO_CATS')) {
+    define('DB_VIDEO_CATS', DB_PREFIX.'video_cats');
+}
 
 \PHPFusion\Admins::getInstance()->setAdminPageIcons('VID', '<i class="admin-ico fa fa-fw fa-play"></i>');
 \PHPFusion\Admins::getInstance()->setCommentType('VID', fusion_get_locale('VID_title', VID_LOCALE));
@@ -51,7 +59,7 @@ if (method_exists(\PHPFusion\Admins::getInstance(), 'setSubmitData')) {
 }
 
 if (method_exists(\PHPFusion\Admins::getInstance(), 'setFolderPermissions')) {
-    \PHPFusion\Admins::getInstance()->setFolderPermissions([
+    \PHPFusion\Admins::getInstance()->setFolderPermissions('videos', [
         'infusions/videos/videos/'             => TRUE,
         'infusions/videos/images/'             => TRUE,
         'infusions/videos/submissions/'        => TRUE,
