@@ -27,7 +27,12 @@ if (!defined('SMG_LOCALE')) {
     }
 }
 
-define('DB_SITEMAP', DB_PREFIX.'sitemap');
-define('DB_SITEMAP_LINKS', DB_PREFIX.'sitemap_links');
+if (!defined('DB_SITEMAP')) {
+    define('DB_SITEMAP', DB_PREFIX.'sitemap');
+}
+
+if (!defined('DB_SITEMAP_LINKS')) {
+    define('DB_SITEMAP_LINKS', DB_PREFIX.'sitemap_links');
+}
 
 \PHPFusion\Admins::getInstance()->setAdminPageIcons('SMG', '<i class="admin-ico fa fa-fw fa-sitemap"></i>');
