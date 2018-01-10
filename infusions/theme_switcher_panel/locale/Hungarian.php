@@ -4,8 +4,8 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: theme_switcher_panel/Danish.php
-| Author: Helmuth Mikkelsen (helmuth)
+| Filename: theme_switcher_panel/Hungarian.php
+| Author: karrak
 +--------------------------------------------------------+
 | This program is released as free software under the
 | Affero GPL license. You can redistribute it and/or
@@ -15,6 +15,6 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['TS_01'] = 'Temaskifter';
-$locale['TS_02'] = 'Tema er blevet skiftet';
-$locale['TS_03'] = 'Skift';
+$locale['TS_01'] = 'Felület Váltó';
+$locale['TS_02'] = 'Felület Megváltoztattva';
+$locale['TS_03'] = 'Változtat';
