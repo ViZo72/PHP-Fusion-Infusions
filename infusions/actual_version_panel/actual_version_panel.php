@@ -38,7 +38,7 @@ opentable('PHP-Fusion');
 
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><div class="text-center">
                     <img style="width: 100px; height: 100px;" class="center-x img-responsive m-b-10" src="<?php echo INFUSIONS; ?>actual_version_panel/language.svg" alt="Language"/>
-                    <span><strong class="text-dark"><?php echo $locale['AV_102']; ?></strong></span>
+                    <span><strong class="text-dark"><?php echo $locale['AV_002']; ?></strong></span>
                     <br/><span><a href="<?php echo $settings['translate_dl_link']; ?>" target="_blank"><i class="fa fa-cloud-download"></i> <?php echo $locale['AV_001']; ?></a></span>
                 </div></div>
             </div>

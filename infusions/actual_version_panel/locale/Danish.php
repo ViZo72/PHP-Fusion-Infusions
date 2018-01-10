@@ -27,4 +27,3 @@ $locale['AV_103'] = 'PHP-Fusion er et letvægts open source content management s
 PHP-Fusion anvender en MySQL-database til at opbevare din hjemmesides indhold og inkluderer et enkelt men alligevel omfattende administrationsmodul til at vedligeholde dine hjemmesider.
 PHP-Fusion indeholder de mest almindelige features du også vil kunne finde i mange andre content management system pakker.';
 $locale['AV_notice'] = 'Indstillinger er blevet opdateret';
-$locale['AV_notice'] = 'Indstillinger er blevet opdateret';
