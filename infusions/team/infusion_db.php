@@ -27,6 +27,8 @@ if (!defined('TEAM_LOCALE')) {
     }
 }
 
-define('DB_TEAM', DB_PREFIX.'team');
+if (!defined('DB_TEAM')) {
+    define('DB_TEAM', DB_PREFIX.'team');
+}
 
 \PHPFusion\Admins::getInstance()->setAdminPageIcons('TEAM', '<i class="admin-ico fa fa-fw fa-users"></i>');
