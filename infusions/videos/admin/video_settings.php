@@ -29,7 +29,7 @@ if (isset($_POST['savesettings'])) {
         'video_screen_max_w'     => form_sanitizer($_POST['video_screen_max_w'], 1024, 'video_screen_max_w'),
         'video_screen_max_h'     => form_sanitizer($_POST['video_screen_max_h'], 768, 'video_screen_max_h'),
         'video_pagination'       => form_sanitizer($_POST['video_pagination'], 15, 'video_pagination'),
-        'video_allow_submission' => form_sanitizer($_POST['video_allow_submission'], 1, 'video_allow_submission')
+        'video_allow_submission' => form_sanitizer($_POST['video_allow_submission'], 0, 'video_allow_submission')
     ];
 
     if (\defender::safe()) {
