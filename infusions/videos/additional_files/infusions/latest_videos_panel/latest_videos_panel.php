@@ -49,18 +49,18 @@ if ($videos) {
 
             echo '<div class="list-group-item">';
                 echo '<div class="pull-left m-r-15">';
-                    echo '<a href="'.VIDEOS.'videos.php?video_id='.$data['video_id'].'" style="max-height: 56px; max-width: 100px;" class="display-inline-block image-wrap thumb text-center overflow-hide m-2">';
-                        echo '<img class="img-responsive" src="'.$thumbnail.'" alt="'.$data['video_title'].'"/>';
+                    echo '<a href="'.VIDEOS.'videos.php?video_id='.$data['video_id'].'" class="display-inline-block image-wrap thumb text-center overflow-hide m-2">';
+                        echo '<img style="object-fit: contain;height: 100px; width: 100px;" class="img-responsive" src="'.$thumbnail.'" alt="'.$data['video_title'].'"/>';
                      echo '</a>';
                 echo '</div>';
 
                 echo '<div class="overflow-hide">';
                     echo '<a href="'.VIDEOS.'videos.php?video_id='.$data['video_id'].'"><span class="strong text-dark">'.$data['video_title'].'</span></a><br/>';
-
                     echo '<div>';
                         echo '<span><i class="fa fa-fw fa-folder"></i> '.$locale['VID_009'].' <a class="badge" href="'.VIDEOS.'videos.php?cat_id='.$data['video_cat_id'].'">'.$data['video_cat_name'].'</a></span>';
                         echo '<br/><span><i class="fa fa-fw fa-user"></i> '.profile_link($data['user_id'], $data['user_name'], $data['user_status']).'</span>';
                         echo '<br/><span><i class="fa fa-fw fa-clock-o"></i> '.$data['video_length'].'</span>';
+                        echo '<br/><span><i class="fa fa-fw fa-calendar"></i> '.showdate('shortdate', $data['video_datestamp']).'</span>';
                     echo '</div>';
                 echo '</div>';
             echo '</div>';
