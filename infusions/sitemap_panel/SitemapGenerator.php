@@ -407,7 +407,7 @@ class SitemapGenerator {
 
         if ((isset($_GET['action']) && $_GET['action'] == 'delete') && (isset($_GET['link_id']) && isnum($_GET['link_id']))) {
             if (dbrows($result)) dbquery("DELETE FROM ".DB_SITEMAP_LINKS." WHERE link_id='".intval($_GET['link_id'])."'");
-            addNotice('success', 'Link has been deleted');
+            addNotice('success', $this->locale['SMG_notice_06']);
             redirect(FUSION_SELF.fusion_get_aidlink());
         }
 
@@ -657,7 +657,7 @@ class SitemapGenerator {
                 $module .= '<td class="col-sm-2">';
                 $module .= form_select('priority_'.$name, $this->locale['SMG_014'], $module_settings['priority'], [
                     'inline'      => TRUE,
-                    'inner_width' => '30px',
+                    'inner_width' => '60px',
                     'options'     => [
                         '0.0' => '0.0',
                         '0.1' => '0.1',
@@ -908,7 +908,7 @@ class SitemapGenerator {
                 openside();
                 echo openform('addlink', 'post', FUSION_REQUEST);
                     echo form_hidden('link_id', '', $this->custom_links['link_id']);
-                    echo form_text('url', $this->locale['SMG_005'], $this->custom_links['url'], ['type' => 'url', 'inline' => TRUE]);
+                    echo form_text('url', $this->locale['SMG_005'], $this->custom_links['url'], ['type' => 'url', 'inline' => TRUE, 'placeholder' => 'https://example.com/']);
                     echo form_button('save', $this->locale['save'], 'save', ['class' => 'btn-success']);
                     echo form_button('cancel', $this->locale['cancel'], 'cancel');
                 echo closeform();

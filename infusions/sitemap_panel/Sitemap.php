@@ -37,6 +37,7 @@ class Sitemap {
 
     /**
      * @var integer Maximum allowed number of URLs in a single file.
+     * More info about URLs limit https://www.sitemaps.org/faq.html#faq_sitemap_size
      */
     private $maxUrls = 50000;
 

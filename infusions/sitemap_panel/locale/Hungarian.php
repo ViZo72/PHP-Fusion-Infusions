@@ -56,3 +56,4 @@ $locale['SMG_notice_02'] = 'Link Hozzáadva';
 $locale['SMG_notice_03'] = 'Fájl generálva';
 $locale['SMG_notice_04'] = 'A módosítások mentésre kerültek';
 $locale['SMG_notice_05'] = 'Beállítások Elmentve';
+$locale['SMG_notice_06'] = 'Link Eltávolítva';

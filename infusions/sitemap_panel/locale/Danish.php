@@ -56,3 +56,4 @@ $locale['SMG_notice_002'] = 'Link er blevet tilføjet';
 $locale['SMG_notice_003'] = 'Filen er blevet oprettet';
 $locale['SMG_notice_04'] = 'Ændringer er blevet gemt';
 $locale['SMG_notice_05'] = 'Indstillinger er blevet gemt';
+$locale['SMG_notice_06'] = 'Link er blevet fjernet';

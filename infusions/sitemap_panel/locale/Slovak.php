@@ -56,3 +56,4 @@ $locale['SMG_notice_02'] = 'Odkaz bol pridaný';
 $locale['SMG_notice_03'] = 'Súbor bol vygenerovaný';
 $locale['SMG_notice_04'] = 'Zmeny boli uložené';
 $locale['SMG_notice_05'] = 'Nastavenia boli uložené';
+$locale['SMG_notice_06'] = 'Odkaz bol odstránený';

@@ -56,3 +56,4 @@ $locale['SMG_notice_02'] = 'Link has been added';
 $locale['SMG_notice_03'] = 'File has been generated';
 $locale['SMG_notice_04'] = 'Changes has been saved';
 $locale['SMG_notice_05'] = 'Settings has been saved';
+$locale['SMG_notice_06'] = 'Link has been deleted';

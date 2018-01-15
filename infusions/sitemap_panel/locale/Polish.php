@@ -56,3 +56,4 @@ $locale['SMG_notice_02'] = 'Link zosta&#322; dodany';
 $locale['SMG_notice_03'] = 'Plik zosta&#322; wygenerowany';
 $locale['SMG_notice_04'] = 'Zmiany zosta&#322;y zapisane';
 $locale['SMG_notice_05'] = 'Ustawienia zosta&#322;y zapisane';
+$locale['SMG_notice_06'] = 'Link zosta&#322; usunięty';
