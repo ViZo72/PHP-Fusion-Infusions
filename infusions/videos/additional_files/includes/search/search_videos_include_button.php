@@ -44,14 +44,13 @@ if (db_exists(DB_VIDEOS)) {
     ];
 
     $radio_button += [
-        'videos' => form_checkbox('stype', fusion_get_locale('v400', LOCALE.LOCALESET.'search/videos.php'), Search_Engine::get_param('stype'),
-            [
-                'type'          => 'radio',
-                'value'         => 'videos',
-                'reverse_label' => TRUE,
-                'onclick'       => 'display(this.value)',
-                'input_id'      => 'videos'
-            ]
-        )
+        'videos' => form_checkbox('stype', fusion_get_locale('v400', LOCALE.LOCALESET.'search/videos.php'), Search_Engine::get_param('stype'), [
+            'type'          => 'radio',
+            'value'         => 'videos',
+            'reverse_label' => TRUE,
+            'onclick'       => 'display(this.value)',
+            'input_id'      => 'videos',
+            'class'         => 'm-b-0'
+        ])
     ];
 }
