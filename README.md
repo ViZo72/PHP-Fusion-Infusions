@@ -1,5 +1,5 @@
 # PHP-Fusion-Infusions
-PHP Fusion 9 Infusions
+PHP Fusion v9.x Infusions
 
 Infusions:
  - [Actual Version Panel](https://github.com/RobiNN1/PHP-Fusion-Infusions/tree/master/infusions/actual_version_panel)
