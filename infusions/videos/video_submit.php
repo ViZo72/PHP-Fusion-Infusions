@@ -84,9 +84,6 @@ if (iMEMBER && $video_settings['video_allow_submission']) {
                 $criteria_array['video_image'] = $upload['image_name'];
                 unset($upload);
             }
-        } else {
-            \defender::stop();
-            \defender::setInputError('video_image');
         }
 
         if (defender::safe()) {

@@ -46,7 +46,7 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
                 'video_file'           => form_sanitizer($_POST['video_file'], '', 'video_file'),
                 'video_url'            => form_sanitizer($_POST['video_url'], '', 'video_url'),
                 'video_embed'          => form_sanitizer($_POST['video_embed'], '', 'video_embed'),
-                'video_image'          => form_sanitizer($_POST['video_image'], '', 'video_image'),
+                'video_image'          => !empty($_POST['video_image']) ? form_sanitizer($_POST['video_image'], '', 'video_image') : '',
                 'video_allow_comments' => isset($_POST['video_allow_comments']) ? 1 : 0,
                 'video_allow_ratings'  => isset($_POST['video_allow_ratings']) ? 1 : 0
             ];
