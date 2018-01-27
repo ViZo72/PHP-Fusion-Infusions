@@ -54,8 +54,8 @@ if (method_exists(\PHPFusion\Admins::getInstance(), 'setSubmitData')) {
     ]);
 } else {
     // 9.0
-    \PHPFusion\Admins::getInstance()->setSubmitType('VID', fusion_get_locale('VID_title', VID_LOCALE));
-    \PHPFusion\Admins::getInstance()->setSubmitLink('VID', INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&amp;section=submissions&amp;submit_id=%s');
+    \PHPFusion\Admins::getInstance()->setSubmitType('v', fusion_get_locale('VID_title', VID_LOCALE));
+    \PHPFusion\Admins::getInstance()->setSubmitLink('v', INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&amp;section=submissions&amp;submit_id=%s');
 }
 
 if (method_exists(\PHPFusion\Admins::getInstance(), 'setFolderPermissions')) {
