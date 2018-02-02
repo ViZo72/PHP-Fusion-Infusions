@@ -59,3 +59,7 @@ $locale['CC_039'] = 'Parol&#259;';
 $locale['CC_040'] = 'Parol&#259; administrare';
 $locale['CC_041'] = 'Mesaje private';
 $locale['CC_042'] = 'Total utilizatori';
+$locale['CC_043'] = 'Forumuri';
+$locale['CC_044'] = 'Forum';
+$locale['CC_045'] = 'Albume foto';
+$locale['CC_046'] = 'Album';

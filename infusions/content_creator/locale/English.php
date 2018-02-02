@@ -59,3 +59,7 @@ $locale['CC_039'] = 'Password';
 $locale['CC_040'] = 'Admin Password';
 $locale['CC_041'] = 'Private Messages';
 $locale['CC_042'] = 'Total Users';
+$locale['CC_043'] = 'Forums';
+$locale['CC_044'] = 'Forum';
+$locale['CC_045'] = 'Photo albums';
+$locale['CC_046'] = 'Photo album';

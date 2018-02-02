@@ -59,3 +59,7 @@ $locale['CC_039'] = 'Kodeord';
 $locale['CC_040'] = 'Admin kodeord';
 $locale['CC_041'] = 'Private meddelelser';
 $locale['CC_042'] = 'Brugere i alt';
+$locale['CC_043'] = 'Debatter';
+$locale['CC_044'] = 'Debat';
+$locale['CC_045'] = 'Fotoalbums';
+$locale['CC_046'] = 'Album';

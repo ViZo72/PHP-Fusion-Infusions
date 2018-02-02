@@ -59,3 +59,7 @@ $locale['CC_039'] = 'Hasło';
 $locale['CC_040'] = 'Hasło Admina';
 $locale['CC_041'] = 'Prywatne wiadomości';
 $locale['CC_042'] = 'Wszystkich użytkowników';
+$locale['CC_043'] = 'Fora';
+$locale['CC_044'] = 'Forum';
+$locale['CC_045'] = 'Foto albumy';
+$locale['CC_046'] = 'Album';

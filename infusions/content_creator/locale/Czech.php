@@ -59,3 +59,7 @@ $locale['CC_039'] = 'Heslo';
 $locale['CC_040'] = 'Admin heslo';
 $locale['CC_041'] = 'Soukromé zprávy';
 $locale['CC_042'] = 'Celkem uživatelů';
+$locale['CC_043'] = 'Fóra';
+$locale['CC_044'] = 'Fórum';
+$locale['CC_045'] = 'Fotoalbumy';
+$locale['CC_046'] = 'Album';
