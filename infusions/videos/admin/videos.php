@@ -42,7 +42,7 @@ $data = [
 ];
 
 if ((isset($_GET['action']) && $_GET['action'] == 'delete') && (isset($_GET['video_id']) && isnum($_GET['video_id']))) {
-    $result = dbquery("SELECT video_file, video_image FROM ".DB_VIDEOS." WHERE video_id='".$_GET['video_id']."'");
+    $result = dbquery("SELECT * FROM ".DB_VIDEOS." WHERE video_id='".$_GET['video_id']."'");
 
     if (dbrows($result)) {
         $data = dbarray($result);
