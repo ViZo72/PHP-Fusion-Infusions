@@ -25,7 +25,27 @@ if (file_exists(INFUSIONS.'theme_switcher_panel/locale/'.LANGUAGE.'php')) {
     $locale = fusion_get_locale('', INFUSIONS.'theme_switcher_panel/locale/English.php');
 }
 
-$theme = isset($_COOKIE[COOKIE_PREFIX.'theme']) ? $_COOKIE[COOKIE_PREFIX.'theme'] : fusion_get_settings('theme');
+$themes = makefilelist(THEMES, '.|..|templates|admin_themes', TRUE, 'folders');
+
+if (isset($_GET['theme'])) {
+    $theme_file = '';
+
+    foreach ($themes as $file) {
+        if ($_GET['theme'] == $file) {
+            setcookie(COOKIE_PREFIX.'theme', $_GET['theme']);
+            redirect(FUSION_SELF);
+            $theme_file = $file;
+        }
+    }
+
+    $theme = $_GET['theme'] == $theme_file ? $_GET['theme'] : fusion_get_settings('theme');
+} else if (isset($_COOKIE[COOKIE_PREFIX.'theme'])) {
+    $theme = $_COOKIE[COOKIE_PREFIX.'theme'];
+} else if (!empty(fusion_get_userdata('user_theme'))) {
+    $theme = fusion_get_userdata('user_theme');
+} else {
+    $theme = fusion_get_settings('theme');
+}
 
 if (isset($_POST['change'])) {
     $theme = form_sanitizer($_POST['theme'], $theme, 'theme');
@@ -37,8 +57,6 @@ if (isset($_POST['change'])) {
         redirect(FUSION_REQUEST);
     }
 }
-
-$themes = makefilelist(THEMES, '.|..|templates|admin_themes', TRUE, 'folders');
 
 openside($locale['TS_01']);
 
@@ -54,7 +72,7 @@ if (file_exists(INFUSIONS.'theme_switcher_panel/preview/'.$theme.'.png')) {
     echo '<img id="theme_preview" class="img-responsive m-b-15" src="'.get_image('imagenotfound').'" alt="'.$theme.'">';
 }
 
-echo openform('themeswitcher', 'post', FUSION_REQUEST);
+echo openform('themeswitcher', 'post', FUSION_SELF);
     $opts = [];
     foreach ($themes as $file) {
         $opts[$file] = $file;
