@@ -356,14 +356,14 @@ function video_cats_breadcrumbs($index) {
     }
 
     $crumb = breadcrumb_arrays($index, $_GET['cat_id']);
-    $title = is_array($crumb['title']) ? count($crumb['title']) > 1 :  0;
+    $title_count = !empty($crumb['title']) && is_array($crumb['title']) ? count($crumb['title']) > 1 : 0;
 
-    if ($title) {
+    if ($title_count) {
         krsort($crumb['title']);
         krsort($crumb['link']);
     }
 
-    if ($title) {
+    if ($title_count) {
         foreach ($crumb['title'] as $i => $value) {
             \PHPFusion\BreadCrumbs::getInstance()->addBreadCrumb(['link' => $crumb['link'][$i], 'title' => $value]);
 
