@@ -24,6 +24,7 @@ use XMLWriter;
 /**
  * Class Sitemap
  * A class for generating Sitemaps (http://www.sitemaps.org/)
+ *
  * @package samdark\sitemap
  */
 class Sitemap {
@@ -118,6 +119,7 @@ class Sitemap {
 
     /**
      * Get array of generated files
+     *
      * @return array
      */
     public function getWrittenFilePath() {

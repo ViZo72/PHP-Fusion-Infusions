@@ -15,15 +15,10 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-if (!defined('IN_FUSION')) {
-    die('Access Denied');
-}
-
 require_once INFUSIONS.'sitemap_panel/Sitemap.php';
 
 use \PHPFusion\BreadCrumbs;
 use samdark\sitemap\Sitemap;
-
 
 class SitemapGenerator {
     private $locale = [];
