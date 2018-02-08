@@ -88,13 +88,13 @@ if (isset($_GET['video_id'])) {
     if (validate_video($_GET['video_id'])) {
         dbquery("UPDATE ".DB_VIDEOS." SET video_views=video_views+1 WHERE video_id='".intval($_GET['video_id'])."'");
 
-        $result = dbquery("SELECT v.*, vc.*, u.user_id, u.user_name, u.user_status, u.user_avatar, u.user_level, u.user_joined, SUM(tr.rating_vote) AS sum_rating, COUNT(tr.rating_item_id) AS count_votes, v.video_datestamp AS last_updated
+        $result = dbquery("SELECT v.*, vc.*, u.user_id, u.user_name, u.user_status, u.user_avatar, u.user_level, u.user_joined, SUM(r.rating_vote) AS sum_rating, COUNT(r.rating_item_id) AS count_votes, v.video_datestamp AS last_updated
             FROM ".DB_VIDEOS." v
             INNER JOIN ".DB_VIDEO_CATS." vc ON v.video_cat=vc.video_cat_id
             LEFT JOIN ".DB_USERS." u ON v.video_user=u.user_id
-            LEFT JOIN ".DB_RATINGS." tr ON tr.rating_item_id = v.video_id AND tr.rating_type='V'
-            ".(multilang_table('VL') ? "WHERE vc.video_cat_language='".LANGUAGE."' AND" : 'WHERE')." ".groupaccess('video_visibility')." AND video_id='".intval($_GET['video_id'])."'
-            GROUP BY video_id
+            LEFT JOIN ".DB_RATINGS." r ON r.rating_item_id = v.video_id AND r.rating_type='V'
+            ".(multilang_table('VL') ? "WHERE vc.video_cat_language='".LANGUAGE."' AND" : 'WHERE')." ".groupaccess('video_visibility')." AND v.video_id='".intval($_GET['video_id'])."'
+            GROUP BY v.video_id
         ");
 
         $info['video_rows'] = dbrows($result);
@@ -209,7 +209,7 @@ if (isset($_GET['video_id'])) {
                 AND v.video_cat = '".intval($_GET['cat_id'])."'
                 GROUP BY v.video_id
                 ORDER BY ".(!empty($filter_condition) ? $filter_condition : 'vc.video_cat_sorting')."
-                LIMIT ".intval($_GET['rowstart']).','.intval($video_settings['video_pagination'])
+                LIMIT ".intval($_GET['rowstart']).', '.intval($video_settings['video_pagination'])
             );
 
             $info['video_rows'] = dbrows($result);
