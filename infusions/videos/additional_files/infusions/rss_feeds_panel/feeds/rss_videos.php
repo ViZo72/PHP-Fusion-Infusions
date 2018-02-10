@@ -30,7 +30,8 @@ if (db_exists(DB_VIDEOS) && db_exists(DB_VIDEO_CATS)) {
         FROM ".DB_VIDEO_CATS." vc
         RIGHT JOIN ".DB_VIDEOS." v ON vc.video_cat_id=v.video_cat
         WHERE ".groupaccess('video_visibility').(multilang_table('VL') ? " AND video_cat_language='".LANGUAGE."'" : '')."
-        ORDER BY v.video_views DESC LIMIT 0, 10
+        ORDER BY v.video_views DESC
+        LIMIT 0, 10
     ");
 
     header('Content-Type: application/rss+xml; charset='.$locale['charset']);

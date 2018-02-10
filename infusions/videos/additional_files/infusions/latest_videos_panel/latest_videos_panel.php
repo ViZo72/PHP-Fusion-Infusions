@@ -25,7 +25,8 @@ if ($videos) {
         FROM ".DB_VIDEOS." v
         INNER JOIN ".DB_VIDEO_CATS." vc on v.video_cat = vc.video_cat_id
         LEFT JOIN ".DB_USERS." u ON v.video_user=u.user_id
-        ORDER BY v.video_datestamp DESC LIMIT 6
+        ORDER BY v.video_datestamp DESC
+        LIMIT 6
     ");
 
     $locale = fusion_get_locale('', VID_LOCALE);
