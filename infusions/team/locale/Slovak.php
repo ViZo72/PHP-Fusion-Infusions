@@ -15,9 +15,9 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['TEAM_title'] = 'Team';
-$locale['TEAM_desc'] = 'Team List';
-$locale['TEAM_title_admin'] = 'Team Admin';
+$locale['TEAM_title'] = 'Tím';
+$locale['TEAM_desc'] = 'Tím list';
+$locale['TEAM_title_admin'] = 'Tím admin';
 $locale['TEAM_001'] = 'Meno';
 $locale['TEAM_002'] = 'Pozícia';
 $locale['TEAM_003'] = 'Profesia';
