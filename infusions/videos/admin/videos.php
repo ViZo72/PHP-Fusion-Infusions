@@ -54,7 +54,8 @@ if ((isset($_GET['action']) && $_GET['action'] == 'delete') && (isset($_GET['vid
         if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
             @unlink(VIDEOS.'images/'.$data['video_image']);
         }
-        $result = dbquery("DELETE FROM ".DB_VIDEOS." WHERE video_id='".$_GET['video_id']."'");
+
+        dbquery("DELETE FROM ".DB_VIDEOS." WHERE video_id='".$_GET['video_id']."'");
     }
 
     addNotice('success', $locale['VID_notice_03']);
