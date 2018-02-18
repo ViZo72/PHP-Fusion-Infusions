@@ -138,8 +138,7 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $username = $this->RandomName();
                 $ip = $this->RandomIP();
-                $ii = rand(1, 6);
-                $mail = strtolower($username.'@'.$mailnames[$ii]);
+                $mail = strtolower($username.'@'.$mailnames[rand(1, 6)]);
                 $joined_rand = rand(0, (time() / 2));
                 $joined = time() - $joined_rand;
                 $lastvisit = time() - rand(0, $joined_rand);
@@ -281,6 +280,83 @@ class ContentCreator {
 
         if (isset($_POST['delete_blogs'])) {
             $this->Delete(DB_BLOG);
+            $this->Notice('', TRUE);
+        }
+    }
+
+    private function Comments_Ratings() {
+        $type = [];
+        $max_items = [];
+
+        $articles = function_exists('infusion_exists') ? infusion_exists('articles') : db_exists(DB_PREFIX.'articles');
+        if ($articles) {
+            $type[1] = 'A';
+            $max_items[1] = dbcount('(article_id)', DB_ARTICLES);
+        }
+
+        $blogs = function_exists('infusion_exists') ? infusion_exists('blog') : db_exists(DB_PREFIX.'blog');
+        if ($blogs) {
+            $type[2] = 'B';
+            $max_items[2] = dbcount('(blog_id)', DB_BLOG);
+        }
+
+        $downloads = function_exists('infusion_exists') ? infusion_exists('downloads') : db_exists(DB_PREFIX.'downloads');
+        if ($downloads) {
+            $type[3] = 'D';
+            $max_items[3] = dbcount('(download_id)', DB_DOWNLOADS);
+        }
+
+        $gallery = function_exists('infusion_exists') ? infusion_exists('gallery') : db_exists(DB_PREFIX.'photos');
+        if ($gallery) {
+            $type[4] = 'P';
+            $max_items[4] = dbcount('(album_id)', DB_PHOTO_ALBUMS);
+        }
+
+        $news = function_exists('infusion_exists') ? infusion_exists('news') : db_exists(DB_PREFIX.'news');
+        if ($news) {
+            $type[5] = 'N';
+            $max_items[5] = dbcount('(news_id)', DB_NEWS);
+        }
+
+        if (isset($_POST['create_comments'])) {
+            $num = $_POST['num_comments'];
+
+            $insert = 'comment_item_id, comment_type, comment_name, comment_subject, comment_message, comment_datestamp, comment_ip, comment_hidden';
+
+            $values = '';
+            for ($i = 1; $i <= $num; $i++) {
+                $values .= "('".rand(1, $max_items[rand(1, count($max_items))])."', '".$type[rand(1, count($type))]."', '".rand(1, $this->users)."', '".$this->locale['CC_048']." ".$i."', '".$this->shout_text[rand(1, 5)]."', '".(time() - rand(0, time() / 2))."', '".$this->RandomIP()."', 0)";
+                $values .= $i < $num ? ', ' : ';';
+            }
+
+            $this->Query(DB_COMMENTS, $insert, $values);
+            $this->Notice($num);
+        }
+
+
+        if (isset($_POST['delete_ratings'])) {
+            $this->Delete(DB_COMMENTS);
+            $this->Notice('', TRUE);
+        }
+
+        if (isset($_POST['create_ratings'])) {
+            $num = $_POST['num_ratings'];
+
+            $insert = 'rating_item_id, rating_type, rating_user, rating_vote, rating_datestamp, rating_ip, rating_ip_type';
+
+            $values = '';
+            for ($i = 1; $i <= $num; $i++) {
+                $values .= "('".rand(1, $max_items[rand(1, count($max_items))])."', '".$type[rand(1, count($type))]."', '".rand(1, $this->users)."', '".rand(1, 5)."', '".(time() - rand(0, time() / 2))."', '".$this->RandomIP()."', 4)";
+                $values .= $i < $num ? ', ' : ';';
+            }
+
+            $this->Query(DB_RATINGS, $insert, $values);
+            $this->Notice($num);
+        }
+
+
+        if (isset($_POST['delete_ratings'])) {
+            $this->Delete(DB_RATINGS);
             $this->Notice('', TRUE);
         }
     }
@@ -643,8 +719,8 @@ class ContentCreator {
             }
         }
 
-        $blog = function_exists('infusion_exists') ? infusion_exists('blog') : db_exists(DB_PREFIX.'blog');
-        if ($blog) {
+        $blogs = function_exists('infusion_exists') ? infusion_exists('blog') : db_exists(DB_PREFIX.'blog');
+        if ($blogs) {
             $this->Blogs();
             echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_015'].'</td></tr>';
             echo '<tr>';
@@ -733,7 +809,7 @@ class ContentCreator {
             echo '<td>'.$this->NumField('forums', 5).'</td>';
             echo '<td>'.$this->Button('forums').'</td>';
             $forums = dbcount('(forum_id)', DB_FORUMS);
-            echo '<td>'.$this->locale['CC_044'].': '.$forums.'</td>';
+            echo '<td>'.$this->locale['CC_043'].': '.$forums.'</td>';
             echo '<td>'.$this->Button('forums', TRUE).'</td>';
             echo '</tr>';
         }
@@ -826,6 +902,24 @@ class ContentCreator {
                 echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['CC_036'], $this->locale['CC_034']).'</td></tr>';
             }
         }
+
+        echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_047'].' &amp; '.$this->locale['CC_049'].'</td></tr>';
+        $this->Comments_Ratings();
+        echo '<tr>';
+        echo '<td>'.$this->NumField('comments', 50).'</td>';
+        echo '<td>'.$this->Button('comments').'</td>';
+        $comments = dbcount('(comment_id)', DB_COMMENTS);
+        echo '<td>'.$this->locale['CC_047'].': '.$comments.'</td>';
+        echo '<td>'.$this->Button('comments', TRUE).'</td>';
+        echo '</tr>';
+
+        echo '<tr>';
+        echo '<td>'.$this->NumField('ratings', 50).'</td>';
+        echo '<td>'.$this->Button('ratings').'</td>';
+        $ratings = dbcount('(rating_id)', DB_RATINGS);
+        echo '<td>'.$this->locale['CC_049'].': '.$ratings.'</td>';
+        echo '<td>'.$this->Button('ratings', TRUE).'</td>';
+        echo '</tr>';
 
         echo '</tbody>';
         echo '</table></div>';

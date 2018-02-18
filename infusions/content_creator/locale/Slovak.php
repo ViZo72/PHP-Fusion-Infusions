@@ -63,3 +63,6 @@ $locale['CC_043'] = 'Fóra';
 $locale['CC_044'] = 'Fórum';
 $locale['CC_045'] = 'Fotoalbumy';
 $locale['CC_046'] = 'Album';
+$locale['CC_047'] = 'Komentáre';
+$locale['CC_048'] = 'Komentár';
+$locale['CC_049'] = 'Hodnotenia';
