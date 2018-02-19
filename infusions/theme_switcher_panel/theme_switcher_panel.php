@@ -47,6 +47,10 @@ if (isset($_GET['theme'])) {
     $theme = fusion_get_settings('theme');
 }
 
+if ($theme == 'Default') {
+    $theme = fusion_get_settings('theme');
+}
+
 if (isset($_POST['change'])) {
     $theme = form_sanitizer($_POST['theme'], $theme, 'theme');
 
@@ -62,6 +66,10 @@ openside($locale['TS_01']);
 
 add_to_jquery('
     $("#theme").bind("change", function () {
+        $("#theme_preview").error(function() {
+            $("#theme_preview").attr("src", "'.get_image('imagenotfound').'");
+        });
+
         $("#theme_preview").attr("src", "'.INFUSIONS.'theme_switcher_panel/preview/" + $(this).val() + ".png");
     });
 ');
