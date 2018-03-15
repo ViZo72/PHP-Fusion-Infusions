@@ -6,6 +6,7 @@
 +--------------------------------------------------------+
 | Filename: theme_switcher_panel/theme_switcher_panel.php
 | Author: RobiNN
+| Version: 1.0.3
 +--------------------------------------------------------+
 | This program is released as free software under the
 | Affero GPL license. You can redistribute it and/or

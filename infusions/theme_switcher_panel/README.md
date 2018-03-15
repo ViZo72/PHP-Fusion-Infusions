@@ -1,5 +1,7 @@
 # Theme Switcher
 
+![Version](https://img.shields.io/badge/Version-1.0.3-blue.svg)
+
 ![Preview](https://raw.githubusercontent.com/RobiNN1/PHP-Fusion-Infusions/master/infusions/theme_switcher_panel/preview.png)
 
 ##### In maincore.php Line 250, change set_theme() to

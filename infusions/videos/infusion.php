@@ -23,7 +23,7 @@ $locale = fusion_get_locale('', VID_LOCALE);
 
 $inf_title       = $locale['VID_title'];
 $inf_description = $locale['VID_desc'];
-$inf_version     = '1.0';
+$inf_version     = '1.1.0';
 $inf_developer   = 'RobiNN';
 $inf_email       = 'kelcakrobo@gmail.com';
 $inf_weburl      = 'https://github.com/RobiNN1';
