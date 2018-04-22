@@ -31,6 +31,8 @@ $locale = fusion_get_locale('', VID_LOCALE);
 
 $video_settings = get_settings('videos');
 
+$video_settings['video_pagination'] = !empty($video_settings['video_pagination']) ? $video_settings['video_pagination'] : 15;
+
 \PHPFusion\BreadCrumbs::getInstance()->addBreadCrumb(['link' => INFUSIONS.'videos/videos.php', 'title' => \PHPFusion\SiteLinks::get_current_SiteLinks('infusions/videos/videos.php', 'link_name')]);
 
 if (file_exists(INFUSIONS.'rss_feeds_panel/feeds/rss_videos.php')) {

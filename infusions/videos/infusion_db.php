@@ -43,19 +43,22 @@ if (!defined('DB_VIDEO_CATS')) {
 \PHPFusion\Admins::getInstance()->setCommentType('VID', fusion_get_locale('VID_title', VID_LOCALE));
 \PHPFusion\Admins::getInstance()->setLinkType('VID', fusion_get_settings('siteurl').'infusions/videos/videos.php?video_id=%s');
 
-if (method_exists(\PHPFusion\Admins::getInstance(), 'setSubmitData')) {
-    \PHPFusion\Admins::getInstance()->setSubmitData('v', [
-        'infusion_name' => 'videos',
-        'link'          => INFUSIONS.'videos/video_submit.php',
-        'submit_link'   => 'submit.php?stype=v',
-        'submit_locale' => fusion_get_locale('VID_title', VID_LOCALE),
-        'title'         => fusion_get_locale('VID_submit_0007', VID_LOCALE),
-        'admin_link'    => INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&amp;section=submissions&amp;submit_id=%s'
-    ]);
-} else {
-    // 9.0
-    \PHPFusion\Admins::getInstance()->setSubmitType('v', fusion_get_locale('VID_title', VID_LOCALE));
-    \PHPFusion\Admins::getInstance()->setSubmitLink('v', INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&amp;section=submissions&amp;submit_id=%s');
+$inf_settings = get_settings('videos');
+if ($inf_settings['video_allow_submission']) {
+    if (method_exists(\PHPFusion\Admins::getInstance(), 'setSubmitData')) {
+        \PHPFusion\Admins::getInstance()->setSubmitData('v', [
+            'infusion_name' => 'videos',
+            'link'          => INFUSIONS.'videos/video_submit.php',
+            'submit_link'   => 'submit.php?stype=v',
+            'submit_locale' => fusion_get_locale('VID_title', VID_LOCALE),
+            'title'         => fusion_get_locale('VID_submit_0007', VID_LOCALE),
+            'admin_link'    => INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&amp;section=submissions&amp;submit_id=%s'
+        ]);
+    } else {
+        // 9.0
+        \PHPFusion\Admins::getInstance()->setSubmitType('v', fusion_get_locale('VID_title', VID_LOCALE));
+        \PHPFusion\Admins::getInstance()->setSubmitLink('v', INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&amp;section=submissions&amp;submit_id=%s');
+    }
 }
 
 if (method_exists(\PHPFusion\Admins::getInstance(), 'setFolderPermissions')) {
