@@ -18,7 +18,6 @@
 require_once INFUSIONS.'sitemap_panel/Sitemap.php';
 
 use \PHPFusion\BreadCrumbs;
-use samdark\sitemap\Sitemap;
 
 class SitemapGenerator {
     private $locale = [];
@@ -634,8 +633,8 @@ class SitemapGenerator {
                 ]);
                 $module .= '</td>';
 
-                $module .= '<td class="col-sm-7">';
-                $module .= form_select('frequency_'.$name, $this->locale['SMG_006'], $module_settings['frequency'], [
+                $module .= '<td class="col-sm-6">';
+                $module .= form_select('frequency_'.$name, '', $module_settings['frequency'], [
                     'inline'      => TRUE,
                     'options'     => [
                         'always'  => $this->locale['SMG_007'],
@@ -649,10 +648,9 @@ class SitemapGenerator {
                 ]);
                 $module .= '</td>';
 
-                $module .= '<td class="col-sm-2">';
-                $module .= form_select('priority_'.$name, $this->locale['SMG_014'], $module_settings['priority'], [
+                $module .= '<td class="col-sm-3">';
+                $module .= form_select('priority_'.$name, '', $module_settings['priority'], [
                     'inline'      => TRUE,
-                    'inner_width' => '60px',
                     'options'     => [
                         '0.0' => '0.0',
                         '0.1' => '0.1',
@@ -865,12 +863,20 @@ class SitemapGenerator {
         echo openform('savechanges', 'post', FUSION_REQUEST, ['class' => 'm-t-15']);
         echo '<div class="panel panel-default" id="sitemaptable">';
         echo '<div class="table-responsive"><table class="table table-striped">';
-            echo '<tbody>';
+            echo '<thead><tr>';
+                echo '<th></th>';
+                echo '<th>'.$this->locale['SMG_006'].'</th>';
+                echo '<th>'.$this->locale['SMG_014'].'</th>';
+            echo '</thead>';
+            echo '</tr><tbody>';
                 echo $this->Modules();
             echo '</tbody>';
         echo '</table></div>';
 
-        $selectall = form_checkbox('selectall', $this->locale['SMG_003'], '', ['class' => 'm-b-0']);
+        $selectall = form_checkbox('selectall', $this->locale['SMG_003'], '', [
+            'reverse_label' => TRUE,
+            'class'         => 'm-b-0'
+        ]);
         $save = form_button('save_changes', $this->locale['save_changes'], 'save', ['class' => 'btn-success btn-sm']);
 
         echo '<div class="panel-footer">';

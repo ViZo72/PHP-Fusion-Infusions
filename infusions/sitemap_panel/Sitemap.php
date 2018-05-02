@@ -17,9 +17,6 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-namespace samdark\sitemap;
-
-use XMLWriter;
 
 /**
  * Class Sitemap

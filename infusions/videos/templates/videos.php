@@ -155,7 +155,7 @@ if (!function_exists('display_video_menu')) {
             }
         echo '</ul>';
 
-        echo '<h4>'.$locale['VID_001'].'</h4>';
+        openside($locale['VID_001']);
         echo '<ul class="block">';
             $video_cat_menu = display_video_cats($info['video_categories']);
             if (!empty($video_cat_menu)) {
@@ -164,8 +164,9 @@ if (!function_exists('display_video_menu')) {
                 echo '<li>'.$locale['VID_072'].'</li>';
             }
         echo '</ul>';
+        closeside();
 
-        echo '<h4>'.$locale['VID_073'].'</h4>';
+        openside($locale['VID_073']);
             echo '<ul class="block">';
             if (!empty($info['video_author'])) {
                 foreach ($info['video_author'] as $author_id => $author_info) {
@@ -177,6 +178,7 @@ if (!function_exists('display_video_menu')) {
                 echo '<li>'.$locale['VID_074'].'</li>';
             }
         echo '</ul>';
+        closeside();
 
         return ob_get_clean();
     }

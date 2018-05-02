@@ -208,7 +208,7 @@ echo opentab($tab_cats, $tab_cats_active, 'categories', FALSE, 'nav-tabs m-b-10'
         FROM ".DB_VIDEO_CATS." vc_
         LEFT JOIN ".DB_VIDEO_CATS." vc ON vc.video_cat_parent=vc_.video_cat_id
         LEFT JOIN ".DB_VIDEOS." v ON v.video_cat=vc_.video_cat_id
-        WHERE vc_.video_cat_parent='".$data['video_cat_id']."' ".(multilang_table('VL') ? "AND vc_.video_cat_language='".LANGUAGE."'" : '')."
+        ".(multilang_table('VL') ? "WHERE vc_.video_cat_language='".LANGUAGE."'" : '')."
         GROUP by vc_.video_cat_id
         ORDER BY vc_.video_cat_name
     ");
@@ -219,7 +219,7 @@ echo opentab($tab_cats, $tab_cats_active, 'categories', FALSE, 'nav-tabs m-b-10'
                 echo '<div class="col-xs-12 col-sm-3">';
                     echo '<div class="well clearfix">';
                         echo '<div class="overflow-hide p-r-10">';
-                            echo '<span class="display-inline-block m-r-10 strong text-bigger">'.$data['video_cat_name'].'</span>';
+                            echo '<span class="display-inline-block m-r-10 strong text-bigger">'.get_video_cat_path($data['video_cat_id']).'</span>';
                             if ($data['video_cat_description']) {
                                 echo '<br /><small>'.fusion_first_words($data['video_cat_description'], 50).'</small>';
                             }
@@ -238,3 +238,23 @@ echo opentab($tab_cats, $tab_cats_active, 'categories', FALSE, 'nav-tabs m-b-10'
     }
     echo closetabbody();
 echo closetab();
+
+function get_video_cat_path($item_id) {
+    $full_path = '';
+
+    while ($item_id > 0) {
+        $result = dbquery("SELECT video_cat_id, video_cat_name, video_cat_parent FROM ".DB_VIDEO_CATS." WHERE video_cat_id='".$item_id."'".(multilang_table('VL') ? " AND video_cat_language='".LANGUAGE."'" : ''));
+
+        if (dbrows($result)) {
+            $data = dbarray($result);
+            if ($full_path) {
+                $full_path = ' / '.$full_path;
+            }
+
+            $full_path = $data['video_cat_name'].$full_path;
+            $item_id = $data['video_cat_parent'];
+        }
+    }
+
+    return $full_path;
+}

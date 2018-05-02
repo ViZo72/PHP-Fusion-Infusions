@@ -15,4 +15,4 @@ Package includes:
 - Permalinks (SEO friendly URLs)
 - Search
 
-![Preview](https://raw.githubusercontent.com/RobiNN1/PHP-Fusion-Infusions/master/infusions/videos/preview.png)
+![Preview](preview.png)
