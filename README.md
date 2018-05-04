@@ -1,5 +1,7 @@
 # PHP-Fusion v9 Infusions
 
+Support is not guaranteed.
+
 - ### Infusions:
     - [Actual Version Panel](infusions/actual_version_panel)
     - [Content Creator](infusions/content_creator)
