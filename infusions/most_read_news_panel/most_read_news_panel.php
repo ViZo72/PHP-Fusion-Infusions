@@ -57,7 +57,7 @@ echo '<div class="most-read-news">';
                 $i = 0;
                 while ($data = dbarray($result_7days)) {
                     echo $i > 0 ? '<hr/>' : '';
-                    echo '<li><a href="'.INFUSIONS.'news/news.php?readmore='.$data['news_id'].'">'.trim_text($data['news_subject'], 25).'</a> <span class="badge pull-right">'.$data['news_reads'].' <i class="fa fa-eye"></i></span></li>';
+                    echo '<li><a href="'.INFUSIONS.'news/news.php?readmore='.$data['news_id'].'"><span class="badge pull-right">'.$data['news_reads'].' <i class="fa fa-eye"></i></span>'.trim_text($data['news_subject'], 25).'</a></li>';
                     $i++;
                 }
                 echo '</ul>';
@@ -81,7 +81,7 @@ echo '<div class="most-read-news">';
                 $i = 0;
                 while ($data = dbarray($result_14days)) {
                     echo $i > 0 ? '<hr/>' : '';
-                    echo '<li><a href="'.INFUSIONS.'news/news.php?readmore='.$data['news_id'].'">'.trim_text($data['news_subject'], 25).'</a> <span class="badge pull-right">'.$data['news_reads'].' <i class="fa fa-eye"></i></span></li>';
+                    echo '<li><a href="'.INFUSIONS.'news/news.php?readmore='.$data['news_id'].'"><span class="badge pull-right">'.$data['news_reads'].' <i class="fa fa-eye"></i></span>'.trim_text($data['news_subject'], 25).'</a></li>';
                     $i++;
                 }
                 echo '</ul>';
@@ -104,7 +104,7 @@ echo '<div class="most-read-news">';
                 $i = 0;
                 while ($data = dbarray($result_30days)) {
                     echo $i > 0 ? '<hr/>' : '';
-                    echo '<li><a href="'.INFUSIONS.'news/news.php?readmore='.$data['news_id'].'">'.trim_text($data['news_subject'], 25).'</a> <span class="badge pull-right">'.$data['news_reads'].' <i class="fa fa-eye"></i></span></li>';
+                    echo '<li><a href="'.INFUSIONS.'news/news.php?readmore='.$data['news_id'].'"><span class="badge pull-right">'.$data['news_reads'].' <i class="fa fa-eye"></i></span>'.trim_text($data['news_subject'], 25).'</a></li>';
                     $i++;
                 }
                 echo '</ul>';

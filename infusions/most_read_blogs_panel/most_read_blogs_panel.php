@@ -57,7 +57,7 @@ echo '<div class="most-read-blogs">';
                 $i = 0;
                 while ($data = dbarray($result_7days)) {
                     echo $i > 0 ? '<hr/>' : '';
-                    echo '<li><a href="'.INFUSIONS.'blog/blog.php?readmore='.$data['blog_id'].'">'.$data['blog_subject'].'</a> <span class="badge pull-right">'.$data['blog_reads'].' <i class="fa fa-eye"></i></span></li>';
+                    echo '<li><a href="'.INFUSIONS.'blog/blog.php?readmore='.$data['blog_id'].'"><span class="badge pull-right">'.$data['blog_reads'].' <i class="fa fa-eye"></i></span>'.trim_text($data['blog_subject'], 25).'</a></li>';
                     $i++;
                 }
                 echo '</ul>';
@@ -81,7 +81,7 @@ echo '<div class="most-read-blogs">';
                 $i = 0;
                 while ($data = dbarray($result_14days)) {
                     echo $i > 0 ? '<hr/>' : '';
-                    echo '<li><a href="'.INFUSIONS.'blog/blog.php?readmore='.$data['blog_id'].'">'.$data['blog_subject'].'</a> <span class="badge pull-right">'.$data['blog_reads'].' <i class="fa fa-eye"></i></span></li>';
+                    echo '<li><a href="'.INFUSIONS.'blog/blog.php?readmore='.$data['blog_id'].'"><span class="badge pull-right">'.$data['blog_reads'].' <i class="fa fa-eye"></i></span>'.trim_text($data['blog_subject'], 25).'</a></li>';
                     $i++;
                 }
                 echo '</ul>';
@@ -104,7 +104,7 @@ echo '<div class="most-read-blogs">';
                 $i = 0;
                 while ($data = dbarray($result_30days)) {
                     echo $i > 0 ? '<hr/>' : '';
-                    echo '<li><a href="'.INFUSIONS.'blog/blog.php?readmore='.$data['blog_id'].'">'.$data['blog_subject'].'</a> <span class="badge pull-right">'.$data['blog_reads'].' <i class="fa fa-eye"></i></span></li>';
+                    echo '<li><a href="'.INFUSIONS.'blog/blog.php?readmore='.$data['blog_id'].'"><span class="badge pull-right">'.$data['blog_reads'].' <i class="fa fa-eye"></i></span>'.trim_text($data['blog_subject'], 25).'</a></li>';
                     $i++;
                 }
                 echo '</ul>';
