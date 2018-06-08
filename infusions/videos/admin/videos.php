@@ -205,6 +205,7 @@ echo '<div class="row">';
                 'file'    => $locale['VID_018'],
                 'url'     => $locale['VID_019'],
                 'youtube' => 'YouTube',
+                'vimeo'   => 'Vimeo',
                 'embed'   => $locale['VID_020']
             ],
             'required' => TRUE,
@@ -215,7 +216,7 @@ echo '<div class="row">';
             $("#video_type").on("change", function (e) {
                 if ($(this).val() == "file") {
                     $("#videotab li #tab-videofile").tab("show");
-                } else if ($(this).val() == "url" || $(this).val() == "youtube") {
+                } else if ($(this).val() == "url" || $(this).val() == "youtube" || $(this).val() == "vimeo") {
                     $("#videotab li #tab-videourl").tab("show");
                 } else if ($(this).val() == "embed") {
                     $("#videotab li #tab-videoembed").tab("show");
@@ -234,11 +235,11 @@ echo '<div class="row">';
         $tab_video_type['icon'][]  = 'fa fa-code fa-fw';
 
         if (!empty($data['video_type'])) {
-            if ($data['video_type'] == 'file') {
+            if ($data['video_type'] === 'file') {
                 $tab_video_type_active = 'videofile';
-            } else if ($data['video_type'] == 'url' || $data['video_type'] == 'youtube') {
+            } else if ($data['video_type'] === 'url' || $data['video_type'] === 'youtube' || $data['video_type'] === 'vimeo') {
                 $tab_video_type_active = 'videourl';
-            } else if ($data['video_type'] == 'embed') {
+            } else if ($data['video_type'] === 'embed') {
                 $tab_video_type_active = 'videoembed';
             }
         } else {
@@ -275,8 +276,9 @@ echo '<div class="row">';
                         'required'    => TRUE,
                         'class'       => 'm-t-10',
                         'inline'      => TRUE,
+                        'type'        => 'url',
                         'error_text'  => $locale['VID_024'],
-                        'ext_tip'     => 'YouTube: https://www.youtube.com/watch?v=<span class="required">I5NUkb-0lRo</span><br/>'.$locale['VID_019a'].': <span class="required">https://www.example.com/file.flv</span><br/>'.$locale['VID_019b']
+                        'ext_tip'     => 'YouTube: <span class="required">https://www.youtube.com/watch?v=I5NUkb-0lRo</span><br/>Vimeo: <span class="required">https://vimeo.com/56282283</span><br/>'.$locale['VID_019a'].': <span class="required">https://www.example.com/file.flv</span><br/>'.$locale['VID_019b']
                     ]);
                 } else {
                     echo form_hidden('video_url', '', $data['video_url']);
@@ -379,3 +381,4 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 }
 
 echo closeform();
+

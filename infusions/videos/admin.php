@@ -17,6 +17,7 @@
 +--------------------------------------------------------*/
 require_once '../../maincore.php';
 require_once THEMES.'templates/admin_header.php';
+require_once INFUSIONS.'videos/functions.php';
 
 pageAccess('VID');
 
@@ -120,19 +121,8 @@ class Videos {
                     echo '<div class="col-xs-12 col-sm-4">';
                         echo '<div class="panel panel-default"><div class="panel-body">';
                         echo '<div class="pull-left m-r-10">';
-                            if ($data['video_type'] == 'youtube') {
-                                if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
-                                    $thumb = VIDEOS.'images/'.$data['video_image'];
-                                } else {
-                                    $thumb = 'https://img.youtube.com/vi/'.$data['video_url'].'/maxresdefault.jpg';
-                                }
-                            } else if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
-                                $thumb = VIDEOS.'images/'.$data['video_image'];
-                            } else {
-                                $thumb = VIDEOS.'images/default_thumbnail.jpg';
-                            }
                             echo '<div style="max-height: 56px; max-width: 100px;" class="display-inline-block image-wrap thumb text-center overflow-hide m-2">';
-                                echo '<img class="img-responsive" src="'.$thumb.'" alt="'.$data['video_title'].'"/>';
+                                echo '<img class="img-responsive" src="'.GetVideoThumb($data).'" alt="'.$data['video_title'].'"/>';
                             echo '</div>';
                         echo '</div>';
 

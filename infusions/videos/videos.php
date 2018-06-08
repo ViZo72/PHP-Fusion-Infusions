@@ -26,6 +26,7 @@ require_once THEMES.'templates/header.php';
 require_once INCLUDES.'infusions_include.php';
 require_once VIDEOS.'templates/videos.php';
 require_once INFUSIONS.'videos/OpenGraphVideos.php';
+require_once INFUSIONS.'videos/functions.php';
 
 $locale = fusion_get_locale('', VID_LOCALE);
 
@@ -114,13 +115,21 @@ if (isset($_GET['video_id'])) {
             $data['video_post_time'] = showdate('shortdate', $data['video_datestamp']);
             $data['video_views'] = format_word($data['video_views'], $locale['fmt_views']);
 
+            $video_id = '';
+            if ($data['video_type'] == 'youtube' || $data['video_type'] == 'vimeo') {
+                $video_data = GetVideoData($data['video_url'], $data['video_type']);
+                $video_id = $video_data['video_id'];
+            }
+
             $video = '';
             if ($data['video_type'] == 'file') {
                 $video = '<div class="embed-responsive embed-responsive-16by9"><video class="embed-responsive-item" controls><source src="'.VIDEOS.'videos/'.$data['video_file'].'"></video></div>';
             } else if ($data['video_type'] == 'url') {
                 $video = '<div class="embed-responsive embed-responsive-16by9"><video class="embed-responsive-item" controls><source src="'.$data['video_url'].'"></video></div>';
             } else if ($data['video_type'] == 'youtube') {
-                $video = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/'.$data['video_url'].'" allowfullscreen></iframe></div>';
+                $video = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/'.$video_id.'" allowfullscreen></iframe></div>';
+            } else if ($data['video_type'] == 'vimeo') {
+                $video = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://player.vimeo.com/video/'.$video_id.'" allowfullscreen></iframe></div>';
             } else if ($data['video_type'] == 'embed') {
                 $video = htmlspecialchars_decode($data['video_embed']);
             }
@@ -415,20 +424,8 @@ function count_db($id, $type) {
 function parse_video_info($data) {
     $locale = fusion_get_locale();
 
-    if ($data['video_type'] == 'youtube') {
-        if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
-            $thumbnail = VIDEOS.'images/'.$data['video_image'];
-        } else {
-            $thumbnail = 'https://img.youtube.com/vi/'.$data['video_url'].'/maxresdefault.jpg';
-        }
-    } else if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
-        $thumbnail = VIDEOS.'images/'.$data['video_image'];
-    } else {
-        $thumbnail = VIDEOS.'images/default_thumbnail.jpg';
-    }
-
     return [
-        'video_image'       => $thumbnail,
+        'video_image'       => GetVideoThumb($data),
         'video_user_avatar' => display_avatar($data, '25px', '', TRUE, 'img-rounded'),
         'video_user_link'   => profile_link($data['user_id'], $data['user_name'], $data['user_status']),
         'video_post_time'   => showdate('shortdate', $data['video_datestamp']),
