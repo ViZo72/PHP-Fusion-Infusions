@@ -1,6 +1,6 @@
 # PHP-Fusion v9 Infusions
 
-Support is not guaranteed.
+Please, report issues related only to my infusions (List below).
 
 - ### Infusions:
     - [Actual Version Panel](infusions/actual_version_panel)
