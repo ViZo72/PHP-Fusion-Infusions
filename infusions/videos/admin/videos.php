@@ -278,7 +278,7 @@ echo '<div class="row">';
                         'inline'      => TRUE,
                         'type'        => 'url',
                         'error_text'  => $locale['VID_024'],
-                        'ext_tip'     => 'YouTube: <span class="required">https://www.youtube.com/watch?v=I5NUkb-0lRo</span><br/>Vimeo: <span class="required">https://vimeo.com/56282283</span><br/>'.$locale['VID_019a'].': <span class="required">https://www.example.com/file.flv</span><br/>'.$locale['VID_019b']
+                        'ext_tip'     => 'YouTube: <span class="required">https://www.youtube.com/watch?v=2MpUj-Aua48</span><br/>Vimeo: <span class="required">https://vimeo.com/56282283</span><br/>'.$locale['VID_019a'].': <span class="required">https://www.example.com/file.flv</span><br/>'.$locale['VID_019b']
                     ]);
                 } else {
                     echo form_hidden('video_url', '', $data['video_url']);

@@ -21,6 +21,9 @@ if (!defined('IN_FUSION')) {
 
 $videos = function_exists('infusion_exists') ? infusion_exists('videos') : db_exists(DB_PREFIX.'videos');
 if ($videos) {
+    $side_panel = FALSE;
+    require_once INFUSIONS.'videos/functions.php';
+
     $result = dbquery("SELECT v.*, vc.video_cat_id, vc.video_cat_name, u.user_id, u.user_name, u.user_status, u.user_avatar, u.user_level, u.user_joined
         FROM ".DB_VIDEOS." v
         INNER JOIN ".DB_VIDEO_CATS." vc on v.video_cat = vc.video_cat_id
@@ -33,25 +36,13 @@ if ($videos) {
 
     if (dbrows($result)) {
         openside($locale['VID_latest']);
-        echo '<div class="list-group">';
+        echo '<div class="'.($side_panel == TRUE ? 'list-group' : 'row').'">';
 
         while ($data = dbarray($result)) {
-            if ($data['video_type'] == 'youtube') {
-                if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
-                    $thumbnail = VIDEOS.'images/'.$data['video_image'];
-                } else {
-                    $thumbnail = 'https://img.youtube.com/vi/'.$data['video_url'].'/maxresdefault.jpg';
-                }
-            } else if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
-                $thumbnail = VIDEOS.'images/'.$data['video_image'];
-            } else {
-                $thumbnail = VIDEOS.'images/default_thumbnail.jpg';
-            }
-
-            echo '<div class="list-group-item">';
-                echo '<div class="pull-left m-r-15">';
+            echo '<div class="'.($side_panel == TRUE ? 'list-group-item' : 'col-xs-12 col-sm-4 col-md-3').'">';
+                echo '<div'.($side_panel == TRUE ? ' class="pull-left m-r-15"' : '').'>';
                     echo '<a href="'.VIDEOS.'videos.php?video_id='.$data['video_id'].'" class="display-inline-block image-wrap thumb text-center overflow-hide m-2">';
-                        echo '<img style="object-fit: contain;height: 100px; width: 100px;" class="img-responsive" src="'.$thumbnail.'" alt="'.$data['video_title'].'"/>';
+                        echo '<img style="object-fit: contain;height: 100px; width: 100px;" class="img-responsive" src="'.GetVideoThumb($data).'" alt="'.$data['video_title'].'"/>';
                      echo '</a>';
                 echo '</div>';
 

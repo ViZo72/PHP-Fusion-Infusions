@@ -23,6 +23,7 @@ function GetVideoData($url, $type = 'youtube') {
     $json_url = '';
 
     if ($type === 'youtube') {
+        $url = filter_var($url, FILTER_VALIDATE_URL) == FALSE ? 'https://www.youtube.com/watch?v='.$url : $url;
         $json_url = 'https://www.youtube.com/oembed?url='.$url.'&format=json';
     } else if ($type === 'vimeo') {
         $json_url = 'https://vimeo.com/api/oembed.json?url='.$url;

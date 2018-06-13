@@ -39,11 +39,6 @@ class Videos {
     private function Listing() {
         $aidlink = fusion_get_aidlink();
 
-        add_to_head('<style type="text/css">
-            .row.videos {display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;flex-wrap: wrap;}
-            .row.videos > [class*=\'col-\'] {display: flex;flex-direction: column;}
-        </style>');
-
         $limit = 15;
         $total_rows = dbcount("(video_id)", DB_VIDEOS);
         $rowstart = isset($_GET['rowstart']) && ($_GET['rowstart'] <= $total_rows) ? $_GET['rowstart'] : 0;
@@ -116,13 +111,13 @@ class Videos {
         echo '</div>';
 
         if ($rows > 0) {
-            echo '<div class="row videos">';
+            echo '<div class="row equal-height">';
                 while ($data = dbarray($result)) {
                     echo '<div class="col-xs-12 col-sm-4">';
                         echo '<div class="panel panel-default"><div class="panel-body">';
                         echo '<div class="pull-left m-r-10">';
-                            echo '<div style="max-height: 56px; max-width: 100px;" class="display-inline-block image-wrap thumb text-center overflow-hide m-2">';
-                                echo '<img class="img-responsive" src="'.GetVideoThumb($data).'" alt="'.$data['video_title'].'"/>';
+                            echo '<div class="display-inline-block image-wrap thumb text-center overflow-hide">';
+                                echo '<img style="object-fit: contain;height: 100px; width: 100px;" class="img-responsive" src="'.GetVideoThumb($data).'" alt="'.$data['video_title'].'"/>';
                             echo '</div>';
                         echo '</div>';
 
