@@ -66,7 +66,10 @@ if (!function_exists('display_video_item')) {
         echo '<div class="clearfix">';
             echo '<div class="pull-left m-r-5">'.$data['video_post_author_avatar'].'</div>';
             echo '<div style="font-size: 20px;">'.$data['video_post_author'].'</div>';
-            echo '<span><a href="'.BASEDIR.'messages.php?folder=inbox&amp;msg_send='.$data['user_id'].'">'.$locale['send_message'].'</a></span>';
+
+            if (iMEMBER) {
+                echo '<span><a href="'.BASEDIR.'messages.php?folder=inbox&amp;msg_send='.$data['user_id'].'">'.$locale['send_message'].'</a></span>';
+            }
         echo '</div>';
 
         echo '<p class="m-t-20">'.$data['video_description'].'</p>';
