@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: videos/locale/Slovak.php
+| Filename: videos/locale/Slovak/videos.php
 | Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the

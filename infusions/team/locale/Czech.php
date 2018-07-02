@@ -17,7 +17,7 @@
 +--------------------------------------------------------*/
 $locale['TEAM_title'] = 'Tým';
 $locale['TEAM_desc'] = 'Tým list';
-$locale['TEAM_title_admin'] = 'Tým admin';
+$locale['TEAM_title_admin'] = 'Tým - adminstrace';
 $locale['TEAM_001'] = 'Jméno';
 $locale['TEAM_002'] = 'Pozice';
 $locale['TEAM_003'] = 'Profese';

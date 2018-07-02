@@ -21,3 +21,5 @@ if (!defined('IN_FUSION')) {
 
 $permalink_name = $locale['pl_videos_title'];
 $permalink_desc = $locale['pl_videos_desc'];
+$permalink_author = 'RobiNN';
+$permalink_version = '1.0';

@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: videos/locale/Russian.php
+| Filename: videos/locale/Russian/videos.php
 | Author: zizub
 +--------------------------------------------------------+
 | This program is released as free software under the

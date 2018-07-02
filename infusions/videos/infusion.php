@@ -93,10 +93,10 @@ foreach ($settings as $name => $value) {
     $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES ('".$name."', '".$value."', '".$inf_folder."')";
 }
 
-$enabled_languages = makefilelist(VIDEOS.'locale/', ".|..", TRUE, 'folders');
+$enabled_languages = makefilelist(VIDEOS.'locale', ".|..", TRUE, 'folders');
 if (!empty($enabled_languages)) {
     foreach ($enabled_languages as $language) {
-        $locale = fusion_get_locale('', VIDEOS.'locale/'.$language.'.php');
+        $locale = fusion_get_locale('', VIDEOS.'locale/'.$language.'/videos.php');
 
         $mlt_deldbrow[$language][] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES('".$locale['VID_title']."', 'infusions/videos/videos.php', '0', '2', '0', '2', '1', '".$language."')";
         $mlt_deldbrow[$language][] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES ('".$locale['VID_submit']."', 'submit.php?stype=v', ".USER_LEVEL_MEMBER.", '1', '0', '27', '1', '".$language."')";
@@ -106,6 +106,7 @@ if (!empty($enabled_languages)) {
         $mlt_deldbrow[$language][] = DB_VIDEO_CATS." WHERE video_cat_language='".$language."'";
     }
 } else {
+    $locale = fusion_get_locale('', VID_LOCALE);
     $inf_insertdbrow[] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES('".$locale['VID_title']."', 'infusions/videos/videos.php', '0', '2', '0', '2', '1', '".LANGUAGE."')";
     $inf_insertdbrow[] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES ('".$locale['VID_submit']."', 'submit.php?stype=v', ".USER_LEVEL_MEMBER.", '1', '0', '27', '1', '".LANGUAGE."')";
 }

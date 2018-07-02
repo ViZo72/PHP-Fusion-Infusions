@@ -20,10 +20,10 @@ if (!defined('IN_FUSION')) {
 }
 
 if (!defined('VID_LOCALE')) {
-    if (file_exists(INFUSIONS.'videos/locale/'.LANGUAGE.'.php')) {
-        define('VID_LOCALE', INFUSIONS.'videos/locale/'.LANGUAGE.'.php');
+    if (file_exists(INFUSIONS.'videos/locale/'.LOCALESET.'videos.php')) {
+        define('VID_LOCALE', INFUSIONS.'videos/locale/'.LOCALESET.'videos.php');
     } else {
-        define('VID_LOCALE', INFUSIONS.'videos/locale/English.php');
+        define('VID_LOCALE', INFUSIONS.'videos/locale/English/videos.php');
     }
 }
 
