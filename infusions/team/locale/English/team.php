@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: team/infusion_db.php
+| Filename: team/locale/English/team.php
 | Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -15,20 +15,17 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-if (!defined('IN_FUSION')) {
-    die('Access Denied');
-}
-
-if (!defined('TEAM_LOCALE')) {
-    if (file_exists(INFUSIONS.'team/locale/'.LOCALESET.'team.php')) {
-        define('TEAM_LOCALE', INFUSIONS.'team/locale/'.LOCALESET.'team.php');
-    } else {
-        define('TEAM_LOCALE', INFUSIONS.'team/locale/English/team.php');
-    }
-}
-
-if (!defined('DB_TEAM')) {
-    define('DB_TEAM', DB_PREFIX.'team');
-}
-
-\PHPFusion\Admins::getInstance()->setAdminPageIcons('TEAM', '<i class="admin-ico fa fa-fw fa-users"></i>');
+$locale['TEAM_title'] = 'Team';
+$locale['TEAM_desc'] = 'Team List';
+$locale['TEAM_title_admin'] = 'Team Administration';
+$locale['TEAM_001'] = 'Name';
+$locale['TEAM_002'] = 'Position';
+$locale['TEAM_003'] = 'Profession';
+$locale['TEAM_004'] = 'Joined';
+$locale['TEAM_005'] = 'PM';
+$locale['TEAM_006'] = 'Actions';
+$locale['TEAM_007'] = 'No users';
+$locale['TEAM_008'] = 'Select user';
+$locale['TEAM_009'] = 'User added';
+$locale['TEAM_010'] = 'User updated';
+$locale['TEAM_011'] = 'User deleted';

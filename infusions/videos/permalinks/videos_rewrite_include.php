@@ -33,16 +33,16 @@ $regex = [
 ];
 
 $pattern = [
-    'submit-%stype%/video'                                         => 'submit.php?stype=%stype%',
-    'submit-%stype%/video/submitted-and-thank-you'                 => 'submit.php?stype=%stype%&amp;submitted=v',
-    'videos/author/%author_id%/%author_name%'                      => 'infusions/videos/videos.php?author=%author_id%',
-    'videos/filter/%filter_type%'                                  => 'infusions/videos/videos.php?type=%filter_type%',
-    'videos/filter/%filter_type%/category/%video_cat_id%'          => 'infusions/videos/videos.php?cat_id=%video_cat_id%&amp;type=%filter_type%',
-    'videos/category/%video_cat_id%/%video_cat_name%'              => 'infusions/videos/videos.php?cat_id=%video_cat_id%',
-    'videos/category/%video_cat_id%/%video_id%/%video_title%'      => 'infusions/videos/videos.php?cat_id=%video_cat_id%&amp;video_id=%video_id%',
-    'videos/%video_id%/%video_title%'                              => 'infusions/videos/videos.php?video_id=%video_id%',
-    'videos/rowstart/%rowstart%'                                   => 'infusions/videos/videos.php?rowstart=%rowstart%',
-    'videos'                                                       => 'infusions/videos/videos.php'
+    'submit-%stype%/video'                                    => 'submit.php?stype=%stype%',
+    'submit-%stype%/video/submitted-and-thank-you'            => 'submit.php?stype=%stype%&amp;submitted=v',
+    'videos/author/%author_id%/%author_name%'                 => 'infusions/videos/videos.php?author=%author_id%',
+    'videos/filter/%filter_type%'                             => 'infusions/videos/videos.php?type=%filter_type%',
+    'videos/filter/%filter_type%/category/%video_cat_id%'     => 'infusions/videos/videos.php?cat_id=%video_cat_id%&amp;type=%filter_type%',
+    'videos/category/%video_cat_id%/%video_cat_name%'         => 'infusions/videos/videos.php?cat_id=%video_cat_id%',
+    'videos/category/%video_cat_id%/%video_id%/%video_title%' => 'infusions/videos/videos.php?cat_id=%video_cat_id%&amp;video_id=%video_id%',
+    'videos/%video_id%/%video_title%'                         => 'infusions/videos/videos.php?video_id=%video_id%',
+    'videos/rowstart/%rowstart%'                              => 'infusions/videos/videos.php?rowstart=%rowstart%',
+    'videos'                                                  => 'infusions/videos/videos.php'
 ];
 
 $pattern_tables['%video_id%'] = [

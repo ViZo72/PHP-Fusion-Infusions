@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: team/locale/Czech.php
+| Filename: team/locale/Slovak/team.php
 | Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -15,17 +15,17 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['TEAM_title'] = 'Tým';
-$locale['TEAM_desc'] = 'Tým list';
-$locale['TEAM_title_admin'] = 'Tým - adminstrace';
-$locale['TEAM_001'] = 'Jméno';
-$locale['TEAM_002'] = 'Pozice';
-$locale['TEAM_003'] = 'Profese';
-$locale['TEAM_004'] = 'Datum přihlášení';
-$locale['TEAM_005'] = 'SZ';
-$locale['TEAM_006'] = 'Akce';
-$locale['TEAM_007'] = 'Žádní uživatelé';
-$locale['TEAM_008'] = 'Vyberte uživatele';
-$locale['TEAM_009'] = 'Uživatel byl přidán';
-$locale['TEAM_010'] = 'Uživatel byl aktualizován';
-$locale['TEAM_011'] = 'Uživatel byl smazán';
+$locale['TEAM_title'] = 'Tím';
+$locale['TEAM_desc'] = 'Tím list';
+$locale['TEAM_title_admin'] = 'Tím - administrácia';
+$locale['TEAM_001'] = 'Meno';
+$locale['TEAM_002'] = 'Pozícia';
+$locale['TEAM_003'] = 'Profesia';
+$locale['TEAM_004'] = 'Dátum prihlásenia';
+$locale['TEAM_005'] = 'SS';
+$locale['TEAM_006'] = 'Akcia';
+$locale['TEAM_007'] = 'Žiadni užívatelia';
+$locale['TEAM_008'] = 'Vyberte užívateľa';
+$locale['TEAM_009'] = 'Užívateľ bol pridaný';
+$locale['TEAM_010'] = 'Užívateľ bol aktualizovaný';
+$locale['TEAM_011'] = 'Užívateľ bol odstránený';

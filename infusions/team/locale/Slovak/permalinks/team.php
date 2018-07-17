@@ -4,8 +4,8 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: team/locale/Danish.php
-| Author: Helmuth Mikkelsen (helmuth)
+| Filename: locale/Slovak/permalinks/team.php
+| Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
 | Affero GPL license. You can redistribute it and/or
@@ -15,17 +15,5 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['TEAM_title'] = 'Team';
-$locale['TEAM_desc'] = 'Team Liste';
-$locale['TEAM_title_admin'] = 'Team Admin';
-$locale['TEAM_001'] = 'Navn';
-$locale['TEAM_002'] = 'Position';
-$locale['TEAM_003'] = 'Erhverv';
-$locale['TEAM_004'] = 'Tilmeldt';
-$locale['TEAM_005'] = 'PB';
-$locale['TEAM_006'] = 'Handlinger';
-$locale['TEAM_007'] = 'Ingen brugere';
-$locale['TEAM_008'] = 'Vælg bruger';
-$locale['TEAM_009'] = 'Bruger tilføjet';
-$locale['TEAM_010'] = 'Bruger opdateret';
-$locale['TEAM_011'] = 'Bruger slettet';
+$locale['pl_team_title'] = 'Tím';
+$locale['pl_team_desc'] = 'Povolenie trvalých odkazov pre tím.';

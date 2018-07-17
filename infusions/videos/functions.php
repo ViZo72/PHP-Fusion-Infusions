@@ -38,7 +38,7 @@ function GetVideoData($url, $type = 'youtube') {
 
         if ($type === 'youtube') {
             preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match);
-            $json += ['video_id' => $match[1]];
+            $json['video_id'] = $match[1];
         }
 
         return $json;

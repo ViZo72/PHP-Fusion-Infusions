@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: team/locale/English.php
+| Filename: team_rewrite_info.php
 | Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -15,17 +15,11 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['TEAM_title'] = 'Team';
-$locale['TEAM_desc'] = 'Team List';
-$locale['TEAM_title_admin'] = 'Team Administration';
-$locale['TEAM_001'] = 'Name';
-$locale['TEAM_002'] = 'Position';
-$locale['TEAM_003'] = 'Profession';
-$locale['TEAM_004'] = 'Joined';
-$locale['TEAM_005'] = 'PM';
-$locale['TEAM_006'] = 'Actions';
-$locale['TEAM_007'] = 'No users';
-$locale['TEAM_008'] = 'Select user';
-$locale['TEAM_009'] = 'User added';
-$locale['TEAM_010'] = 'User updated';
-$locale['TEAM_011'] = 'User deleted';
+if (!defined('IN_FUSION')) {
+    die('Access Denied');
+}
+
+$permalink_name = $locale['pl_team_title'];
+$permalink_desc = $locale['pl_team_desc'];
+$permalink_author = 'RobiNN';
+$permalink_version = '1.0';
