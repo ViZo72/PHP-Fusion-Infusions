@@ -36,7 +36,7 @@ if ($videos) {
 
     if (dbrows($result)) {
         openside($locale['VID_latest']);
-        echo '<div class="'.($side_panel == TRUE ? 'list-group' : 'row').'">';
+        echo '<div class="'.($side_panel == TRUE ? 'list-group' : 'row equal-height').'">';
 
         while ($data = dbarray($result)) {
             echo '<div class="'.($side_panel == TRUE ? 'list-group-item' : 'col-xs-12 col-sm-4 col-md-3').'">';
