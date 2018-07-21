@@ -17,7 +17,7 @@
 +--------------------------------------------------------*/
 $locale['videos.php'] = 'Videa';
 $locale['v400'] = 'Videa';
-$locale['v401'] = 'Video';
+$locale['v401'] = 'videí';
 $locale['v402'] = 'Videa';
 $locale['v403'] = 'Přidáno:';
 $locale['v404'] = 'Zobrazení:';
