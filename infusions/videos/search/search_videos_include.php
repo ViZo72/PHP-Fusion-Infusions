@@ -27,7 +27,7 @@ if (!defined('IN_FUSION')) {
 if (db_exists(DB_VIDEOS)) {
     $formatted_result = '';
     $settings = fusion_get_settings();
-    $locale = fusion_get_locale('', LOCALE.LOCALESET.'search/videos.php');
+    $locale = fusion_get_locale('', INFUSIONS.'videos/locale/'.LOCALESET.'search/videos.php');
     $item_count = '0 '.$locale['v400'].' '.$locale['522'].'<br/>';
     $date_search = (Search_Engine::get_param('datelimit') != 0 ? ' AND video_datestamp>='.(TIME - Search_Engine::get_param('datelimit')) : '');
 

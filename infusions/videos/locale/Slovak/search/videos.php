@@ -4,8 +4,8 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: locale/Russian/search/videos.php
-| Author: zizub
+| Filename: locale/Slovak/search/videos.php
+| Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
 | Affero GPL license. You can redistribute it and/or
@@ -15,8 +15,9 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['v400'] = 'Видео';
-$locale['v401'] = 'Видео';
-$locale['v402'] = 'Видео';
-$locale['v403'] = 'Дата добавления:';
-$locale['v404'] = 'Просмотры:';
+$locale['videos.php'] = 'Videa';
+$locale['v400'] = 'Videa';
+$locale['v401'] = 'Video';
+$locale['v402'] = 'Videa';
+$locale['v403'] = 'Pridané:';
+$locale['v404'] = 'Zobrazení:';

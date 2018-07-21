@@ -44,7 +44,7 @@ if (db_exists(DB_VIDEOS)) {
     ];
 
     $radio_button += [
-        'videos' => form_checkbox('stype', fusion_get_locale('v400', LOCALE.LOCALESET.'search/videos.php'), Search_Engine::get_param('stype'), [
+        'videos' => form_checkbox('stype', fusion_get_locale('v400', INFUSIONS.'videos/locale/'.LOCALESET.'search/videos.php'), Search_Engine::get_param('stype'), [
             'type'          => 'radio',
             'value'         => 'videos',
             'reverse_label' => TRUE,

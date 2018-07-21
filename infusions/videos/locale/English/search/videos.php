@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: locale/Czech/search/videos.php
+| Filename: locale/English/search/videos.php
 | Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -15,8 +15,9 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['v400'] = 'Videa';
+$locale['videos.php'] = 'Videos';
+$locale['v400'] = 'Videos';
 $locale['v401'] = 'Video';
-$locale['v402'] = 'Videa';
-$locale['v403'] = 'Přidáno:';
-$locale['v404'] = 'Zobrazení:';
+$locale['v402'] = 'Videos';
+$locale['v403'] = 'Date Added:';
+$locale['v404'] = 'Views:';

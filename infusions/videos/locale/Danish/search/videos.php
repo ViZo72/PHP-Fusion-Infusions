@@ -4,8 +4,8 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: locale/Hungarian/search/videos.php
-| Author: Karrak
+| Filename: locale/Danish/search/videos.php
+| Author: Helmuth Mikkelsen (helmuth)
 +--------------------------------------------------------+
 | This program is released as free software under the
 | Affero GPL license. You can redistribute it and/or
@@ -15,8 +15,9 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['v400'] = 'Videók';
-$locale['v401'] = 'Videó';
-$locale['v402'] = 'Videók';
-$locale['v403'] = 'Hozzáadva:';
-$locale['v404'] = 'Megnézve:';
+$locale['videos.php'] = 'Videoer';
+$locale['v400'] = 'Videoer';
+$locale['v401'] = 'Video';
+$locale['v402'] = 'Videoer';
+$locale['v403'] = 'Tilføjet d.:';
+$locale['v404'] = 'Visninger:';
