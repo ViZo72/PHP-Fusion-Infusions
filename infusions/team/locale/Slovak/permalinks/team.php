@@ -16,4 +16,4 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 $locale['pl_team_title'] = 'Tím';
-$locale['pl_team_desc'] = 'Povolenie trvalých odkazov pre tím.';
+$locale['pl_team_desc'] = 'Povoliť trvalé odkazy pre tím.';

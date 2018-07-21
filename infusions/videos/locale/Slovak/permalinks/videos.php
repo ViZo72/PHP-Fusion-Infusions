@@ -16,4 +16,4 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 $locale['pl_videos_title'] = 'Videá';
-$locale['pl_videos_desc'] = 'Povolenie trvalých odkazov pre videá.';
+$locale['pl_videos_desc'] = 'Povoliť trvalé odkazy pre videá.';
