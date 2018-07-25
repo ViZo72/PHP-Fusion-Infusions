@@ -23,6 +23,8 @@ pageAccess('AV');
 $locale = fusion_get_locale('', AV_LOCALE);
 $settings = get_settings('actual_version_panel');
 
+add_to_title($locale['Av_title']);
+
 \PHPFusion\BreadCrumbs::getInstance()->addBreadCrumb(['link' => INFUSIONS.'actual_version_panel/admin.php'.fusion_get_aidlink(), 'title' => $locale['AV_title']]);
 
 if (isset($_POST['save_settings'])) {

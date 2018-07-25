@@ -53,7 +53,12 @@ function GetVideoThumb($data) {
             $thumb = VIDEOS.'images/'.$data['video_image'];
         } else {
             $video_data = GetVideoData($data['video_url'], $data['video_type']);
-            $thumb = $video_data['thumbnail_url'];
+
+            if (!empty($video_data['thumbnail_url'])) {
+                $thumb = $video_data['thumbnail_url'];
+            } else {
+                $thumb = VIDEOS.'images/default_thumbnail.jpg';
+            }
         }
     } else if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
         $thumb = VIDEOS.'images/'.$data['video_image'];
