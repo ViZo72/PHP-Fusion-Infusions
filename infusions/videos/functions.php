@@ -30,11 +30,8 @@ function GetVideoData($url, $type = 'youtube') {
     }
 
     if (!empty($json_url)) {
-        $curl = curl_init($json_url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $return = curl_exec($curl);
-        curl_close($curl);
-        $json = json_decode($return, TRUE);
+        $json_data = CacheCurl($json_url);
+        $json = json_decode($json_data, TRUE);
 
         if ($type === 'youtube') {
             preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match);
@@ -67,4 +64,47 @@ function GetVideoThumb($data) {
     }
 
     return $thumb;
+}
+
+function CacheCurl($url) {
+    $cachetime = 604800; // One week
+    $cache_dir = dirname(__FILE__).'/cache';
+
+    if (!is_dir($cache_dir)) {
+        mkdir($cache_dir, 0777, TRUE);
+    }
+
+    $hash = md5($url);
+    $file = $cache_dir.'/'.$hash.'cache';
+    $mtime = 0;
+
+    if (file_exists($file)) {
+        $mtime = filemtime($file);
+    }
+
+    $filetimemod = $mtime + $cachetime;
+
+    if ($filetimemod < time()) {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_HEADER         => FALSE,
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_USERAGENT      => 'Googlebot/2.1 (+http://www.google.com/bot.html)',
+            CURLOPT_FOLLOWLOCATION => TRUE,
+            CURLOPT_MAXREDIRS      => 5,
+            CURLOPT_CONNECTTIMEOUT => 15,
+            CURLOPT_TIMEOUT        => 30
+        ]);
+
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        if ($data) {
+            file_put_contents($file, $data);
+        }
+    } else {
+        $data = file_get_contents($file);
+    }
+
+    return $data;
 }

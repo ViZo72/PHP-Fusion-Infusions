@@ -79,8 +79,8 @@ if (isset($_POST['save_cat'])) {
 
     if (dbcount("(video_cat_id)", DB_VIDEO_CATS, "video_cat_id='".$data['video_cat_id']."'")) {
         if (!dbcount("(video_cat_id)", DB_VIDEO_CATS, $category_name_check['when_updating'])) {
-            dbquery_insert(DB_VIDEO_CATS, $data, 'update');
             if (\defender::safe()) {
+                dbquery_insert(DB_VIDEO_CATS, $data, 'update');
                 addNotice('success', $locale['VID_notice_06']);
                 redirect(clean_request('cat_view=1', ['section', 'aid'], TRUE));
             }
@@ -90,8 +90,8 @@ if (isset($_POST['save_cat'])) {
         }
     } else {
         if (!dbcount("(video_cat_id)", DB_VIDEO_CATS, $category_name_check['when_saving'])) {
-            dbquery_insert(DB_VIDEO_CATS, $data, 'save');
             if (\defender::safe()) {
+                dbquery_insert(DB_VIDEO_CATS, $data, 'save');
                 addNotice('success', $locale['VID_notice_08']);
                 redirect(clean_request('cat_view=1', ['section', 'aid'], TRUE));
             }
