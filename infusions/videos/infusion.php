@@ -23,7 +23,7 @@ $locale = fusion_get_locale('', VID_LOCALE);
 
 $inf_title       = $locale['VID_title'];
 $inf_description = $locale['VID_desc'];
-$inf_version     = '1.1.0';
+$inf_version     = '1.1.1';
 $inf_developer   = 'RobiNN';
 $inf_email       = 'kelcakrobo@gmail.com';
 $inf_weburl      = 'https://github.com/RobiNN1';
@@ -74,7 +74,8 @@ $inf_newtable[] = DB_VIDEO_CATS." (
     video_cat_description VARCHAR(250) NOT NULL DEFAULT '',
     video_cat_sorting VARCHAR(50) NOT NULL DEFAULT 'video_title ASC',
     video_cat_language VARCHAR(50) NOT NULL DEFAULT '".LANGUAGE."',
-    PRIMARY KEY(video_cat_id)
+    PRIMARY KEY(video_cat_id),
+    KEY video_cat_parent (video_cat_parent)
 ) ENGINE=MyISAM DEFAULT CHARSET=UTF8 COLLATE=utf8_unicode_ci";
 
 $inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction, panel_languages) VALUES('".$locale['VID_latest']."', 'latest_videos_panel', '', '3', '5', 'file', '0', '1', '1', '', '3', '".fusion_get_settings('enabled_languages')."')";
@@ -123,3 +124,4 @@ $inf_deldbrow[] = DB_SITE_LINKS." WHERE link_url='submit.php?stype=v'";
 $inf_deldbrow[] = DB_SUBMISSIONS." WHERE submit_type='v'";
 $inf_deldbrow[] = DB_LANGUAGE_TABLES." WHERE mlt_rights='VL'";
 $inf_delfiles[] = VIDEOS.'videos/';
+$inf_delfiles[] = VIDEOS.'cache/';

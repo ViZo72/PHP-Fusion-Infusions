@@ -67,22 +67,22 @@ function GetVideoThumb($data) {
 }
 
 function CacheCurl($url) {
-    $cachetime = 604800; // One week
-    $cache_dir = dirname(__FILE__).'/cache';
+    $cache_time = 604800; // One week
+    $cache_dir = dirname(__FILE__).'/cache/';
 
     if (!is_dir($cache_dir)) {
         mkdir($cache_dir, 0777, TRUE);
     }
 
     $hash = md5($url);
-    $file = $cache_dir.'/'.$hash.'cache';
-    $mtime = 0;
+    $file = $cache_dir.$hash.'.cache';
+    $file_time = 0;
 
     if (file_exists($file)) {
-        $mtime = filemtime($file);
+        $file_time = filemtime($file);
     }
 
-    $filetimemod = $mtime + $cachetime;
+    $filetimemod = $file_time + $cache_time;
 
     if ($filetimemod < time()) {
         $ch = curl_init($url);
@@ -107,4 +107,18 @@ function CacheCurl($url) {
     }
 
     return $data;
+}
+
+// Delete cache files older than two week
+$files = glob(dirname(__FILE__).'/cache/*.cache');
+$now = time();
+
+if ($files) {
+    foreach ($files as $file) {
+        if (is_file($file)) {
+            if ($now - filemtime($file) >= 1209600) {
+                unlink($file);
+            }
+        }
+    }
 }
