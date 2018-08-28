@@ -44,17 +44,24 @@ $info = [
     'video_title'        => $locale['VID_067'],
     'video_language'     => LANGUAGE,
     'video_categories'   => get_video_cats(),
-    'allowed_filters'       => [
-        'view'     => $locale['VID_068'],
-        'recent'   => $locale['VID_069'],
-        'comments' => $locale['VID_070'],
-        'ratings'  => $locale['VID_071'],
-    ],
     'video_last_updated' => 0,
     'video_max_rows'     => 0,
     'video_rows'         => 0,
     'video_nav'          => ''
 ];
+
+$info['allowed_filters'] = [
+    'view'   => $locale['VID_068'],
+    'recent' => $locale['VID_069']
+];
+
+if (fusion_get_settings('comments_enabled') == 1) {
+    $info['allowed_filters']['comments'] = $locale['VID_070'];
+}
+
+if (fusion_get_settings('ratings_enabled') == 1) {
+    $info['allowed_filters']['ratings'] = $locale['VID_071'];
+}
 
 $filter = array_keys($info['allowed_filters']);
 $_GET['type'] = isset($_GET['type']) && in_array($_GET['type'], array_keys($info['allowed_filters'])) ? $_GET['type'] : '';
