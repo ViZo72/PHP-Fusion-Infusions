@@ -29,7 +29,7 @@ require_once INFUSIONS.'videos/OpenGraphVideos.php';
 require_once INFUSIONS.'videos/functions.php';
 
 $locale = fusion_get_locale('', VID_LOCALE);
-
+$userdata = fusion_get_userdata();
 $video_settings = get_settings('videos');
 
 $video_settings['video_pagination'] = !empty($video_settings['video_pagination']) ? $video_settings['video_pagination'] : 15;
@@ -115,12 +115,75 @@ if (isset($_GET['video_id'])) {
 
             $data = dbarray($result);
 
+            if (iMEMBER) {
+                $like_type_result = dbquery("SELECT * FROM ".DB_VIDEO_LIKES." WHERE video_id=:video_id AND like_user=:user_id", [
+                    ':video_id' => $data['video_id'],
+                    ':user_id'  => $userdata['user_id']
+                ]);
+
+                $like_type_data = dbarray($like_type_result);
+                $data['video_user_like_type'] = $like_type = $like_type_data['like_type'];
+
+                if (isset($_GET['action'])) {
+                    if (\defender::safe()) {
+                        switch ($_GET['action']) {
+                            case 'like':
+                                if (dbrows($like_type_result) == 0) {
+                                    dbquery_insert(DB_VIDEO_LIKES, [
+                                        'video_id'  => $data['video_id'],
+                                        'like_user' => $userdata['user_id'],
+                                        'like_type' => 'like'
+                                    ], 'save');
+                                }
+                                if ($like_type === 'dislike') {
+                                    dbquery("UPDATE ".DB_VIDEO_LIKES." SET like_type='like' WHERE video_id=:video_id AND like_user=:user_id", [
+                                        ':video_id' => $data['video_id'],
+                                        ':user_id'  => $userdata['user_id']
+                                    ]);
+                                }
+                                break;
+                            case 'dislike':
+                                if (dbrows($like_type_result) == 0) {
+                                    dbquery_insert(DB_VIDEO_LIKES, [
+                                        'video_id'  => $data['video_id'],
+                                        'like_user' => $userdata['user_id'],
+                                        'like_type' => 'dislike'
+                                    ], 'save');
+                                }
+                                if ($like_type === 'like') {
+                                    dbquery("UPDATE ".DB_VIDEO_LIKES." SET like_type='dislike' WHERE video_id=:video_id AND like_user=:user_id", [
+                                        ':video_id' => $data['video_id'],
+                                        ':user_id'  => $userdata['user_id']
+                                    ]);
+                                }
+                                break;
+                            case 'unlike':
+                            case 'undislike':
+                                dbquery("DELETE FROM ".DB_VIDEO_LIKES." WHERE video_id=:video_id AND like_user=:user_id", [':video_id' => $data['video_id'], ':user_id' => $userdata['user_id']]);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    redirect(INFUSIONS.'videos/videos.php?video_id='.$data['video_id']);
+                }
+            }
+
             $data['video_description'] = nl2br(parse_textarea($data['video_description'], FALSE, FALSE, TRUE, FALSE));
             $data['video_post_author'] = profile_link($data['user_id'], $data['user_name'], $data['user_status']);
             $data['video_post_author_avatar'] = display_avatar($data, '45px', '', TRUE, 'img-circle');
             $data['video_post_cat'] = '<a href="'.INFUSIONS.'videos/videos.php?cat_id='.$data['video_cat_id'].'">'.$data['video_cat_name'].'</a>';
             $data['video_post_time'] = showdate('shortdate', $data['video_datestamp']);
             $data['video_views'] = format_word($data['video_views'], $locale['fmt_views']);
+
+            $like = iMEMBER && $data['video_user_like_type'] == 'like' ? 'unlike' : 'like';
+            $dislike = iMEMBER && $data['video_user_like_type'] == 'dislike' ? 'undislike' : 'dislike';
+
+            $data['video_like_url'] = INFUSIONS.'videos/videos.php?video_id='.$data['video_id'].'&amp;action='.$like;
+            $data['video_dislike_url'] = INFUSIONS.'videos/videos.php?video_id='.$data['video_id'].'&amp;action='.$dislike;
+            $data['video_likes'] = get_likes($data['video_id'], 'like');
+            $data['video_dislikes'] = get_likes($data['video_id'], 'dislike');
 
             $video_id = '';
             if ($data['video_type'] == 'youtube' || $data['video_type'] == 'vimeo') {
@@ -426,6 +489,15 @@ function count_db($id, $type) {
     "));
 
     return $count_db['count_comment'];
+}
+
+function get_likes($id, $type) {
+    $count_db = dbarray(dbquery("SELECT COUNT(video_id) AS count_likes
+        FROM ".DB_VIDEO_LIKES."
+        WHERE video_id='".$id."' AND like_type='".$type."'
+    "));
+
+    return $count_db['count_likes'];
 }
 
 function parse_video_info($data) {

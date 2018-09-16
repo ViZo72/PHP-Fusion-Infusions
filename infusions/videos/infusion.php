@@ -23,7 +23,7 @@ $locale = fusion_get_locale('', VID_LOCALE);
 
 $inf_title       = $locale['VID_title'];
 $inf_description = $locale['VID_desc'];
-$inf_version     = '1.1.1';
+$inf_version     = '1.1.2';
 $inf_developer   = 'RobiNN';
 $inf_email       = 'kelcakrobo@gmail.com';
 $inf_weburl      = 'https://github.com/RobiNN1';
@@ -59,12 +59,25 @@ $inf_newtable[] = DB_VIDEOS." (
     video_embed VARCHAR(500) NOT NULL DEFAULT '',
     video_image VARCHAR(120) NOT NULL,
     video_views MEDIUMINT(7) NOT NULL DEFAULT '0',
+    video_likes INT(10) UNSIGNED NOT NULL DEFAULT '0',
+    video_dislikes INT(10) UNSIGNED NOT NULL DEFAULT '0',
     video_allow_comments TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
     video_allow_ratings TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
+    video_allow_likes TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
     PRIMARY KEY (video_id),
     KEY video_cat (video_cat),
     KEY video_datestamp (video_datestamp),
     KEY video_views (video_views)
+) ENGINE=MyISAM DEFAULT CHARSET=UTF8 COLLATE=utf8_unicode_ci";
+
+$inf_newtable[] = DB_VIDEO_LIKES." (
+    like_id MEDIUMINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    video_id MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT '0',
+    like_user MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT '0',
+    like_type VARCHAR(10) NOT NULL DEFAULT 'like',
+    PRIMARY KEY (like_id),
+    KEY video_id (video_id),
+    KEY like_user (like_user)
 ) ENGINE=MyISAM DEFAULT CHARSET=UTF8 COLLATE=utf8_unicode_ci";
 
 $inf_newtable[] = DB_VIDEO_CATS." (
@@ -87,7 +100,8 @@ $settings = [
     'video_screen_max_w'     => 1024,
     'video_screen_max_h'     => 768,
     'video_pagination'       => 15,
-    'video_allow_submission' => 1
+    'video_allow_submission' => 1,
+    'video_allow_likes'      => 1
 ];
 
 foreach ($settings as $name => $value) {
@@ -112,8 +126,9 @@ if (!empty($enabled_languages)) {
     $inf_insertdbrow[] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES ('".$locale['VID_submit']."', 'submit.php?stype=v', ".USER_LEVEL_MEMBER.", '1', '0', '27', '1', '".LANGUAGE."')";
 }
 
-$inf_droptable[] = DB_VIDEO_CATS;
 $inf_droptable[] = DB_VIDEOS;
+$inf_droptable[] = DB_VIDEO_LIKES;
+$inf_droptable[] = DB_VIDEO_CATS;
 $inf_deldbrow[] = DB_ADMIN." WHERE admin_rights='VID'";
 $inf_deldbrow[] = DB_COMMENTS." WHERE comment_type='VID'";
 $inf_deldbrow[] = DB_RATINGS." WHERE rating_type='VID'";

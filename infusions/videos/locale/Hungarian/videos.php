@@ -109,6 +109,7 @@ $locale['VID_081'] = 'Vissza a [SITENAME]';
 $locale['VID_082'] = 'A következő űrlap segítségével egyszerűen beküldheti a videót.<br/>A beküldést egyadminisztrátor fogja megtekinteni.
 [SITENAME] fenntartja magának a jogot, hogy módosítsa vagy törölje a beküldést.
 A videóknak alkalmazniuk kell a webhely tartalmához. A nem megfelelőnek ítélt beküldéseket töröljük.';
+$locale['VID_083'] = 'Beküldés Likes/Dislikes?';
 $locale['VID_notice_01'] = 'Videó Módosítva';
 $locale['VID_notice_02'] = 'Videó hozzáadva';
 $locale['VID_notice_03'] = 'Videó Törölve';

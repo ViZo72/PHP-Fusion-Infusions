@@ -109,6 +109,7 @@ $locale['VID_081'] = 'Zpět na [SITENAME]';
 $locale['VID_082'] = 'Použijte tento formulář k odeslání videa.<br/>Váš příspěvek bude kontrolován administrátorem.
 [SITENAME] si vyhrazuje právo pozměnit nebo upravit jakýkoli příspěvek.
 Videa by se měly týkat obsahu této stránky. Nevhodné příspěvky budou smazány.';
+$locale['VID_083'] = 'Povolit Líbí se mi/Nelíbí se mi?';
 $locale['VID_notice_01'] = 'Video bylo aktualizováno';
 $locale['VID_notice_02'] = 'Video bylo přidáno';
 $locale['VID_notice_03'] = 'Video bylo odstraněno';

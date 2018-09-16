@@ -109,6 +109,7 @@ $locale['VID_081'] = 'Späť na [SITENAME]';
 $locale['VID_082'] = 'Použite tento formulár na odoslanie videa.<br/>Váš príspevok bude posúdený administrátorom.
 [SITENAME] si vyhradzuje právo zmeniť alebo upraviť akýkoľvek príspevok.
 Videa by sa mali vzťahovať na obsah tejto stránky. Nevhodné príspevky budú odstránené.';
+$locale['VID_083'] = 'Povoliť Páči sa mi/Nepáči sa mi?';
 $locale['VID_notice_01'] = 'Video bolo aktualizované';
 $locale['VID_notice_02'] = 'Video bolo pridané';
 $locale['VID_notice_03'] = 'Video bolo odstránené';

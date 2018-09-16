@@ -29,7 +29,8 @@ if (isset($_POST['savesettings'])) {
         'video_screen_max_w'     => form_sanitizer($_POST['video_screen_max_w'], 1024, 'video_screen_max_w'),
         'video_screen_max_h'     => form_sanitizer($_POST['video_screen_max_h'], 768, 'video_screen_max_h'),
         'video_pagination'       => form_sanitizer($_POST['video_pagination'], 15, 'video_pagination'),
-        'video_allow_submission' => form_sanitizer($_POST['video_allow_submission'], 0, 'video_allow_submission')
+        'video_allow_submission' => form_sanitizer($_POST['video_allow_submission'], 0, 'video_allow_submission'),
+        'video_allow_likes'      => form_sanitizer($_POST['video_allow_likes'], 0, 'video_allow_likes')
     ];
 
     if (\defender::safe()) {
@@ -150,6 +151,11 @@ echo '<div class="row">';
     echo '<div class="col-xs-12 col-sm-4">';
         openside('');
         echo form_select('video_allow_submission', $locale['VID_065'], $this->video_settings['video_allow_submission'], [
+            'inline'  => TRUE,
+            'options' => [$locale['disable'], $locale['enable']]
+        ]);
+
+        echo form_select('video_allow_likes', $locale['VID_083'], $this->video_settings['video_allow_likes'], [
             'inline'  => TRUE,
             'options' => [$locale['disable'], $locale['enable']]
         ]);

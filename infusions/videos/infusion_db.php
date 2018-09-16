@@ -35,6 +35,10 @@ if (!defined('DB_VIDEOS')) {
     define('DB_VIDEOS', DB_PREFIX.'videos');
 }
 
+if (!defined('DB_VIDEO_LIKES')) {
+    define('DB_VIDEO_LIKES', DB_PREFIX.'video_likes');
+}
+
 if (!defined('DB_VIDEO_CATS')) {
     define('DB_VIDEO_CATS', DB_PREFIX.'video_cats');
 }
@@ -66,6 +70,7 @@ if (method_exists(\PHPFusion\Admins::getInstance(), 'setFolderPermissions')) {
         'infusions/videos/videos/'             => TRUE,
         'infusions/videos/images/'             => TRUE,
         'infusions/videos/submissions/'        => TRUE,
-        'infusions/videos/submissions/images/' => TRUE
+        'infusions/videos/submissions/images/' => TRUE,
+        'infusions/videos/cache/'              => TRUE
     ]);
 }

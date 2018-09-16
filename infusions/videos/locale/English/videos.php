@@ -109,6 +109,7 @@ $locale['VID_081'] = 'Return to [SITENAME]';
 $locale['VID_082'] = 'Use the following form to submit a Video.<br/>Your submission will be reviewed by an Administrator.
 [SITENAME] reserves the right to amend or edit any submission.
 Videos should be applicable to the content of this site. Submissions deemed unsuitable will be rejected.';
+$locale['VID_083'] = 'Enable Likes/Dislikes?';
 $locale['VID_notice_01'] = 'Video has been updated';
 $locale['VID_notice_02'] = 'Video has been added';
 $locale['VID_notice_03'] = 'Video has been deleted';

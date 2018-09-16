@@ -38,7 +38,8 @@ $data = [
     'video_embed'          => '',
     'video_image'          => '',
     'video_allow_comments' => 0,
-    'video_allow_ratings'  => 0
+    'video_allow_ratings'  => 0,
+    'video_allow_likes'    => 0
 ];
 
 if ((isset($_GET['action']) && $_GET['action'] == 'delete') && (isset($_GET['video_id']) && isnum($_GET['video_id']))) {
@@ -56,6 +57,7 @@ if ((isset($_GET['action']) && $_GET['action'] == 'delete') && (isset($_GET['vid
         }
 
         dbquery("DELETE FROM ".DB_VIDEOS." WHERE video_id='".$_GET['video_id']."'");
+        dbquery("DELETE FROM ".DB_VIDEO_LIKES." WHERE video_id='".$_GET['video_id']."'");
     }
 
     addNotice('success', $locale['VID_notice_03']);
@@ -95,7 +97,8 @@ if (isset($_POST['save_video'])) {
         'video_embed'          => '',
         'video_image'          => isset($_POST['video_image']) ? form_sanitizer($_POST['video_image'], '', 'video_image') : '',
         'video_allow_comments' => isset($_POST['video_allow_comments']) ? 1 : 0,
-        'video_allow_ratings'  => isset($_POST['video_allow_ratings']) ? 1 : 0
+        'video_allow_ratings'  => isset($_POST['video_allow_ratings']) ? 1 : 0,
+        'video_allow_likes'    => isset($_POST['video_allow_likes']) ? 1 : 0
     ];
 
     if (\defender::safe() && !empty($_FILES['video_file']['name']) && is_uploaded_file($_FILES['video_file']['tmp_name'])) {
@@ -363,6 +366,7 @@ echo '<div class="row">';
         openside('');
             echo form_checkbox('video_allow_comments', $locale['VID_028'], $data['video_allow_comments'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
             echo form_checkbox('video_allow_ratings', $locale['VID_029'], $data['video_allow_ratings'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
+            echo form_checkbox('video_allow_likes', $locale['VID_083'], $data['video_allow_likes'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
 
             if (isset($_GET['action']) && $_GET['action'] == 'edit') {
                 echo form_checkbox('update_datestamp', $locale['VID_030'], 0, ['class' => 'm-b-0', 'reverse_label' => TRUE]);

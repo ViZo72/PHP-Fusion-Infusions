@@ -109,6 +109,7 @@ $locale['VID_081'] = 'Tilbage til [SITENAME]';
 $locale['VID_082'] = 'Benyt følgende formular til at indsende en video.<br/>Din indsendelse vil blive gennemset af en administrator.
 [SITENAME] påkalder sig retten til at kunne ændre eller tilføje i enhver indsendelse.
 Videoer bør understøtte indholdet på denne hjemmeside. Indsendelser der bedømmes upassende vil blive afvist.';
+$locale['VID_083'] = 'Aktivér Likes/Dislikes?';
 $locale['VID_notice_01'] = 'Video er blevet opdateret';
 $locale['VID_notice_02'] = 'Video er blvet tilføjet';
 $locale['VID_notice_03'] = 'Video er blevet slettet';

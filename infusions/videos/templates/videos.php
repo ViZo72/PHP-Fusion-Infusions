@@ -40,6 +40,8 @@ if (!function_exists('render_videos')) {
 if (!function_exists('display_video_item')) {
     function display_video_item($info) {
         $locale = fusion_get_locale();
+        $video_settings = get_settings('videos');
+
         $data = $info['video_item'];
 
         echo '<div class="clearfix">';
@@ -56,9 +58,27 @@ if (!function_exists('display_video_item')) {
         echo $data['video_video'];
 
         echo '<div class="m-t-20">';
-            echo '<i class="m-l-5 fa fa-eye"></i> '.$data['video_views'];
-            echo '<i class="m-l-5 fa fa-folder-o"></i> '.$data['video_post_cat'];
-            echo '<i class="m-l-5 fa fa-clock-o"></i> '.$data['video_post_time'];
+
+            if ($video_settings['video_allow_likes'] && $data['video_allow_likes']) {
+                echo '<div class="pull-right">';
+                    if (iMEMBER) {
+                        $like_active = $data['video_user_like_type'] == 'like' ? 'text-primary' : 'text-dark';
+                        $dislike_active = $data['video_user_like_type'] == 'dislike' ? 'text-primary' : 'text-dark';
+
+                        echo '<a href="'.$data['video_like_url'].'" class="m-r-10 '.$like_active.'"><i class="fa fa-thumbs-up"> '.number_format($data['video_likes']).'</i></a>';
+                        echo '<a href="'.$data['video_dislike_url'].'" class="'.$dislike_active.'"><i class="fa fa-thumbs-down"></i> '.number_format($data['video_dislikes']).'</a>';
+                    } else {
+                        echo '<span class="text-dark m-r-10"><i class="fa fa-thumbs-up"> '.number_format($data['video_likes']).'</i></span>';
+                        echo '<span class="text-dark"><i class="fa fa-thumbs-down"></i> '.number_format($data['video_dislikes']).'</span>';
+                    }
+                echo '</div>';
+            }
+
+            echo '<div class="text-left">';
+                echo '<i class="m-l-5 fa fa-eye"></i> '.$data['video_views'];
+                echo '<i class="m-l-5 fa fa-folder-o"></i> '.$data['video_post_cat'];
+                echo '<i class="m-l-5 fa fa-clock-o"></i> '.$data['video_post_time'];
+            echo '</div>';
         echo '</div>';
 
         echo '<hr/>';

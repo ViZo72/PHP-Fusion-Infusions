@@ -109,7 +109,7 @@ function CacheCurl($url) {
     return $data;
 }
 
-// Delete cache files older than two week
+// Delete cache files older than two weeks
 $files = glob(dirname(__FILE__).'/cache/*.cache');
 $now = time();
 
