@@ -18,8 +18,6 @@
 $inf_version = '1.1.2';
 
 $dbvideos = [
-    'video_likes'       => " ADD video_likes INT(10) UNSIGNED NOT NULL DEFAULT '0' AFTER video_views",
-    'video_dislikes'    => " ADD video_dislikes INT(10) UNSIGNED NOT NULL DEFAULT '0' AFTER video_likes",
     'video_allow_likes' => " ADD video_allow_likes TINYINT(1) UNSIGNED NOT NULL DEFAULT '1' AFTER video_allow_ratings"
 ];
 

@@ -59,8 +59,6 @@ $inf_newtable[] = DB_VIDEOS." (
     video_embed VARCHAR(500) NOT NULL DEFAULT '',
     video_image VARCHAR(120) NOT NULL,
     video_views MEDIUMINT(7) NOT NULL DEFAULT '0',
-    video_likes INT(10) UNSIGNED NOT NULL DEFAULT '0',
-    video_dislikes INT(10) UNSIGNED NOT NULL DEFAULT '0',
     video_allow_comments TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
     video_allow_ratings TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
     video_allow_likes TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
