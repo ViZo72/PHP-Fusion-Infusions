@@ -75,7 +75,7 @@ if (db_exists(DB_VIDEOS)) {
         }
 
         if ($rows != 0) {
-            $item_count = '<a href="'.BASEDIR.'search.php?stype=videos&amp;stext='.$_POST['stext'].'&amp;'.Search_Engine::get_param('composevars').'">'.$rows.' '.($rows == 1 ? $locale['v401'] : $locale['v402']).' '.$locale['522'].'</a><br/>';
+            $item_count = '<a href="'.BASEDIR.'search.php?stype=videos&amp;stext='.Search_Engine::get_param('stext').'&amp;'.Search_Engine::get_param('composevars').'">'.$rows.' '.($rows == 1 ? $locale['v401'] : $locale['v402']).' '.$locale['522'].'</a><br/>';
 
             $result = dbquery("SELECT v.*, vc.*, u.user_id, u.user_name, u.user_status, u.user_avatar, u.user_joined, u.user_level
                 FROM ".DB_VIDEOS." v
