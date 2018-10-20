@@ -2,6 +2,8 @@
 
 Please, report issues related only to my infusions (List below).
 
+##### Note: Not all infusions are fully compatible with 9.0
+
 - ### Infusions:
     - [Actual Version Panel](infusions/actual_version_panel)
     - [Content Creator](infusions/content_creator)

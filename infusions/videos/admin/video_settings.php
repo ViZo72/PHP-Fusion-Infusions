@@ -51,17 +51,6 @@ if (isset($_POST['savesettings'])) {
     redirect(FUSION_SELF.fusion_get_aidlink().'&amp;section=settings');
 }
 
-function calculate_byte($video_max_b) {
-    $calc_opts = fusion_get_locale('1020', LOCALE.LOCALESET.'admin/settings.php');
-    foreach ($calc_opts as $byte => $val) {
-        if ($video_max_b / $byte <= 999) {
-            return $byte;
-        }
-    }
-
-    return 1000000;
-}
-
 $calc_opts = fusion_get_locale('1020', LOCALE.LOCALESET.'admin/settings.php');
 $calc_c = calculate_byte($this->video_settings['video_max_b']);
 $calc_b = $this->video_settings['video_max_b'] / $calc_c;
