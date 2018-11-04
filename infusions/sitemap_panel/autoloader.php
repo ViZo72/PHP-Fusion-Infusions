@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: sitemap_panel/sitemap_panel.php
+| Filename: sitemap_panel/autoloader.php
 | Author: RobiNN
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -19,14 +19,10 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-require_once INFUSIONS.'sitemap_panel/autoloader.php';
+spl_autoload_register(function ($class_name) {
+    $path = INFUSIONS.'sitemap_panel/classes/'.$class_name.'.php';
 
-$smg = new SitemapGenerator();
-
-if (file_exists($smg->sitemap_file)) {
-    if ($smg->sitemap_settings['auto_update'] == 1) {
-        if ((TIME - filemtime($smg->sitemap_file)) > $smg->sitemap_settings['update_interval']) {
-            $smg->GenerateXML();
-        }
+    if (file_exists($path)) {
+        require_once $path;
     }
-}
+});

@@ -18,7 +18,7 @@
 require_once '../../maincore.php';
 require_once THEMES.'templates/admin_header.php';
 
-require_once INFUSIONS.'sitemap_panel/SitemapGenerator.php';
+require_once INFUSIONS.'sitemap_panel/autoloader.php';
 
 pageAccess('SMG');
 

@@ -23,7 +23,7 @@ $locale = fusion_get_locale('', SMG_LOCALE);
 
 $inf_title       = $locale['SMG_title'];
 $inf_description = $locale['SMG_desc'];
-$inf_version     = '1.1.1';
+$inf_version     = '1.2.0';
 $inf_developer   = 'RobiNN';
 $inf_email       = 'kelcakrobo@gmail.com';
 $inf_weburl      = 'https://github.com/RobiNN1';
@@ -57,31 +57,34 @@ $modules = [
     'customlinks'    => ['enabled' => 1, 'frequency' => 'monthly', 'priority' => '0.6'],
     'profiles'       => ['enabled' => 1, 'frequency' => 'weekly',  'priority' => '0.1'],
     'articles'       => ['enabled' => 1, 'frequency' => 'always',  'priority' => '0.5'],
-    'article_cats'   => ['enabled' => 1, 'frequency' => 'monthly', 'priority' => '0.2'],
+    'article_cats'   => ['enabled' => 1, 'frequency' => 'monthly', 'priority' => '0.3'],
     'blogs'          => ['enabled' => 1, 'frequency' => 'always',  'priority' => '0.6'],
-    'blog_cats'      => ['enabled' => 1, 'frequency' => 'monthly', 'priority' => '0.2'],
+    'blog_cats'      => ['enabled' => 1, 'frequency' => 'monthly', 'priority' => '0.3'],
     'custompages'    => ['enabled' => 1, 'frequency' => 'weekly',  'priority' => '0.4'],
     'downloads'      => ['enabled' => 1, 'frequency' => 'weekly',  'priority' => '0.5'],
-    'download_cats'  => ['enabled' => 1, 'frequency' => 'monthly', 'priority' => '0.2'],
+    'download_cats'  => ['enabled' => 1, 'frequency' => 'monthly', 'priority' => '0.3'],
     'faq_cats'       => ['enabled' => 1, 'frequency' => 'monthly', 'priority' => '0.3'],
     'forum'          => ['enabled' => 1, 'frequency' => 'daily',   'priority' => '0.6'],
     'gallery'        => ['enabled' => 1, 'frequency' => 'weekly',  'priority' => '0.3'],
-    'gallery_albums' => ['enabled' => 1, 'frequency' => 'weekly',  'priority' => '0.2'],
+    'gallery_albums' => ['enabled' => 1, 'frequency' => 'weekly',  'priority' => '0.4'],
     'news'           => ['enabled' => 1, 'frequency' => 'always',  'priority' => '0.6'],
-    'news_cats'      => ['enabled' => 1, 'frequency' => 'monthly', 'priority' => '0.2'],
+    'news_cats'      => ['enabled' => 1, 'frequency' => 'monthly', 'priority' => '0.3'],
+    'videos'         => ['enabled' => 1, 'frequency' => 'weekly',  'priority' => '0.5'],
+    'video_cats'     => ['enabled' => 1, 'frequency' => 'monthly', 'priority' => '0.3'],
     'weblinks'       => ['enabled' => 1, 'frequency' => 'weekly',  'priority' => '0.5'],
     'weblink_cats'   => ['enabled' => 1, 'frequency' => 'monthly', 'priority' => '0.3']
 ];
 
 foreach ($modules as $name => $data) {
-    $inf_insertdbrow[] = DB_SITEMAP. "(name, enabled, frequency, priority) VALUES ('".$name."', '".$data['enabled']."', '".$data['frequency']."', '".$data['priority']."')";
+    $inf_insertdbrow[] = DB_SITEMAP." (name, enabled, frequency, priority) VALUES ('".$name."', '".$data['enabled']."', '".$data['frequency']."', '".$data['priority']."')";
 }
 
 $inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction, panel_languages) VALUES ('".$inf_title."', '".$inf_folder."', '', '3', '1', 'file', '0', '1', '1', '', '3', '".fusion_get_settings('enabled_languages')."')";
 
 $settings = [
     'auto_update'     => 1,
-    'update_interval' => 43200
+    'update_interval' => 43200,
+    'sitemap_index'   => 0
 ];
 
 foreach ($settings as $name => $value) {
