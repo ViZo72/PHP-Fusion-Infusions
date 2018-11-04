@@ -21,7 +21,7 @@ class OpenGraphVideos extends \PHPFusion\OpenGraph {
         $settings = fusion_get_settings();
         $info = [];
 
-        $result = dbquery("SELECT video_title, video_description, video_keywords, video_image FROM ".DB_VIDEOS." WHERE video_id = :video_id", [':video_id' => $video_id]);
+        $result = dbquery("SELECT * FROM ".DB_VIDEOS." WHERE video_id = :video_id", [':video_id' => $video_id]);
 
         if (dbrows($result)) {
             $data = dbarray($result);
@@ -29,13 +29,11 @@ class OpenGraphVideos extends \PHPFusion\OpenGraph {
             $info['keywords'] = $data['video_keywords'] ? $data['video_keywords'] : $settings['keywords'];
             $info['title'] = $data['video_title'].' - '.$settings['sitename'];
             $info['description'] = $data['video_description'] ? fusion_first_words(strip_tags(html_entity_decode($data['video_description'])), 50) : $settings['description'];
-            $info['type'] = 'article';
+            $info['type'] = 'video.movie';
 
-            if (!empty($data['video_image'])) {
-                $info['image'] = $settings['siteurl'].'infusions/videos/images/'.$data['video_image'];
-            } else {
-                $info['image'] = $settings['siteurl'].'images/favicons/mstile-150x150.png';
-            }
+            require_once VIDEOS.'functions.php';
+
+            $info['image'] = GetVideoThumb($data);
         }
 
         self::setValues($info);
