@@ -407,7 +407,31 @@ class SitemapGenerator {
             ");
 
             if (dbrows($result) > 0) {
+                require_once INFUSIONS.'videos/functions.php';
+
                 while ($data = dbarray($result)) {
+                    $video = '';
+                    if ($data['video_type'] == 'file') {
+                        $video = VIDEOS.'videos/'.$data['video_file'];
+                    } else if ($data['video_type'] == 'url') {
+                        $video = $data['video_url'];
+                    } else if ($data['video_type'] == 'youtube') {
+                        $video = 'https://www.youtube.com/embed/'.$data['video_id'];
+                    } else if ($data['video_type'] == 'vimeo') {
+                        $video = 'https://player.vimeo.com/video/'.$data['video_id'];
+                    } else if ($data['video_type'] == 'embed') {
+                        preg_match('/src="([^"]+)"/', $data['video_embed'], $match);
+                        $video = $match[1];
+                    }
+
+                    $this->sitemap->setVideoOptions(TRUE, [
+                        'title'       => $data['video_title'],
+                        'thumbnail'   => GetVideoThumb($data, TRUE),
+                        'description' => $data['video_description'],
+                        'video'       => $video,
+                        'views'       => $data['video_views']
+                    ]);
+
                     $this->sitemap->addItem($this->siteurl.'infusions/videos/videos.php?video_id='.$data['video_id'], $data['video_datestamp'], $options['frequency'], $options['priority']);
                 }
             }
@@ -1142,7 +1166,6 @@ class SitemapGenerator {
                 $this->Settings();
                 break;
             default:
-                BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['SMG_title_admin']]);
                 $this->SitemapAdmin();
         }
         echo closetab();

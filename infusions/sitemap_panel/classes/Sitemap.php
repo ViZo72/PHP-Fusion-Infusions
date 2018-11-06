@@ -113,6 +113,16 @@ class Sitemap {
     private $writer;
 
     /**
+     * @var bool
+     */
+    private $video = FALSE;
+
+    /**
+     * @var array
+     */
+    private $video_opt = [];
+
+    /**
      * @param string $filePath path of the file to write to
      * @param bool   $useXhtml is XHTML namespace should be specified
      *
@@ -177,6 +187,8 @@ class Sitemap {
         if ($this->useXhtml) {
             $this->writer->writeAttribute('xmlns:xhtml', 'http://www.w3.org/1999/xhtml');
         }
+
+        $this->writer->writeAttribute('xmlns:video', 'http://www.google.com/schemas/sitemap-video/1.1');
 
         /*
          * XMLWriter does not give us much options, so we must make sure, that
@@ -308,7 +320,9 @@ class Sitemap {
         $this->writer->writeElement('loc', $location);
 
         if ($lastModified !== NULL) {
-            $this->writer->writeElement('lastmod', date('c', $lastModified));
+            if ($this->video == FALSE) {
+                $this->writer->writeElement('lastmod', date('c', $lastModified));
+            }
         }
 
         if ($changeFrequency !== NULL) {
@@ -316,7 +330,9 @@ class Sitemap {
                 $this->saveError('Please specify valid changeFrequency. Valid values are: '.implode(', ', $this->validFrequencies)."You have specified: {$changeFrequency}.");
             }
 
-            $this->writer->writeElement('changefreq', $changeFrequency);
+            if ($this->video == FALSE) {
+                $this->writer->writeElement('changefreq', $changeFrequency);
+            }
         }
 
         if ($priority !== NULL) {
@@ -324,7 +340,25 @@ class Sitemap {
                 $this->saveError("Please specify valid priority. Valid values range from 0.0 to 1.0. You have specified: {$priority}.");
             }
 
-            $this->writer->writeElement('priority', number_format($priority, 1, '.', ','));
+            if ($this->video == FALSE) {
+                $this->writer->writeElement('priority', number_format($priority, 1, '.', ','));
+            }
+        }
+
+        if ($this->video == TRUE) {
+            $this->writer->startElement('video:video');
+            $this->writer->writeElement('video:title', $this->video_opt['title']);
+            $this->writer->writeElement('video:thumbnail_loc', $this->video_opt['thumbnail']);
+
+            if (!empty($this->video_opt['description'])) {
+                $this->writer->writeElement('video:description', $this->video_opt['description']);
+            }
+
+            $this->writer->writeElement('video:content_loc', $this->video_opt['video']);
+            $this->writer->writeElement('video:player_loc', $location);
+            $this->writer->writeElement('video:view_count', $this->video_opt['views']);
+            $this->writer->writeElement('video:publication_date', date('c', $lastModified));
+            $this->writer->endElement(); // end video:video
         }
 
         $this->writer->endElement();
@@ -493,5 +527,14 @@ class Sitemap {
      */
     private function saveError($message) {
         setError(2, $message, debug_backtrace()[1]['file'], debug_backtrace()[1]['line'], '');
+    }
+
+    /**
+     * @param bool  $video
+     * @param array $options
+     */
+    public function setVideoOptions($video, $options) {
+        $this->video     = (bool)$video;
+        $this->video_opt = (array)$options;
     }
 }

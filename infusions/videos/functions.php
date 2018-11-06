@@ -44,23 +44,25 @@ function GetVideoData($url, $type = 'youtube') {
     return NULL;
 }
 
-function GetVideoThumb($data) {
+function GetVideoThumb($data, $full_url = FALSE) {
+    $full_url = $full_url == TRUE ? fusion_get_settings('siteurl').'infusions/videos/' : VIDEOS;
+
     if ($data['video_type'] == 'youtube' || $data['video_type'] == 'vimeo') {
         if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
-            $thumb = VIDEOS.'images/'.$data['video_image'];
+            $thumb = $full_url.'images/'.$data['video_image'];
         } else {
             $video_data = GetVideoData($data['video_url'], $data['video_type']);
 
             if (!empty($video_data['thumbnail_url'])) {
                 $thumb = $video_data['thumbnail_url'];
             } else {
-                $thumb = VIDEOS.'images/default_thumbnail.jpg';
+                $thumb = $full_url.'images/default_thumbnail.jpg';
             }
         }
     } else if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
-        $thumb = VIDEOS.'images/'.$data['video_image'];
+        $thumb = $full_url.'images/'.$data['video_image'];
     } else {
-        $thumb = VIDEOS.'images/default_thumbnail.jpg';
+        $thumb = $full_url.'images/default_thumbnail.jpg';
     }
 
     return $thumb;
