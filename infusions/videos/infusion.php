@@ -109,7 +109,7 @@ foreach ($settings as $name => $value) {
 $enabled_languages = makefilelist(VIDEOS.'locale', ".|..", TRUE, 'folders');
 if (!empty($enabled_languages)) {
     foreach ($enabled_languages as $language) {
-        $locale = fusion_get_locale('', VIDEOS.'locale/'.$language.'/videos.php');
+        include VIDEOS.'locale/'.$language.'/videos.php';
 
         $mlt_deldbrow[$language][] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES('".$locale['VID_title']."', 'infusions/videos/videos.php', '0', '2', '0', '2', '1', '".$language."')";
         $mlt_deldbrow[$language][] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES ('".$locale['VID_submit']."', 'submit.php?stype=v', ".USER_LEVEL_MEMBER.", '1', '0', '27', '1', '".$language."')";
