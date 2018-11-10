@@ -21,6 +21,7 @@ if (!defined('IN_FUSION')) {
 
 $locale = fusion_get_locale('', SMG_LOCALE);
 
+// Infusion general information
 $inf_title       = $locale['SMG_title'];
 $inf_description = $locale['SMG_desc'];
 $inf_version     = '1.2.0';
@@ -30,14 +31,7 @@ $inf_weburl      = 'https://github.com/RobiNN1';
 $inf_folder      = 'sitemap_panel';
 $inf_image       = 'sitemap.svg';
 
-$inf_adminpanel[] = [
-    'title'  => $locale['SMG_title_admin'],
-    'image'  => $inf_image,
-    'panel'  => 'admin.php',
-    'rights' => 'SMG',
-    'page'   => 5
-];
-
+// Create tables
 $inf_newtable[] = DB_SITEMAP." (
     module_id MEDIUMINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(20) NOT NULL DEFAULT '',
@@ -79,8 +73,10 @@ foreach ($modules as $name => $data) {
     $inf_insertdbrow[] = DB_SITEMAP." (name, enabled, frequency, priority) VALUES ('".$name."', '".$data['enabled']."', '".$data['frequency']."', '".$data['priority']."')";
 }
 
+// Insert panel
 $inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction, panel_languages) VALUES ('".$inf_title."', '".$inf_folder."', '', '3', '1', 'file', '0', '1', '1', '', '3', '".fusion_get_settings('enabled_languages')."')";
 
+// Insert settings
 $settings = [
     'auto_update'     => 1,
     'update_interval' => 43200,
@@ -91,6 +87,36 @@ foreach ($settings as $name => $value) {
     $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('".$name."', '".$value."', '".$inf_folder."')";
 }
 
+// Multilanguage links
+$enabled_languages = makefilelist(LOCALE, ".|..", TRUE, "folders");
+if (!empty($enabled_languages)) {
+    foreach ($enabled_languages as $language) {
+        INFUSIONS.'sitemap_panel/locale/'.$language.'.php';
+
+        $mlt_adminpanel[$language][] = [
+            'rights'   => 'SMG',
+            'image'    => $inf_image,
+            'title'    => $locale['SMG_title_admin'],
+            'panel'    => 'admin.php',
+            'page'     => 5,
+            'language' => $language
+        ];
+
+        // Delete
+        $mlt_deldbrow[$language][] = DB_ADMIN." WHERE admin_rights='SMG' AND admin_language='".$language."'";
+    }
+} else {
+    $inf_adminpanel[] = [
+        'rights'   => 'SMG',
+        'image'    => $inf_image,
+        'title'    => $locale['SMG_title_admin'],
+        'panel'    => 'admin.php',
+        'page'     => 5,
+        'language' => LANGUAGE
+    ];
+}
+
+// Uninstallation
 $inf_droptable[] = DB_SITEMAP;
 $inf_droptable[] = DB_SITEMAP_LINKS;
 $inf_deldbrow[] = DB_ADMIN." WHERE admin_rights='SMG'";
