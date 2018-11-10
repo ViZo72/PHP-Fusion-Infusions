@@ -109,7 +109,7 @@ if (!empty($enabled_languages)) {
     foreach ($enabled_languages as $language) {
         include VIDEOS.'locale/'.$language.'/videos.php';
 
-        $inf_adminpanel[] = [
+        $mlt_adminpanel[$language][] = [
             'rights'   => 'VID',
             'image'    => $inf_image,
             'title'    => $locale['VID_title'],
