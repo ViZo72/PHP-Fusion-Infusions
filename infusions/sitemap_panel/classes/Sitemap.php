@@ -354,8 +354,14 @@ class Sitemap {
                 $this->writer->writeElement('video:description', $this->video_opt['description']);
             }
 
-            $this->writer->writeElement('video:content_loc', $this->video_opt['video']);
-            $this->writer->writeElement('video:player_loc', $location);
+            if (!empty($this->video_opt['video'])) {
+                $this->writer->writeElement('video:content_loc', $this->video_opt['video']);
+            }
+
+            if (!empty($this->video_opt['player_loc'])) {
+                $this->writer->writeElement('video:player_loc', $this->video_opt['player_loc']);
+            }
+
             $this->writer->writeElement('video:view_count', $this->video_opt['views']);
             $this->writer->writeElement('video:publication_date', date('c', $lastModified));
             $this->writer->endElement(); // end video:video
@@ -534,7 +540,7 @@ class Sitemap {
      * @param array $options
      */
     public function setVideoOptions($video, $options) {
-        $this->video     = (bool)$video;
+        $this->video = (bool)$video;
         $this->video_opt = (array)$options;
     }
 }

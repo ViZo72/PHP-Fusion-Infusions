@@ -192,15 +192,15 @@ if (isset($_GET['video_id'])) {
             }
 
             $video = '';
-            if ($data['video_type'] == 'file') {
+            if ($data['video_type'] == 'file' && !empty($data['video_file'])) {
                 $video = '<div class="embed-responsive embed-responsive-16by9"><video class="embed-responsive-item" controls><source src="'.VIDEOS.'videos/'.$data['video_file'].'"></video></div>';
-            } else if ($data['video_type'] == 'url') {
+            } else if ($data['video_type'] == 'url' && !empty($data['video_url'])) {
                 $video = '<div class="embed-responsive embed-responsive-16by9"><video class="embed-responsive-item" controls><source src="'.$data['video_url'].'"></video></div>';
-            } else if ($data['video_type'] == 'youtube') {
+            } else if ($data['video_type'] == 'youtube' && !empty($data['video_url'])) {
                 $video = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/'.$video_id.'" allowfullscreen></iframe></div>';
-            } else if ($data['video_type'] == 'vimeo') {
+            } else if ($data['video_type'] == 'vimeo' && !empty($data['video_url'])) {
                 $video = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://player.vimeo.com/video/'.$video_id.'" allowfullscreen></iframe></div>';
-            } else if ($data['video_type'] == 'embed') {
+            } else if ($data['video_type'] == 'embed' && !empty($data['video_embed'])) {
                 $video = htmlspecialchars_decode($data['video_embed']);
             }
 

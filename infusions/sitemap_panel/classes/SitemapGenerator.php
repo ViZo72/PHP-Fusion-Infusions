@@ -411,17 +411,31 @@ class SitemapGenerator {
 
                 while ($data = dbarray($result)) {
                     $video = '';
-                    if ($data['video_type'] == 'file') {
-                        $video = VIDEOS.'videos/'.$data['video_file'];
-                    } else if ($data['video_type'] == 'url') {
+                    if ($data['video_type'] == 'file' && !empty($data['video_file'])) {
+                        $video = fusion_get_settings('siteurl').'infusions/videos/videos/'.$data['video_file'];
+                    } else if ($data['video_type'] == 'url' && !empty($data['video_url'])) {
                         $video = $data['video_url'];
-                    } else if ($data['video_type'] == 'youtube') {
-                        $video = 'https://www.youtube.com/embed/'.$data['video_id'];
-                    } else if ($data['video_type'] == 'vimeo') {
-                        $video = 'https://player.vimeo.com/video/'.$data['video_id'];
-                    } else if ($data['video_type'] == 'embed') {
-                        preg_match('/src="([^"]+)"/', $data['video_embed'], $match);
-                        $video = $match[1];
+                    } else if ($data['video_type'] == 'embed' && !empty($data['video_embed'])) {
+                        preg_match('/src="([^"]+)"/', htmlspecialchars_decode($data['video_embed']), $match);
+                        $video_settings = get_settings('videos');
+                        $allowd_extensions = explode(',', $video_settings['video_types']);
+
+                        foreach ($allowd_extensions as $key => $extension) {
+                            if (strpos($match[1], $extension) !== FALSE) {
+                                $video = $match[1];
+                            }
+                        }
+                    }
+
+                    $player = '';
+                    if ($data['video_type'] == 'youtube' || $data['video_type'] == 'vimeo' && !empty($data['video_url'])) {
+                        $video_data = GetVideoData($data['video_url'], $data['video_type']);
+
+                        if ($data['video_type'] == 'youtube') {
+                            $player = 'https://www.youtube.com/embed/'.$video_data['video_id'];
+                        } else if ($data['video_type'] == 'vimeo') {
+                            $player = 'https://player.vimeo.com/video/'.$video_data['video_id'];
+                        }
                     }
 
                     $this->sitemap->setVideoOptions(TRUE, [
@@ -429,7 +443,8 @@ class SitemapGenerator {
                         'thumbnail'   => GetVideoThumb($data, TRUE),
                         'description' => $data['video_description'],
                         'video'       => $video,
-                        'views'       => $data['video_views']
+                        'views'       => $data['video_views'],
+                        'player_loc'  => $player
                     ]);
 
                     $this->sitemap->addItem($this->siteurl.'infusions/videos/videos.php?video_id='.$data['video_id'], $data['video_datestamp'], $options['frequency'], $options['priority']);

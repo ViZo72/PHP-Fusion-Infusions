@@ -23,7 +23,7 @@ pageAccess('VID');
 
 use \PHPFusion\BreadCrumbs;
 
-class Videos {
+class VideosAdmin {
     private $locale = [];
     private $video_settings = [];
 
@@ -209,7 +209,7 @@ class Videos {
     }
 }
 
-$vid = new Videos();
+$vid = new VideosAdmin();
 $vid->DisplayAdmin();
 
 require_once THEMES.'templates/footer.php';
