@@ -89,7 +89,7 @@ if (isset($_POST['save_video'])) {
         'video_description'    => form_sanitizer($_POST['video_description'], '', 'video_description'),
         'video_keywords'       => form_sanitizer($_POST['video_keywords'], '', 'video_keywords'),
         'video_length'         => form_sanitizer($_POST['video_length'], '', 'video_length'),
-        'video_datestamp'      => isset($_POST['update_datestamp']) || empty($data['video_datestamp']) ? TIME : $data['video_datestamp'],
+        'video_datestamp'      => isset($_POST['update_datestamp']) || empty($_POST['video_datestamp']) ? TIME : $_POST['video_datestamp'],
         'video_visibility'     => form_sanitizer($_POST['video_visibility'], '0', 'video_visibility'),
         'video_type'           => form_sanitizer($_POST['video_type'], '0', 'video_type'),
         'video_file'           => isset($_POST['video_file']) ? form_sanitizer($_POST['video_file'], '', 'video_file') : '',
@@ -218,7 +218,7 @@ echo '<div class="row">';
         add_to_jquery('
             $("#type-youtube").hide();
             $("#type-vimeo").hide();
-            
+
             $("#video_type").on("change", function (e) {
                 if ($(this).val() == "file") {
                     $("#videotab li #tab-videofile").tab("show");
@@ -227,19 +227,19 @@ echo '<div class="row">';
                 } else if ($(this).val() == "embed") {
                     $("#videotab li #tab-videoembed").tab("show");
                 }
-                
+
                 if ($(this).val() == "youtube") {
                     $("#type-youtube").show();
                     $("#type-vimeo").hide();
                     $("#type-url").hide();
                 }
-                
+
                 if ($(this).val() == "vimeo") {
                     $("#type-youtube").hide();
                     $("#type-vimeo").show();
                     $("#type-url").hide();
                 }
-                
+
                 if ($(this).val() == "url") {
                     $("#type-youtube").hide();
                     $("#type-vimeo").hide();
