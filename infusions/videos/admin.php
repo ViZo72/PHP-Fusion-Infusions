@@ -82,7 +82,7 @@ class VideosAdmin {
 
             if (!empty($cat_opts) > 0 && $total_rows > 0) {
                 echo '<div class="dropdown pull-left m-r-10">';
-                    echo '<a class="btn btn-default btn-sm dropdown-toggle" data-target="#" href="#" style="width: 200px;" data-toggle="dropdown" aria-expanded="false">';
+                    echo '<a class="btn btn-default btn-sm dropdown-toggle" style="width: 200px;" data-toggle="dropdown" aria-expanded="false">';
                         if (isset($_GET['filter_cid']) && isset($cat_opts[$_GET['filter_cid']])) {
                             echo $cat_opts[$_GET['filter_cid']];
                         } else {

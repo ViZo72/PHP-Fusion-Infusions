@@ -19,8 +19,7 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-$videos = function_exists('infusion_exists') ? infusion_exists('videos') : db_exists(DB_PREFIX.'videos');
-if ($videos) {
+if (!defined('VIDEOS_EXIST')) {
     $side_panel = FALSE;
     require_once INFUSIONS.'videos/functions.php';
 

@@ -17,8 +17,7 @@
 +--------------------------------------------------------*/
 require_once __DIR__.'/../../maincore.php';
 
-$videos = function_exists('infusion_exists') ? infusion_exists('videos') : db_exists(DB_PREFIX.'videos');
-if (!$videos) {
+if (!defined('VIDEOS_EXIST')) {
     redirect(BASEDIR.'error.php?code=404');
 }
 
