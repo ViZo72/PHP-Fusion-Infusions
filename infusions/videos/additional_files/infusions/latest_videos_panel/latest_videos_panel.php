@@ -19,7 +19,7 @@ if (!defined('IN_FUSION')) {
     die('Access Denied');
 }
 
-if (!defined('VIDEOS_EXIST')) {
+if (defined('VIDEOS_EXIST')) {
     $side_panel = FALSE;
     require_once INFUSIONS.'videos/functions.php';
 
