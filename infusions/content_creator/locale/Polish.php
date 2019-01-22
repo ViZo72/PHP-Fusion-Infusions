@@ -66,3 +66,6 @@ $locale['CC_046'] = 'Album';
 $locale['CC_047'] = 'Komentarze';
 $locale['CC_048'] = 'Komentarz';
 $locale['CC_049'] = 'Oceny';
+$locale['CC_050'] = 'Video';
+$locale['CC_051'] = 'Video Cats';
+$locale['CC_052'] = 'Videos';

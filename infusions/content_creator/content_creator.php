@@ -288,34 +288,34 @@ class ContentCreator {
         $type = [];
         $max_items = [];
 
-        $articles = function_exists('infusion_exists') ? infusion_exists('articles') : db_exists(DB_PREFIX.'articles');
-        if ($articles) {
+        if (defined('ARTICLES_EXIST')) {
             $type[1] = 'A';
             $max_items[1] = dbcount('(article_id)', DB_ARTICLES);
         }
 
-        $blogs = function_exists('infusion_exists') ? infusion_exists('blog') : db_exists(DB_PREFIX.'blog');
-        if ($blogs) {
+        if (defined('BLOG_EXIST')) {
             $type[2] = 'B';
             $max_items[2] = dbcount('(blog_id)', DB_BLOG);
         }
 
-        $downloads = function_exists('infusion_exists') ? infusion_exists('downloads') : db_exists(DB_PREFIX.'downloads');
-        if ($downloads) {
+        if (defined('DOWNLOADS_EXIST')) {
             $type[3] = 'D';
             $max_items[3] = dbcount('(download_id)', DB_DOWNLOADS);
         }
 
-        $gallery = function_exists('infusion_exists') ? infusion_exists('gallery') : db_exists(DB_PREFIX.'photos');
-        if ($gallery) {
+        if (defined('GALLERY_EXIST')) {
             $type[4] = 'P';
             $max_items[4] = dbcount('(album_id)', DB_PHOTO_ALBUMS);
         }
 
-        $news = function_exists('infusion_exists') ? infusion_exists('news') : db_exists(DB_PREFIX.'news');
-        if ($news) {
+        if (defined('NEWS_EXIST')) {
             $type[5] = 'N';
             $max_items[5] = dbcount('(news_id)', DB_NEWS);
+        }
+
+        if (defined('VIDEOS_EXIST')) {
+            $type[6] = 'VID';
+            $max_items[6] = dbcount('(video_id)', DB_VIDEOS);
         }
 
         if (isset($_POST['create_comments'])) {
@@ -595,6 +595,54 @@ class ContentCreator {
         }
     }
 
+    private function Videos() {
+        if (isset($_POST['create_video_cats'])) {
+            $num = $_POST['num_video_cats'];
+            $insert = 'video_cat_parent, video_cat_name, video_cat_description, video_cat_sorting, video_cat_language';
+            $values = '';
+
+            for ($i = 1; $i <= $num; $i++) {
+                $values .= "(0, '".$this->locale['CC_009']." ".$i."', '".$this->locale['CC_007']."', 'video_id ASC', '".LANGUAGE."')";
+                $values .= $i < $num ? ', ' : ';';
+            }
+
+            $this->Query(DB_VIDEO_CATS, $insert, $values);
+            $this->Notice($num);
+        }
+
+        if (isset($_POST['create_videos'])) {
+            $num = $_POST['num_videos'];
+            $insert = 'video_cat, video_user, video_title, video_description, video_length, video_datestamp, video_visibility, video_type, video_url, video_views, video_allow_comments, video_allow_ratings';
+            $values = '';
+
+            $video_urls = [
+                1 => 'https://www.youtube.com/watch?v=C0DPdy98e4c',
+                2 => 'https://www.youtube.com/watch?v=xcJtL7QggTI',
+                3 => 'https://www.youtube.com/watch?v=2MpUj-Aua48',
+            ];
+
+            for ($i = 1; $i <= $num; $i++) {
+                $video_cats = dbcount('(video_cat_id)', DB_VIDEO_CATS);
+                $video_cats = rand(1, $video_cats);
+                $values .= "(".$video_cats.", '".rand(1, $this->users)."', '".$this->locale['CC_050']." ".$i."', '".$this->body."', '".rand(0, 60).":".rand(0, 60)."', '".(time() - rand(0, time() / 2))."', 0, 'youtube', '".$video_urls[rand(1, 3)]."', ".rand(1, 10000).", 1, 1)";
+                $values .= $i < $num ? ', ' : ';';
+            }
+
+            $this->Query(DB_VIDEOS, $insert, $values);
+            $this->Notice($num);
+        }
+
+        if (isset($_POST['delete_video_cats'])) {
+            $this->Delete(DB_VIDEO_CATS);
+            $this->Notice('', TRUE);
+        }
+
+        if (isset($_POST['delete_videos'])) {
+            $this->Delete(DB_VIDEOS);
+            $this->Notice('', TRUE);
+        }
+    }
+
     private function Weblinks() {
         if (isset($_POST['create_weblink_cats'])) {
             $num = $_POST['num_weblink_cats'];
@@ -695,8 +743,7 @@ class ContentCreator {
         echo '<td>'.$this->Button('private_messages', TRUE).'</td>';
         echo '</tr>';
 
-        $articles = function_exists('infusion_exists') ? infusion_exists('articles') : db_exists(DB_PREFIX.'articles');
-        if ($articles) {
+        if (defined('ARTICLES_EXIST')) {
             $this->Articles();
             echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_012'].'</td></tr>';
             echo '<tr>';
@@ -719,8 +766,7 @@ class ContentCreator {
             }
         }
 
-        $blogs = function_exists('infusion_exists') ? infusion_exists('blog') : db_exists(DB_PREFIX.'blog');
-        if ($blogs) {
+        if (defined('BLOG_EXIST')) {
             $this->Blogs();
             echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_015'].'</td></tr>';
             echo '<tr>';
@@ -753,8 +799,7 @@ class ContentCreator {
         echo '<td>'.$this->Button('custom_pages', TRUE).'</td>';
         echo '</tr>';
 
-        $downloads = function_exists('infusion_exists') ? infusion_exists('downloads') : db_exists(DB_PREFIX.'downloads');
-        if ($downloads) {
+        if (defined('DOWNLOADS_EXIST')) {
             $this->Downloads();
             echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_020'].'</td></tr>';
             echo '<tr>';
@@ -777,8 +822,7 @@ class ContentCreator {
             }
         }
 
-        $faqs = function_exists('infusion_exists') ? infusion_exists('faq') : db_exists(DB_PREFIX.'faqs');
-        if ($faqs) {
+        if (defined('FAQ_EXIST')) {
             $this->Faqs();
             echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_023'].'</td></tr>';
             echo '<tr>';
@@ -801,8 +845,7 @@ class ContentCreator {
             }
         }
 
-        $forums = function_exists('infusion_exists') ? infusion_exists('forum') : db_exists(DB_PREFIX.'forums');
-        if ($forums) {
+        if (defined('FORUM_EXIST')) {
             $this->Forums();
             echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_043'].'</td></tr>';
             echo '<tr>';
@@ -814,8 +857,7 @@ class ContentCreator {
             echo '</tr>';
         }
 
-        $gallery = function_exists('infusion_exists') ? infusion_exists('gallery') : db_exists(DB_PREFIX.'photos');
-        if ($gallery) {
+        if (defined('GALLERY_EXIST')) {
             $this->Gallery();
             echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_045'].'</td></tr>';
             echo '<tr>';
@@ -827,8 +869,7 @@ class ContentCreator {
             echo '</tr>';
         }
 
-        $news = function_exists('infusion_exists') ? infusion_exists('news') : db_exists(DB_PREFIX.'news');
-        if ($news) {
+        if (defined('NEWS_EXIST')) {
             $this->News();
             echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_026'].'</td></tr>';
             echo '<tr>';
@@ -852,8 +893,7 @@ class ContentCreator {
             }
         }
 
-        $polls = function_exists('infusion_exists') ? infusion_exists('member_poll_panel') : db_exists(DB_PREFIX.'polls');
-        if ($polls) {
+        if (defined('MEMBER_POLL_PANEL_EXIST')) {
             $this->Polls();
             echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_030'].'</td></tr>';
             echo '<tr>';
@@ -865,8 +905,7 @@ class ContentCreator {
             echo '</tr>';
         }
 
-        $shoutbox = function_exists('infusion_exists') ? infusion_exists('shoutbox_panel') : db_exists(DB_PREFIX.'shoutbox');
-        if ($shoutbox) {
+        if (defined('SHOUTBOX_PANEL_EXIST')) {
             $this->Shouts();
             echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_032'].'</td></tr>';
             echo '<tr>';
@@ -878,8 +917,31 @@ class ContentCreator {
             echo '</tr>';
         }
 
-        $weblinks = function_exists('infusion_exists') ? infusion_exists('weblinks') : db_exists(DB_PREFIX.'weblinks');
-        if ($weblinks) {
+        if (defined('VIDEOS_EXIST')) {
+            $this->Videos();
+            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_052'].'</td></tr>';
+            echo '<tr>';
+            echo '<td>'.$this->NumField('video_cats', 5).'</td>';
+            echo '<td>'.$this->Button('video_cats').'</td>';
+            $video_cats = dbcount('(video_cat_id)', DB_VIDEO_CATS);
+            echo '<td>'.$this->locale['CC_051'].': '.$video_cats.'</td>';
+            echo '<td>'.$this->Button('video_cats', TRUE).'</td>';
+            echo '</tr>';
+
+            if (!empty($video_cats)) {
+                echo '<tr>';
+                echo '<td>'.$this->NumField('videos').'</td>';
+                echo '<td>'.$this->Button('videos').'</td>';
+                $videos = dbcount('(video_id)', DB_VIDEOS);
+                echo '<td>'.$this->locale['CC_052'].': '.$videos.'</td>';
+                echo '<td>'.$this->Button('videos', TRUE).'</td>';
+                echo '</tr>';
+            } else {
+                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['CC_036'], $this->locale['CC_051']).'</td></tr>';
+            }
+        }
+
+        if (defined('WEBLINKS_EXIST')) {
             $this->Weblinks();
             echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_035'].'</td></tr>';
             echo '<tr>';

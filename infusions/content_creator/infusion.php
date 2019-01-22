@@ -35,7 +35,7 @@ $inf_image       = 'content_creator.svg';
 $enabled_languages = makefilelist(LOCALE, ".|..", TRUE, "folders");
 if (!empty($enabled_languages)) {
     foreach ($enabled_languages as $language) {
-        INFUSIONS.'content_creator/locale/'.$language.'.php';
+        include INFUSIONS.'content_creator/locale/'.$language.'.php';
 
         $mlt_adminpanel[$language][] = [
             'rights'   => 'CC',

@@ -44,7 +44,7 @@ $inf_newtable[] = DB_TEAM." (
 $enabled_languages = makefilelist(LOCALE, ".|..", TRUE, "folders");
 if (!empty($enabled_languages)) {
     foreach ($enabled_languages as $language) {
-        INFUSIONS.INFUSIONS.'team/locale/'.$language.'/team.php';
+        include INFUSIONS.'team/locale/'.$language.'/team.php';
 
         $mlt_adminpanel[$language][] = [
             'rights'   => 'TEAM',

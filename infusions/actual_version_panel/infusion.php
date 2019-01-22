@@ -49,7 +49,7 @@ foreach ($settings as $name => $value) {
 $enabled_languages = makefilelist(LOCALE, ".|..", TRUE, "folders");
 if (!empty($enabled_languages)) {
     foreach ($enabled_languages as $language) {
-        INFUSIONS.'actual_version_panel/locale/'.$language.'.php';
+        include INFUSIONS.'actual_version_panel/locale/'.$language.'.php';
 
         $mlt_adminpanel[$language][] = [
             'rights'   => 'AV',

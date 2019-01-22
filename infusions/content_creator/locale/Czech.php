@@ -66,3 +66,6 @@ $locale['CC_046'] = 'Album';
 $locale['CC_047'] = 'Komentáře';
 $locale['CC_048'] = 'Komentář';
 $locale['CC_049'] = 'Hodnocení';
+$locale['CC_050'] = 'Video';
+$locale['CC_051'] = 'Kategorie videii';
+$locale['CC_052'] = 'Videa';
