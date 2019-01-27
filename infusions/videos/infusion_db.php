@@ -43,12 +43,13 @@ if (!defined('DB_VIDEO_CATS')) {
     define('DB_VIDEO_CATS', DB_PREFIX.'video_cats');
 }
 
+// Admin Settings
 \PHPFusion\Admins::getInstance()->setAdminPageIcons('VID', '<i class="admin-ico fa fa-fw fa-play"></i>');
 \PHPFusion\Admins::getInstance()->setCommentType('VID', fusion_get_locale('VID_title', VID_LOCALE));
 \PHPFusion\Admins::getInstance()->setLinkType('VID', fusion_get_settings('siteurl').'infusions/videos/videos.php?video_id=%s');
 
 $inf_settings = get_settings('videos');
-if ($inf_settings['video_allow_submission']) {
+if (!empty($inf_settings['video_allow_submission']) && $inf_settings['video_allow_submission']) {
     if (method_exists(\PHPFusion\Admins::getInstance(), 'setSubmitData')) {
         \PHPFusion\Admins::getInstance()->setSubmitData('v', [
             'infusion_name' => 'videos',
