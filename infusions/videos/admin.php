@@ -72,7 +72,7 @@ class VideosAdmin {
             FROM ".DB_VIDEOS." v
             INNER JOIN ".DB_VIDEO_CATS." vc on v.video_cat = vc.video_cat_id
             ".($filter ? "WHERE $filter " : '')."
-            ORDER BY vc.video_cat_sorting LIMIT $rowstart, $limit
+            ORDER BY v.video_datestamp DESC LIMIT $rowstart, $limit
         ");
 
         $rows = dbrows($result);
