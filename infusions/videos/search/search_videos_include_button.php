@@ -17,9 +17,7 @@
 +--------------------------------------------------------*/
 namespace PHPFusion\Search;
 
-if (!defined('IN_FUSION')) {
-    die('Access Denied');
-}
+defined('IN_FUSION') || exit;
 
 if (db_exists(DB_VIDEOS)) {
     $form_elements = &$form_elements;

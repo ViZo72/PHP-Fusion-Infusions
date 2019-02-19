@@ -16,6 +16,8 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
+defined('IN_FUSION') || exit;
+
 add_to_footer('<script type="text/javascript" src="'.INFUSIONS.'snow_panel/js/jsnow.min.js"></script>');
 
 add_to_jquery('jQuery().jSnow({

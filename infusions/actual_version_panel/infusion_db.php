@@ -15,9 +15,7 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-if (!defined('IN_FUSION')) {
-    die('Access Denied');
-}
+defined('IN_FUSION') || exit;
 
 if (!defined('AV_LOCALE')) {
     if (file_exists(INFUSIONS.'actual_version_panel/locale/'.LANGUAGE.'.php')) {

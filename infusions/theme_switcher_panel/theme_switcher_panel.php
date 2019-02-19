@@ -16,9 +16,7 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-if (!defined('IN_FUSION')) {
-    die('Access Denied');
-}
+defined('IN_FUSION') || exit;
 
 if (file_exists(INFUSIONS.'theme_switcher_panel/locale/'.LANGUAGE.'php')) {
     $locale = fusion_get_locale('', INFUSIONS.'theme_switcher_panel/locale/'.LANGUAGE.'.php');

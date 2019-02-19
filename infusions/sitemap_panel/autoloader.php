@@ -15,9 +15,7 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-if (!defined('IN_FUSION')) {
-    die('Access Denied');
-}
+defined('IN_FUSION') || exit;
 
 spl_autoload_register(function ($class_name) {
     $path = INFUSIONS.'sitemap_panel/classes/'.$class_name.'.php';
