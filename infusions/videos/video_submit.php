@@ -26,16 +26,16 @@ opentable('<i class="fa fa-play fa-lg fa-fw"></i>'.$locale['VID_076']);
 
 if (iMEMBER && $video_settings['video_allow_submission']) {
     $criteria_array = [
-        'video_cat'            => 0,
-        'video_title'          => '',
-        'video_description'    => '',
-        'video_keywords'       => '',
-        'video_length'         => '',
-        'video_type'           => '',
-        'video_file'           => '',
-        'video_url'            => '',
-        'video_embed'          => '',
-        'video_image'          => ''
+        'video_cat'         => 0,
+        'video_title'       => '',
+        'video_description' => '',
+        'video_keywords'    => '',
+        'video_length'      => '',
+        'video_type'        => '',
+        'video_file'        => '',
+        'video_url'         => '',
+        'video_embed'       => '',
+        'video_image'       => ''
     ];
 
     if (isset($_POST['submit_video'])) {
@@ -87,7 +87,7 @@ if (iMEMBER && $video_settings['video_allow_submission']) {
         if (defender::safe()) {
             $input_array = [
                 'submit_type'      => 'v',
-                'submit_user'      => $userdata['user_id'],
+                'submit_user'      => fusion_get_userdata('user_id'),
                 'submit_datestamp' => time(),
                 'submit_criteria'  => serialize($criteria_array)
             ];

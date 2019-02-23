@@ -280,12 +280,12 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
         echo '<div class="well">'.sprintf($locale['VID_053'], format_word($rows, $locale['fmt_submission'])).'</div>';
 
         echo '<div class="table-responsive"><table class="table table-striped">';
-            echo '<tr>';
+            echo '<thead><tr>';
                 echo '<th>'.$locale['VID_054'].'</th>';
                 echo '<th>'.$locale['VID_055'].'</th>';
                 echo '<th>'.$locale['VID_056'].'</th>';
                 echo '<th>'.$locale['VID_057'].'</th>';
-            echo '</tr>';
+            echo '</tr></thead>';
             echo '<tbody>';
                 while ($callback_data = dbarray($result)) {
                     $submit_criteria = unserialize($callback_data['submit_criteria']);
