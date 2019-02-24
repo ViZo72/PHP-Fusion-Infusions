@@ -133,7 +133,7 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
                 echo openform('publish_video', 'post', FUSION_REQUEST);
                 echo '<div class="well clearfix">';
                     echo '<div class="pull-left">';
-                        echo display_avatar($callback_data, '30px', '', FALSE, 'img-rounded m-t-5 m-r-5');
+                        echo display_avatar($data, '30px', '', FALSE, 'img-rounded m-t-5 m-r-5');
                     echo '</div>';
 
                     echo '<div class="overflow-hide">';
