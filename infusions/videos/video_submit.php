@@ -155,21 +155,45 @@ if (iMEMBER && $video_settings['video_allow_submission']) {
                         'file'    => $locale['VID_018'],
                         'url'     => $locale['VID_019'],
                         'youtube' => 'YouTube',
+                        'vimeo'   => 'Vimeo',
                         'embed'   => $locale['VID_020']
                     ],
                     'required' => TRUE,
                     'inline'   => TRUE
                 ]);
 
-                add_to_jquery('$("#video_type").on("change", function (e) {
-                    if ($(this).val() == "file") {
-                        $("#videotab li #tab-videofile").tab("show");
-                    } else if ($(this).val() == "url" || $(this).val() == "youtube") {
-                        $("#videotab li #tab-videourl").tab("show");
-                    } else if ($(this).val() == "embed") {
-                        $("#videotab li #tab-videoembed").tab("show");
-                    }
-                });');
+                add_to_jquery('
+                    $("#type-youtube").hide();
+                    $("#type-vimeo").hide();
+
+                    $("#video_type").on("change", function (e) {
+                        if ($(this).val() == "file") {
+                            $("#videotab li #tab-videofile").tab("show");
+                        } else if ($(this).val() == "url" || $(this).val() == "youtube" || $(this).val() == "vimeo") {
+                            $("#videotab li #tab-videourl").tab("show");
+                        } else if ($(this).val() == "embed") {
+                            $("#videotab li #tab-videoembed").tab("show");
+                        }
+
+                        if ($(this).val() == "youtube") {
+                            $("#type-youtube").show();
+                            $("#type-vimeo").hide();
+                            $("#type-url").hide();
+                        }
+
+                        if ($(this).val() == "vimeo") {
+                            $("#type-youtube").hide();
+                            $("#type-vimeo").show();
+                            $("#type-url").hide();
+                        }
+
+                        if ($(this).val() == "url") {
+                            $("#type-youtube").hide();
+                            $("#type-vimeo").hide();
+                            $("#type-url").show();
+                        }
+                    });
+                ');
 
                 $tab_video_type['title'][] = $locale['VID_018'];
                 $tab_video_type['id'][]    = 'videofile';
@@ -204,7 +228,9 @@ if (iMEMBER && $video_settings['video_allow_submission']) {
                             'class'       => 'm-t-10',
                             'inline'      => TRUE,
                             'error_text'  => $locale['VID_024'],
-                            'ext_tip'     => 'YouTube: https://www.youtube.com/watch?v=<span class="required">I5NUkb-0lRo</span><br/>'.$locale['VID_019a'].': <span class="required">https://www.example.com/file.flv</span><br/>'.$locale['VID_019b']
+                            'ext_tip'     => '<span id="type-youtube">YouTube: <span class="required">https://www.youtube.com/watch?v=2MpUj-Aua48</span><br/></span>'.
+                                             '<span id="type-vimeo">Vimeo: <span class="required">https://vimeo.com/56282283</span><br/></span>'.
+                                             '<span id="type-url">'.$locale['VID_019a'].': <span class="required">https://www.example.com/file.flv</span><br/></span>'.$locale['VID_019b']
                         ]);
                     echo closetabbody();
 
