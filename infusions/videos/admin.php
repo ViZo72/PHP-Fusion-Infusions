@@ -148,9 +148,27 @@ class VideosAdmin {
 
         BreadCrumbs::getInstance()->addBreadCrumb(['link' => INFUSIONS.'videos/admin.php'.fusion_get_aidlink(), 'title' => $this->locale['VID_title']]);
 
+        $edit = (isset($_GET['action']) && $_GET['action'] == 'edit') && isset($_GET['video_id']) ? TRUE : FALSE;
+
+        if (!empty($_GET['section'])) {
+            switch ($_GET['section']) {
+                case 'form':
+                    BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $edit ? $this->locale['edit'] : $this->locale['add']]);
+                    break;
+                case 'categories':
+                    BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['VID_001']]);
+                    break;
+                case 'submissions':
+                    BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['VID_002']]);
+                    break;
+                case 'settings':
+                    BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['VID_003']]);
+                    break;
+            }
+        }
+
         opentable($this->locale['VID_title']);
 
-        $edit = (isset($_GET['action']) && $_GET['action'] == 'edit') && isset($_GET['video_id']) ? TRUE : FALSE;
         $allowed_section = ['list', 'form', 'categories', 'submissions', 'settings'];
         $_GET['section'] = isset($_GET['section']) && in_array($_GET['section'], $allowed_section) ? $_GET['section'] : 'list';
 
@@ -184,20 +202,15 @@ class VideosAdmin {
                 } else {
                     echo '<div class="well text-center">'.$this->locale['VID_004'].'</div>';
                 }
-
-                BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $edit ? $this->locale['edit'] : $this->locale['add']]);
                 break;
             case 'categories':
                 require_once 'admin/video_cats.php';
-                BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['VID_001']]);
                 break;
             case 'submissions':
                 require_once 'admin/video_submissions.php';
-                BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['VID_002']]);
                 break;
             case 'settings':
                 require_once 'admin/video_settings.php';
-                BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['VID_003']]);
                 break;
             default:
                 $this->Listing();
