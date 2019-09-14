@@ -20,9 +20,9 @@ defined('IN_FUSION') || exit;
 $locale = fusion_get_locale('', SMG_LOCALE);
 
 // Infusion general information
-$inf_title       = $locale['SMG_title'];
-$inf_description = $locale['SMG_desc'];
-$inf_version     = '1.2.0';
+$inf_title       = $locale['smg_title'];
+$inf_description = $locale['smg_desc'];
+$inf_version     = '1.2.1';
 $inf_developer   = 'RobiNN';
 $inf_email       = 'kelcakrobo@gmail.com';
 $inf_weburl      = 'https://github.com/RobiNN1';
@@ -86,15 +86,19 @@ foreach ($settings as $name => $value) {
 }
 
 // Multilanguage links
-$enabled_languages = makefilelist(LOCALE, ".|..", TRUE, "folders");
+$enabled_languages = makefilelist(LOCALE, '.|..', TRUE, 'folders');
 if (!empty($enabled_languages)) {
     foreach ($enabled_languages as $language) {
-        include INFUSIONS.'sitemap_panel/locale/'.$language.'.php';
+        if (file_exists(INFUSIONS.'sitemap_panel/locale/'.$language.'.php')) {
+            include INFUSIONS.'sitemap_panel/locale/'.$language.'.php';
+        } else {
+            include INFUSIONS.'sitemap_panel/locale/English.php';
+        }
 
         $mlt_adminpanel[$language][] = [
             'rights'   => 'SMG',
             'image'    => $inf_image,
-            'title'    => $locale['SMG_title_admin'],
+            'title'    => $locale['smg_title_admin'],
             'panel'    => 'admin.php',
             'page'     => 5,
             'language' => $language
@@ -107,7 +111,7 @@ if (!empty($enabled_languages)) {
     $inf_adminpanel[] = [
         'rights'   => 'SMG',
         'image'    => $inf_image,
-        'title'    => $locale['SMG_title_admin'],
+        'title'    => $locale['smg_title_admin'],
         'panel'    => 'admin.php',
         'page'     => 5,
         'language' => LANGUAGE

@@ -15,6 +15,6 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['TS_01'] = 'Přepínač témat';
-$locale['TS_02'] = 'Téma byla změněna';
-$locale['TS_03'] = 'Změnit';
+$locale['tsw_01'] = 'Přepínač témat';
+$locale['tsw_02'] = 'Téma byla změněna';
+$locale['tsw_03'] = 'Změnit';

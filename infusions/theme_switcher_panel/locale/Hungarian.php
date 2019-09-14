@@ -15,6 +15,6 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['TS_01'] = 'Felület Váltó';
-$locale['TS_02'] = 'Felület Megváltoztattva';
-$locale['TS_03'] = 'Változtat';
+$locale['tsw_01'] = 'Felület Váltó';
+$locale['tsw_02'] = 'Felület Megváltoztattva';
+$locale['tsw_03'] = 'Változtat';

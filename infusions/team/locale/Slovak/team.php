@@ -15,17 +15,17 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['TEAM_title'] = 'Tím';
-$locale['TEAM_desc'] = 'Tím list';
-$locale['TEAM_title_admin'] = 'Tím - administrácia';
-$locale['TEAM_001'] = 'Meno';
-$locale['TEAM_002'] = 'Pozícia';
-$locale['TEAM_003'] = 'Profesia';
-$locale['TEAM_004'] = 'Dátum registrácie';
-$locale['TEAM_005'] = 'SS';
-$locale['TEAM_006'] = 'Akcia';
-$locale['TEAM_007'] = 'Žiadni užívatelia';
-$locale['TEAM_008'] = 'Vyberte užívateľa';
-$locale['TEAM_009'] = 'Užívateľ bol pridaný';
-$locale['TEAM_010'] = 'Užívateľ bol aktualizovaný';
-$locale['TEAM_011'] = 'Užívateľ bol odstránený';
+$locale['tm_title'] = 'Tím';
+$locale['tm_desc'] = 'Tím list';
+$locale['tm_title_admin'] = 'Tím - administrácia';
+$locale['tm_001'] = 'Meno';
+$locale['tm_002'] = 'Pozícia';
+$locale['tm_003'] = 'Profesia';
+$locale['tm_004'] = 'Dátum registrácie';
+$locale['tm_005'] = 'SS';
+$locale['tm_006'] = 'Akcia';
+$locale['tm_007'] = 'Žiadni užívatelia';
+$locale['tm_008'] = 'Vyberte užívateľa';
+$locale['tm_009'] = 'Užívateľ bol pridaný';
+$locale['tm_010'] = 'Užívateľ bol aktualizovaný';
+$locale['tm_011'] = 'Užívateľ bol odstránený';

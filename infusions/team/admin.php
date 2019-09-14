@@ -18,23 +18,23 @@
 require_once '../../maincore.php';
 require_once THEMES.'templates/admin_header.php';
 
-pageAccess('TEAM');
+pageAccess('TM');
 
-use \PHPFusion\BreadCrumbs;
 
-$locale = fusion_get_locale('', TEAM_LOCALE);
+$locale = fusion_get_locale('', TM_LOCALE);
 
-add_to_title($locale['TEAM_title_admin']);
+add_to_title($locale['tm_title_admin']);
 
-BreadCrumbs::getInstance()->addBreadCrumb(['link' => INFUSIONS.'team/admin.php'.fusion_get_aidlink(), 'title' => $locale['TEAM_title_admin']]);
+add_breadcrumb(['link' => INFUSIONS.'team/admin.php'.fusion_get_aidlink(), 'title' => $locale['tm_title_admin']]);
 
-opentable($locale['TEAM_title_admin']);
+opentable($locale['tm_title_admin']);
 
 $data = [
     'team_id'    => 0,
     'userid'     => 0,
     'position'   => '',
-    'profession' => ''
+    'profession' => '',
+    'language'   => LANGUAGE
 ];
 
 $edit = (isset($_GET['action']) && $_GET['action'] == 'edit') && isset($_GET['team_id']) ? TRUE : FALSE;
@@ -47,7 +47,7 @@ if (isset($_GET['section']) && $_GET['section'] == 'form') {
     $tab['icon'][]  = 'fa fa-fw fa-arrow-left';
 }
 
-$tab['title'][] = $locale['TEAM_title'];
+$tab['title'][] = $locale['tm_title'];
 $tab['id'][]    = 'list';
 $tab['icon'][]  = 'fa fa-fw fa-users';
 
@@ -61,7 +61,7 @@ if (isset($_GET['section']) && $_GET['section'] == 'back') redirect(FUSION_SELF.
 
 if ((isset($_GET['action']) && $_GET['action'] == 'delete') && (isset($_GET['team_id']) && isnum($_GET['team_id']))) {
     if (dbrows($result)) dbquery("DELETE FROM ".DB_TEAM." WHERE team_id='".intval($_GET['team_id'])."'");
-    addNotice('success', $locale['TEAM_011']);
+    addNotice('success', $locale['tm_011']);
     redirect(FUSION_SELF.fusion_get_aidlink());
 }
 
@@ -69,9 +69,9 @@ echo opentab($tab, $_GET['section'], 'teamadmin', TRUE, 'nav-tabs m-b-20');
 switch ($_GET['section']) {
     case 'form':
         if ($edit) {
-            BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $locale['edit']]);
+            add_breadcrumb(['link' => FUSION_REQUEST, 'title' => $locale['edit']]);
         } else {
-            BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $locale['add']]);
+            add_breadcrumb(['link' => FUSION_REQUEST, 'title' => $locale['add']]);
         }
 
         if (isset($_POST['save'])) {
@@ -79,19 +79,20 @@ switch ($_GET['section']) {
                 'team_id'    => form_sanitizer($_POST['team_id'], 0, 'team_id'),
                 'userid'     => form_sanitizer($_POST['userid'], '', 'userid'),
                 'position'   => form_sanitizer($_POST['position'], '', 'position'),
-                'profession' => form_sanitizer($_POST['profession'], '', 'profession')
+                'profession' => form_sanitizer($_POST['profession'], '', 'profession'),
+                'language'   => form_sanitizer($_POST['language'], '', 'language')
             ];
 
             if (dbcount('(team_id)', DB_TEAM, "team_id='".$data['team_id']."'")) {
                 dbquery_insert(DB_TEAM, $data, 'update');
                 if (\defender::safe()) {
-                    addNotice('success', $locale['TEAM_010']);
+                    addNotice('success', $locale['tm_010']);
                     redirect(FUSION_SELF.fusion_get_aidlink());
                 }
             } else {
                 dbquery_insert(DB_TEAM, $data, 'save');
                 if (\defender::safe()) {
-                    addNotice('success', $locale['TEAM_009']);
+                    addNotice('success', $locale['tm_009']);
                     redirect(FUSION_SELF.fusion_get_aidlink());
                 }
             }
@@ -107,9 +108,21 @@ switch ($_GET['section']) {
 
         echo openform('teamform', 'post', FUSION_REQUEST);
         echo form_hidden('team_id', '', $data['team_id']);
-        echo form_user_select('userid', $locale['TEAM_008'], $data['userid'], ['inline' => TRUE, 'allow_self' => TRUE]);
-        echo form_text('position', $locale['TEAM_002'], $data['position'], ['inline' => TRUE]);
-        echo form_text('profession', $locale['TEAM_003'], $data['profession'], ['inline' => TRUE]);
+        echo form_user_select('userid', $locale['tm_008'], $data['userid'], ['inline' => TRUE, 'allow_self' => TRUE]);
+        echo form_text('position', $locale['tm_002'], $data['position'], ['inline' => TRUE]);
+        echo form_text('profession', $locale['tm_003'], $data['profession'], ['inline' => TRUE]);
+
+        if (multilang_table('TM')) {
+            echo form_select('language', $locale['global_ML100'], $data['language'], [
+                'options'     => fusion_get_enabled_languages(),
+                'placeholder' => $locale['choose'],
+                'width'       => '100%',
+                'inline'      => TRUE
+            ]);
+        } else {
+            echo form_hidden('language', '', $data['language']);
+        }
+
         echo form_button('save', $locale['save'], 'save', ['class' => 'btn-success']);
         echo closeform();
         break;
@@ -117,15 +130,16 @@ switch ($_GET['section']) {
         $result = dbquery("SELECT t.*, u.user_id, u.user_name, u.user_status, u.user_avatar, u.user_level, u.user_joined
             FROM ".DB_TEAM." t
             LEFT JOIN ".DB_USERS." u ON t.userid=u.user_id
-        ");
+            ".(multilang_table('TM') ? " WHERE language='".LANGUAGE."'" : '')
+        );
 
         echo '<div class="table-responsive"><table class="table table-striped table-bordered">';
             echo '<thead><tr>';
-                echo '<td>'.$locale['TEAM_001'].'</td>';
-                echo '<td>'.$locale['TEAM_002'].'</td>';
-                echo '<td>'.$locale['TEAM_003'].'</td>';
-                echo '<td>'.$locale['TEAM_004'].'</td>';
-                echo '<td>'.$locale['TEAM_006'].'</td>';
+                echo '<td>'.$locale['tm_001'].'</td>';
+                echo '<td>'.$locale['tm_002'].'</td>';
+                echo '<td>'.$locale['tm_003'].'</td>';
+                echo '<td>'.$locale['tm_004'].'</td>';
+                echo '<td>'.$locale['tm_006'].'</td>';
             echo '</tr></thead>';
 
             if (dbrows($result)) {
@@ -145,7 +159,7 @@ switch ($_GET['section']) {
                     echo '</tr>';
                 }
             } else {
-                echo '<tr><td colspan="6" class="text-center">'.$locale['TEAM_007'].'</td></tr>';
+                echo '<tr><td colspan="6" class="text-center">'.$locale['tm_007'].'</td></tr>';
             }
         echo '</table></div>';
         break;

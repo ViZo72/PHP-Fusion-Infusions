@@ -58,7 +58,7 @@ if ((isset($_GET['action']) && $_GET['action'] == 'delete') && (isset($_GET['vid
         dbquery("DELETE FROM ".DB_VIDEO_LIKES." WHERE video_id='".$_GET['video_id']."'");
     }
 
-    addNotice('success', $locale['VID_notice_03']);
+    addNotice('success', $locale['vid_notice_03']);
     redirect(FUSION_SELF.$aidlink);
 }
 
@@ -115,7 +115,7 @@ if (isset($_POST['save_video'])) {
         $data['video_url'] = '';
     } else if (empty($data['video_file']) && empty($data['video_url']) && empty($data['video_embed'])) {
         \defender::stop();
-        addNotice('danger', $locale['VID_notice_04']);
+        addNotice('danger', $locale['vid_notice_04']);
     }
 
     if (\defender::safe() && isset($_POST['delete_image']) && isset($_GET['video_id']) && isnum($_GET['video_id'])) {
@@ -138,13 +138,13 @@ if (isset($_POST['save_video'])) {
     if (dbcount("(video_id)", DB_VIDEOS, "video_id='".$data['video_id']."'")) {
         dbquery_insert(DB_VIDEOS, $data, 'update');
         if (\defender::safe()) {
-            addNotice('success', $locale['VID_notice_01']);
+            addNotice('success', $locale['vid_notice_01']);
             redirect(FUSION_SELF.$aidlink);
         }
     } else {
         dbquery_insert(DB_VIDEOS, $data, 'save');
         if (\defender::safe()) {
-            addNotice('success', $locale['VID_notice_02']);
+            addNotice('success', $locale['vid_notice_02']);
             redirect(FUSION_SELF.$aidlink);
         }
     }
@@ -167,13 +167,13 @@ echo '<div class="row">';
         echo form_hidden('video_id', '', $data['video_id']);
         echo form_hidden('video_user', '', $data['video_user']);
         echo form_hidden('video_datestamp', '', $data['video_datestamp']);
-        echo form_text('video_title', $locale['VID_010'], $data['video_title'], [
+        echo form_text('video_title', $locale['vid_010'], $data['video_title'], [
             'required'   => TRUE,
             'inline'     => TRUE,
-            'error_text' => $locale['VID_011']
+            'error_text' => $locale['vid_011']
         ]);
-        echo form_select('video_keywords',  $locale['VID_012'], $data['video_keywords'], [
-            'placeholder' =>  $locale['VID_013'],
+        echo form_select('video_keywords',  $locale['vid_012'], $data['video_keywords'], [
+            'placeholder' =>  $locale['vid_013'],
             'max_length'  => 320,
             'inline'      => TRUE,
             'width'       => '100%',
@@ -181,13 +181,13 @@ echo '<div class="row">';
             'tags'        => 1,
             'multiple'    => 1
         ]);
-        echo form_text('video_length', $locale['VID_013a'], $data['video_length'], [
+        echo form_text('video_length', $locale['vid_013a'], $data['video_length'], [
             'required'    => TRUE,
             'inline'      => TRUE,
             'placeholder' => '00:00',
-            'error_text'  => $locale['VID_013b']
+            'error_text'  => $locale['vid_013b']
         ]);
-        echo form_textarea('video_description', $locale['VID_014'], $data['video_description'], [
+        echo form_textarea('video_description', $locale['vid_014'], $data['video_description'], [
             'no_resize' => TRUE,
             'form_name' => 'inputform',
             'type'      => fusion_get_settings('tinymce_enabled') ? 'tinymce' : 'html',
@@ -199,15 +199,15 @@ echo '<div class="row">';
 
         closeside();
 
-        echo '<div class="well">'.$locale['VID_017'].'</div>';
+        echo '<div class="well">'.$locale['vid_017'].'</div>';
 
-        echo form_select('video_type', $locale['VID_017a'], $data['video_type'], [
+        echo form_select('video_type', $locale['vid_017a'], $data['video_type'], [
             'options'  => [
-                'file'    => $locale['VID_018'],
-                'url'     => $locale['VID_019'],
+                'file'    => $locale['vid_018'],
+                'url'     => $locale['vid_019'],
                 'youtube' => 'YouTube',
                 'vimeo'   => 'Vimeo',
-                'embed'   => $locale['VID_020']
+                'embed'   => $locale['vid_020']
             ],
             'required' => TRUE,
             'inline'   => TRUE
@@ -246,13 +246,13 @@ echo '<div class="row">';
             });
         ');
 
-        $tab_video_type['title'][] = $locale['VID_018'];
+        $tab_video_type['title'][] = $locale['vid_018'];
         $tab_video_type['id'][]    = 'videofile';
         $tab_video_type['icon'][]  = 'fa fa-file-zip-o fa-fw';
-        $tab_video_type['title'][] = $locale['VID_019'];
+        $tab_video_type['title'][] = $locale['vid_019'];
         $tab_video_type['id'][]    = 'videourl';
         $tab_video_type['icon'][]  = 'fa fa-link fa-fw';
-        $tab_video_type['title'][] = $locale['VID_020'];
+        $tab_video_type['title'][] = $locale['vid_020'];
         $tab_video_type['id'][]    = 'videoembed';
         $tab_video_type['icon'][]  = 'fa fa-code fa-fw';
 
@@ -272,56 +272,56 @@ echo '<div class="row">';
             echo opentabbody($tab_video_type['title'][0], $tab_video_type['id'][0], $tab_video_type_active);
                 if (!empty($data['video_file'])) {
                     echo '<div class="m-t-20 m-b-20">';
-                        echo $locale['VID_021'].' - <a href="'.VIDEOS.'videos/'.$data['video_file'].'">'.VIDEOS.'videos/'.$data['video_file'].'</a>';
+                        echo $locale['vid_021'].' - <a href="'.VIDEOS.'videos/'.$data['video_file'].'">'.VIDEOS.'videos/'.$data['video_file'].'</a>';
                         echo form_button('delete_video', $locale['delete'], $data['video_id'], ['class' => 'm-b-0 pull-right btn-danger', 'icon' => 'fa fa-trash fa-fw']);
                         echo form_hidden('video_file', '', $data['video_file']);
                     echo '</div>';
                 } else {
-                    echo form_fileinput('video_file', $locale['VID_021'], '', [
+                    echo form_fileinput('video_file', $locale['vid_021'], '', [
                         'class'       => 'm-t-10',
                         'required'    => TRUE,
                         'width'       => '100%',
                         'upload_path' => VIDEOS.'videos/',
                         'max_byte'    => $this->video_settings['video_max_b'],
                         'valid_ext'   => $this->video_settings['video_types'],
-                        'error_text'  => $locale['VID_022'],
+                        'error_text'  => $locale['vid_022'],
                         'type'        => 'video',
                         'preview_off' => TRUE,
-                        'ext_tip'     => sprintf($locale['VID_023'], parsebytesize($this->video_settings['video_max_b']), str_replace(',', ' ', $this->video_settings['video_types']))
+                        'ext_tip'     => sprintf($locale['vid_023'], parsebytesize($this->video_settings['video_max_b']), str_replace(',', ' ', $this->video_settings['video_types']))
                     ]);
                 }
             echo closetabbody();
 
             echo opentabbody($tab_video_type['title'][1], $tab_video_type['id'][1], $tab_video_type_active);
                 if (empty($data['video_file'])) {
-                    echo form_text('video_url', $locale['VID_019'], $data['video_url'], [
+                    echo form_text('video_url', $locale['vid_019'], $data['video_url'], [
                         'required'    => TRUE,
                         'class'       => 'm-t-10',
                         'inline'      => TRUE,
                         'type'        => 'url',
-                        'error_text'  => $locale['VID_024'],
+                        'error_text'  => $locale['vid_024'],
                         'ext_tip'     => '<span id="type-youtube">YouTube: <span class="required">https://www.youtube.com/watch?v=2MpUj-Aua48</span><br/></span>'.
                                          '<span id="type-vimeo">Vimeo: <span class="required">https://vimeo.com/56282283</span><br/></span>'.
-                                         '<span id="type-url">'.$locale['VID_019a'].': <span class="required">https://www.example.com/file.flv</span><br/></span>'.$locale['VID_019b']
+                                         '<span id="type-url">'.$locale['vid_019a'].': <span class="required">https://www.example.com/file.flv</span><br/></span>'.$locale['vid_019b']
                     ]);
                 } else {
                     echo form_hidden('video_url', '', $data['video_url']);
-                    echo '<div class="m-10">'.$locale['VID_046'].'</div>';
+                    echo '<div class="m-10">'.$locale['vid_046'].'</div>';
                 }
             echo closetabbody();
 
             echo opentabbody($tab_video_type['title'][2], $tab_video_type['id'][2], $tab_video_type_active);
                 if (empty($data['video_file'])) {
-                    echo form_textarea('video_embed', $locale['VID_020'], $data['video_embed'], [
+                    echo form_textarea('video_embed', $locale['vid_020'], $data['video_embed'], [
                         'required'   => TRUE,
                         'inline'     => TRUE,
-                        'error_text' => $locale['VID_025'],
+                        'error_text' => $locale['vid_025'],
                         'maxlength'  => '255',
                         'autosize'   => fusion_get_settings('tinymce_enabled') ? FALSE : TRUE
                     ]);
                 } else {
                     echo form_hidden('video_embed', '', $data['video_embed']);
-                    echo '<div class="m-10">'.$locale['VID_046'].'</div>';
+                    echo '<div class="m-10">'.$locale['vid_046'].'</div>';
                 }
             echo closetabbody();
         echo closetab();
@@ -332,14 +332,14 @@ echo '<div class="row">';
                     echo thumbnail(VIDEOS.'images/'.$data['video_image'], '80px');
                 echo '</div>';
                 echo '<div class="overflow-hide">';
-                    echo '<span class="text-dark strong">'.$locale['VID_015'].'</span>';
+                    echo '<span class="text-dark strong">'.$locale['vid_015'].'</span>';
                     echo form_checkbox('delete_image', $locale['delete'], '');
                     echo form_hidden('video_image', '', $data['video_image']);
                 echo '</div>';
             echo '</div>';
         } else {
             require_once INCLUDES.'mimetypes_include.php';
-            echo form_fileinput('video_image', $locale['VID_015'], '', [
+            echo form_fileinput('video_image', $locale['vid_015'], '', [
                 'upload_path'     => VIDEOS.'images/',
                 'max_width'       => $this->video_settings['video_screen_max_w'],
                 'max_height'      => $this->video_settings['video_screen_max_w'],
@@ -350,7 +350,7 @@ echo '<div class="row">';
                 'width'           => '100%',
                 'inline'          => TRUE,
                 'template'        => 'thumbnail',
-                'ext_tip'         => sprintf($locale['VID_016'], parsebytesize($this->video_settings['video_screen_max_b']), str_replace(',', ' ', '.jpg,.gif,.png'), $this->video_settings['video_screen_max_w'], $this->video_settings['video_screen_max_h']).'<br/>'.$locale['VID_015a']
+                'ext_tip'         => sprintf($locale['vid_016'], parsebytesize($this->video_settings['video_screen_max_b']), str_replace(',', ' ', '.jpg,.gif,.png'), $this->video_settings['video_screen_max_w'], $this->video_settings['video_screen_max_h']).'<br/>'.$locale['vid_015a']
             ]);
         }
 
@@ -367,16 +367,16 @@ echo '<div class="row">';
                 $sys = $locale['ratings'];
             }
 
-            echo '<div class="well">'.sprintf($locale['VID_026'], $sys).'</div>';
+            echo '<div class="well">'.sprintf($locale['vid_026'], $sys).'</div>';
         }
 
-        echo form_select_tree('video_cat', $locale['VID_009'], $data['video_cat'], [
+        echo form_select_tree('video_cat', $locale['vid_009'], $data['video_cat'], [
             'no_root'     => 1,
             'placeholder' => $locale['choose'],
             'width'       => '100%',
             'query'       => (multilang_table('VL') ? "WHERE video_cat_language='".LANGUAGE."'" : '')
         ], DB_VIDEO_CATS, 'video_cat_name', 'video_cat_id', 'video_cat_parent');
-        echo form_select('video_visibility', $locale['VID_027'], $data['video_visibility'], [
+        echo form_select('video_visibility', $locale['vid_027'], $data['video_visibility'], [
             'options'     => fusion_get_groups(),
             'placeholder' => $locale['choose'],
             'width'       => '100%'
@@ -385,18 +385,18 @@ echo '<div class="row">';
         closeside();
 
         openside('');
-            echo form_checkbox('video_allow_comments', $locale['VID_028'], $data['video_allow_comments'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
-            echo form_checkbox('video_allow_ratings', $locale['VID_029'], $data['video_allow_ratings'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
-            echo form_checkbox('video_allow_likes', $locale['VID_083'], $data['video_allow_likes'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
+            echo form_checkbox('video_allow_comments', $locale['vid_028'], $data['video_allow_comments'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
+            echo form_checkbox('video_allow_ratings', $locale['vid_029'], $data['video_allow_ratings'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
+            echo form_checkbox('video_allow_likes', $locale['vid_083'], $data['video_allow_likes'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
 
             if (isset($_GET['action']) && $_GET['action'] == 'edit') {
-                echo form_checkbox('update_datestamp', $locale['VID_030'], 0, ['class' => 'm-b-0', 'reverse_label' => TRUE]);
+                echo form_checkbox('update_datestamp', $locale['vid_030'], 0, ['class' => 'm-b-0', 'reverse_label' => TRUE]);
             }
         closeside();
     echo '</div>';
 echo '</div>';
 
-echo form_button('save_video', $locale['VID_031'], $locale['VID_031'], [
+echo form_button('save_video', $locale['vid_031'], $locale['vid_031'], [
     'class' => 'btn-success m-r-10',
     'icon'  => 'fa fa-hdd-o'
 ]);

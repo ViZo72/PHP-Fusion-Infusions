@@ -15,6 +15,6 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['TS_01'] = 'Temaskifter';
-$locale['TS_02'] = 'Tema er blevet skiftet';
-$locale['TS_03'] = 'Skift';
+$locale['tsw_01'] = 'Temaskifter';
+$locale['tsw_02'] = 'Tema er blevet skiftet';
+$locale['tsw_03'] = 'Skift';

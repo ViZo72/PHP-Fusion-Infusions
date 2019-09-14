@@ -15,8 +15,8 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['MRB_01'] = 'Legolvasottabb Blogok';
-$locale['MRB_02'] = '7 Nap';
-$locale['MRB_03'] = '14 Nap';
-$locale['MRB_04'] = '30 Nap';
-$locale['MRB_05'] = 'Nincs Blog bejegyzés';
+$locale['mrb_01'] = 'Legolvasottabb Blogok';
+$locale['mrb_02'] = '7 Nap';
+$locale['mrb_03'] = '14 Nap';
+$locale['mrb_04'] = '30 Nap';
+$locale['mrb_05'] = 'Nincs Blog bejegyzés';

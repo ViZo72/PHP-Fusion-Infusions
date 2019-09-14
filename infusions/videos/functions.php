@@ -17,7 +17,7 @@
 +--------------------------------------------------------*/
 defined('IN_FUSION') || exit;
 
-function GetVideoData($url, $type = 'youtube') {
+function get_video_data($url, $type = 'youtube') {
     $json_url = '';
 
     if ($type === 'youtube') {
@@ -28,7 +28,7 @@ function GetVideoData($url, $type = 'youtube') {
     }
 
     if (!empty($json_url)) {
-        $json_data = CacheCurl($json_url);
+        $json_data = cache_curl($json_url);
         $json = json_decode($json_data, TRUE);
 
         if ($type === 'youtube') {
@@ -42,14 +42,14 @@ function GetVideoData($url, $type = 'youtube') {
     return NULL;
 }
 
-function GetVideoThumb($data, $full_url = FALSE) {
+function get_video_thumb($data, $full_url = FALSE) {
     $full_url = $full_url == TRUE ? fusion_get_settings('siteurl').'infusions/videos/' : VIDEOS;
 
     if ($data['video_type'] == 'youtube' || $data['video_type'] == 'vimeo') {
         if (!empty($data['video_image']) && file_exists(VIDEOS.'images/'.$data['video_image'])) {
             $thumb = $full_url.'images/'.$data['video_image'];
         } else {
-            $video_data = GetVideoData($data['video_url'], $data['video_type']);
+            $video_data = get_video_data($data['video_url'], $data['video_type']);
 
             if (!empty($video_data['thumbnail_url'])) {
                 $thumb = $video_data['thumbnail_url'];
@@ -66,7 +66,7 @@ function GetVideoThumb($data, $full_url = FALSE) {
     return $thumb;
 }
 
-function CacheCurl($url) {
+function cache_curl($url) {
     $cache_time = 604800; // One week
     $cache_dir = dirname(__FILE__).'/cache/';
 

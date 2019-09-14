@@ -33,14 +33,14 @@ $video_settings = get_settings('videos');
 
 $video_settings['video_pagination'] = !empty($video_settings['video_pagination']) ? $video_settings['video_pagination'] : 15;
 
-\PHPFusion\BreadCrumbs::getInstance()->addBreadCrumb(['link' => INFUSIONS.'videos/videos.php', 'title' => \PHPFusion\SiteLinks::get_current_SiteLinks('infusions/videos/videos.php', 'link_name')]);
+add_breadcrumb(['link' => INFUSIONS.'videos/videos.php', 'title' => \PHPFusion\SiteLinks::get_current_SiteLinks('infusions/videos/videos.php', 'link_name')]);
 
 if (file_exists(INFUSIONS.'rss_feeds_panel/feeds/rss_videos.php')) {
-    add_to_head('<link rel="alternate" type="application/rss+xml" title="'.fusion_get_locale('VID_title').' - RSS Feed" href="'.fusion_get_settings('siteurl').'infusions/rss_feeds_panel/feeds/rss_videos.php"/>');
+    add_to_head('<link rel="alternate" type="application/rss+xml" title="'.fusion_get_locale('vid_title').' - RSS Feed" href="'.fusion_get_settings('siteurl').'infusions/rss_feeds_panel/feeds/rss_videos.php"/>');
 }
 
 $info = [
-    'video_title'        => $locale['VID_067'],
+    'video_title'        => $locale['vid_067'],
     'video_language'     => LANGUAGE,
     'video_categories'   => get_video_cats(),
     'video_last_updated' => 0,
@@ -50,16 +50,16 @@ $info = [
 ];
 
 $info['allowed_filters'] = [
-    'view'   => $locale['VID_068'],
-    'recent' => $locale['VID_069']
+    'view'   => $locale['vid_068'],
+    'recent' => $locale['vid_069']
 ];
 
 if (fusion_get_settings('comments_enabled') == 1) {
-    $info['allowed_filters']['comments'] = $locale['VID_070'];
+    $info['allowed_filters']['comments'] = $locale['vid_070'];
 }
 
 if (fusion_get_settings('ratings_enabled') == 1) {
-    $info['allowed_filters']['ratings'] = $locale['VID_071'];
+    $info['allowed_filters']['ratings'] = $locale['vid_071'];
 }
 
 $filter = array_keys($info['allowed_filters']);
@@ -186,7 +186,7 @@ if (isset($_GET['video_id'])) {
 
             $video_id = '';
             if ($data['video_type'] == 'youtube' || $data['video_type'] == 'vimeo') {
-                $video_data = GetVideoData($data['video_url'], $data['video_type']);
+                $video_data = get_video_data($data['video_url'], $data['video_type']);
                 $video_id = $video_data['video_id'];
             }
 
@@ -213,8 +213,8 @@ if (isset($_GET['video_id'])) {
                 ];
             }
 
-            \PHPFusion\BreadCrumbs::getInstance()->addBreadCrumb(['link' => INFUSIONS.'videos/videos.php?cat_id='.$data['video_cat_id'], 'title' => $data['video_cat_name']]);
-            \PHPFusion\BreadCrumbs::getInstance()->addBreadCrumb(['link' => INFUSIONS.'videos/videos.php?video_id='.$_GET['video_id'], 'title' => $data['video_title']]);
+            add_breadcrumb(['link' => INFUSIONS.'videos/videos.php?cat_id='.$data['video_cat_id'], 'title' => $data['video_cat_name']]);
+            add_breadcrumb(['link' => INFUSIONS.'videos/videos.php?video_id='.$_GET['video_id'], 'title' => $data['video_title']]);
 
             set_title(\PHPFusion\SiteLinks::get_current_SiteLinks('infusions/videos/videos.php', 'link_name').$locale['global_201']);
             add_to_title($data['video_title']);
@@ -243,8 +243,8 @@ if (isset($_GET['video_id'])) {
     }
 
     if (isset($_GET['cat_id']) && isnum($_GET['cat_id'])) {
-        set_title($locale['VID_title']);
-        set_meta('name', $locale['VID_title']);
+        set_title($locale['vid_title']);
+        set_meta('name', $locale['vid_title']);
 
         $res = dbarray(dbquery("SELECT * FROM ".DB_VIDEO_CATS.(multilang_table('VL') ? " WHERE video_cat_language='".LANGUAGE."' AND " : " WHERE ")."video_cat_id='".intval($_GET['cat_id'])."'"));
         if (!empty($res)) {
@@ -297,7 +297,7 @@ if (isset($_GET['video_id'])) {
 
         OpenGraphVideos::ogVideoCat($_GET['cat_id']);
     } else {
-        set_title($locale['VID_title']);
+        set_title($locale['vid_title']);
 
         $info['video_max_rows'] = dbcount("('video_id')", DB_VIDEOS, groupaccess('video_visibility'));
         $_GET['rowstart'] = (isset($_GET['rowstart']) && isnum($_GET['rowstart']) && $_GET['rowstart'] <= $info['video_max_rows']) ? $_GET['rowstart'] : 0;
@@ -445,7 +445,7 @@ function video_cats_breadcrumbs($index) {
 
     if ($title_count) {
         foreach ($crumb['title'] as $i => $value) {
-            \PHPFusion\BreadCrumbs::getInstance()->addBreadCrumb(['link' => $crumb['link'][$i], 'title' => $value]);
+            add_breadcrumb(['link' => $crumb['link'][$i], 'title' => $value]);
 
             if ($i == count($crumb['title']) - 1) {
                 add_to_title($locale['global_201'].$value);
@@ -455,7 +455,7 @@ function video_cats_breadcrumbs($index) {
     } else if (isset($crumb['title'])) {
         add_to_title($locale['global_201'].$crumb['title']);
         add_to_meta($crumb['title']);
-        \PHPFusion\BreadCrumbs::getInstance()->addBreadCrumb(['link' => $crumb['link'], 'title' => $crumb['title']]);
+        add_breadcrumb(['link' => $crumb['link'], 'title' => $crumb['title']]);
     }
 }
 
@@ -503,7 +503,7 @@ function parse_video_info($data) {
     $locale = fusion_get_locale();
 
     return [
-        'video_image'       => GetVideoThumb($data),
+        'video_image'       => get_video_thumb($data),
         'video_user_avatar' => display_avatar($data, '25px', '', TRUE, 'img-rounded'),
         'video_user_link'   => profile_link($data['user_id'], $data['user_name'], $data['user_status']),
         'video_post_time'   => showdate('shortdate', $data['video_datestamp']),

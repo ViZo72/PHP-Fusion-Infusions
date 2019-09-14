@@ -17,11 +17,11 @@
 +--------------------------------------------------------*/
 defined('IN_FUSION') || exit;
 
-if (!defined('TEAM_LOCALE')) {
+if (!defined('TM_LOCALE')) {
     if (file_exists(INFUSIONS.'team/locale/'.LOCALESET.'team.php')) {
-        define('TEAM_LOCALE', INFUSIONS.'team/locale/'.LOCALESET.'team.php');
+        define('TM_LOCALE', INFUSIONS.'team/locale/'.LOCALESET.'team.php');
     } else {
-        define('TEAM_LOCALE', INFUSIONS.'team/locale/English/team.php');
+        define('TM_LOCALE', INFUSIONS.'team/locale/English/team.php');
     }
 }
 
@@ -29,4 +29,4 @@ if (!defined('DB_TEAM')) {
     define('DB_TEAM', DB_PREFIX.'team');
 }
 
-\PHPFusion\Admins::getInstance()->setAdminPageIcons('TEAM', '<i class="admin-ico fa fa-fw fa-users"></i>');
+\PHPFusion\Admins::getInstance()->setAdminPageIcons('TM', '<i class="admin-ico fa fa-fw fa-users"></i>');

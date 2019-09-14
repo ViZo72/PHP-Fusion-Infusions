@@ -43,7 +43,7 @@ if (!defined('DB_VIDEO_CATS')) {
 
 // Admin Settings
 \PHPFusion\Admins::getInstance()->setAdminPageIcons('VID', '<i class="admin-ico fa fa-fw fa-play"></i>');
-\PHPFusion\Admins::getInstance()->setCommentType('VID', fusion_get_locale('VID_title', VID_LOCALE));
+\PHPFusion\Admins::getInstance()->setCommentType('VID', fusion_get_locale('vid_title', VID_LOCALE));
 \PHPFusion\Admins::getInstance()->setLinkType('VID', fusion_get_settings('siteurl').'infusions/videos/videos.php?video_id=%s');
 
 $inf_settings = get_settings('videos');
@@ -53,13 +53,13 @@ if (!empty($inf_settings['video_allow_submission']) && $inf_settings['video_allo
             'infusion_name' => 'videos',
             'link'          => INFUSIONS.'videos/video_submit.php',
             'submit_link'   => 'submit.php?stype=v',
-            'submit_locale' => fusion_get_locale('VID_title', VID_LOCALE),
+            'submit_locale' => fusion_get_locale('vid_title', VID_LOCALE),
             'title'         => fusion_get_locale('video_submit', VID_LOCALE),
             'admin_link'    => INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&amp;section=submissions&amp;submit_id=%s'
         ]);
     } else {
         // 9.0
-        \PHPFusion\Admins::getInstance()->setSubmitType('v', fusion_get_locale('VID_title', VID_LOCALE));
+        \PHPFusion\Admins::getInstance()->setSubmitType('v', fusion_get_locale('vid_title', VID_LOCALE));
         \PHPFusion\Admins::getInstance()->setSubmitLink('v', INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&amp;section=submissions&amp;submit_id=%s');
     }
 }

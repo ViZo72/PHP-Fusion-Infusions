@@ -36,7 +36,7 @@ if (db_exists(DB_VIDEOS) && db_exists(DB_VIDEO_CATS)) {
 
     header('Content-Type: application/rss+xml; charset='.$locale['charset']);
 
-    $title = $settings['sitename'].' - '.fusion_get_locale('VID_title', VID_LOCALE).(multilang_table('VL') ? $locale['rss_in'].LANGUAGE : '');
+    $title = $settings['sitename'].' - '.fusion_get_locale('vid_title', VID_LOCALE).(multilang_table('VL') ? $locale['rss_in'].LANGUAGE : '');
 
     if (file_exists(INFUSIONS.'rss_feeds_panel/RSS.php')) {
         require_once INFUSIONS.'rss_feeds_panel/RSS.php';
@@ -48,7 +48,7 @@ if (db_exists(DB_VIDEOS) && db_exists(DB_VIDEO_CATS)) {
                 $rss->AddItem($data['video_title'], $settings['siteurl'].'infusions/videos/videos.php?video_id='.$data['video_id'], $data['video_description']);
             }
         } else {
-            $rss->AddItem($settings['sitename'].' - '.fusion_get_locale('VID_title', VID_LOCALE), $settings['siteurl'], $locale['rss_nodata']);
+            $rss->AddItem($settings['sitename'].' - '.fusion_get_locale('vid_title', VID_LOCALE), $settings['siteurl'], $locale['rss_nodata']);
         }
 
         $rss->Write();
@@ -74,7 +74,7 @@ if (db_exists(DB_VIDEOS) && db_exists(DB_VIDEO_CATS)) {
                     }
                 } else {
                     echo '<item>'.PHP_EOL;
-                        echo '<title><![CDATA['.$settings['sitename'].' - '.fusion_get_locale('VID_title', VID_LOCALE).']]></title>'.PHP_EOL;
+                        echo '<title><![CDATA['.$settings['sitename'].' - '.fusion_get_locale('vid_title', VID_LOCALE).']]></title>'.PHP_EOL;
                         echo '<link>'.$settings['siteurl'].'</link>'.PHP_EOL;
                         echo '<description><![CDATA['.$locale['rss_nodata'].']]></description>'.PHP_EOL;
                     echo '</item>'.PHP_EOL;

@@ -21,7 +21,6 @@ require_once INFUSIONS.'videos/functions.php';
 
 pageAccess('VID');
 
-use \PHPFusion\BreadCrumbs;
 
 class VideosAdmin {
     private $locale = [];
@@ -36,14 +35,14 @@ class VideosAdmin {
         }
     }
 
-    private function Listing() {
+    private function listing() {
         $aidlink = fusion_get_aidlink();
 
         $limit = 15;
         $total_rows = dbcount("(video_id)", DB_VIDEOS);
         $rowstart = isset($_GET['rowstart']) && ($_GET['rowstart'] <= $total_rows) ? $_GET['rowstart'] : 0;
 
-        $cat_opts['all'] = $this->locale['VID_005'];
+        $cat_opts['all'] = $this->locale['vid_005'];
 
         $categories = dbquery("SELECT video_cat_id, video_cat_name FROM ".DB_VIDEO_CATS." ".(multilang_table('VL') ? "WHERE video_cat_language='".LANGUAGE."'" : ""));
 
@@ -78,7 +77,7 @@ class VideosAdmin {
         $rows = dbrows($result);
 
         echo '<div class="clearfix m-b-10">';
-            echo '<span class="pull-right">'.sprintf($this->locale['VID_006'], $rows, $total_rows).'</span>';
+            echo '<span class="pull-right">'.sprintf($this->locale['vid_006'], $rows, $total_rows).'</span>';
 
             if (!empty($cat_opts) > 0 && $total_rows > 0) {
                 echo '<div class="dropdown pull-left m-r-10">';
@@ -86,7 +85,7 @@ class VideosAdmin {
                         if (isset($_GET['filter_cid']) && isset($cat_opts[$_GET['filter_cid']])) {
                             echo $cat_opts[$_GET['filter_cid']];
                         } else {
-                            echo $this->locale['VID_007'];
+                            echo $this->locale['vid_007'];
                         }
                         echo ' <span class="caret"></span>';
                     echo '</a>';
@@ -117,7 +116,7 @@ class VideosAdmin {
                         echo '<div class="panel panel-default"><div class="panel-body">';
                         echo '<div class="pull-left m-r-10">';
                             echo '<div class="display-inline-block image-wrap thumb text-center overflow-hide">';
-                                echo '<img style="object-fit: contain;height: 100px; width: 100px;" class="img-responsive" src="'.GetVideoThumb($data).'" alt="'.$data['video_title'].'"/>';
+                                echo '<img style="object-fit: contain;height: 100px; width: 100px;" class="img-responsive" src="'.get_video_thumb($data).'" alt="'.$data['video_title'].'"/>';
                             echo '</div>';
                         echo '</div>';
 
@@ -125,7 +124,7 @@ class VideosAdmin {
                             echo '<span class="strong text-dark">'.$data['video_title'].'</span><br/>';
 
                             echo '<div>';
-                                echo $this->locale['VID_009'].' <a class="badge" href="'.FUSION_SELF.$aidlink.'&amp;section=categories&amp;action=edit&amp;cat_id='.$data['video_cat_id'].'">'.$data['video_cat_name'].'</a>';
+                                echo $this->locale['vid_009'].' <a class="badge" href="'.FUSION_SELF.$aidlink.'&amp;section=categories&amp;action=edit&amp;cat_id='.$data['video_cat_id'].'">'.$data['video_cat_name'].'</a>';
                                 echo '<br/><span><i class="fa fa-clock-o"></i> '.$data['video_length'].'</span>';
                             echo '</div>';
 
@@ -139,35 +138,35 @@ class VideosAdmin {
                 }
             echo '</div>';
         } else {
-            echo '<div class="well text-center">'.$this->locale['VID_008'].'</div>';
+            echo '<div class="well text-center">'.$this->locale['vid_008'].'</div>';
         }
     }
 
-    public function DisplayAdmin() {
-        add_to_title($this->locale['VID_title']);
+    public function displayAdmin() {
+        add_to_title($this->locale['vid_title']);
 
-        BreadCrumbs::getInstance()->addBreadCrumb(['link' => INFUSIONS.'videos/admin.php'.fusion_get_aidlink(), 'title' => $this->locale['VID_title']]);
+        add_breadcrumb(['link' => INFUSIONS.'videos/admin.php'.fusion_get_aidlink(), 'title' => $this->locale['vid_title']]);
 
         $edit = (isset($_GET['action']) && $_GET['action'] == 'edit') && isset($_GET['video_id']) ? TRUE : FALSE;
 
         if (!empty($_GET['section'])) {
             switch ($_GET['section']) {
                 case 'form':
-                    BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $edit ? $this->locale['edit'] : $this->locale['add']]);
+                    add_breadcrumb(['link' => FUSION_REQUEST, 'title' => $edit ? $this->locale['edit'] : $this->locale['add']]);
                     break;
                 case 'categories':
-                    BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['VID_001']]);
+                    add_breadcrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['vid_001']]);
                     break;
                 case 'submissions':
-                    BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['VID_002']]);
+                    add_breadcrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['vid_002']]);
                     break;
                 case 'settings':
-                    BreadCrumbs::getInstance()->addBreadCrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['VID_003']]);
+                    add_breadcrumb(['link' => FUSION_REQUEST, 'title' => $this->locale['vid_003']]);
                     break;
             }
         }
 
-        opentable($this->locale['VID_title']);
+        opentable($this->locale['vid_title']);
 
         $allowed_section = ['list', 'form', 'categories', 'submissions', 'settings'];
         $_GET['section'] = isset($_GET['section']) && in_array($_GET['section'], $allowed_section) ? $_GET['section'] : 'list';
@@ -178,19 +177,19 @@ class VideosAdmin {
             $tab['icon'][]  = 'fa fa-fw fa-arrow-left';
         }
 
-        $tab['title'][] = $this->locale['VID_title'];
+        $tab['title'][] = $this->locale['vid_title'];
         $tab['id'][]    = 'list';
         $tab['icon'][]  = 'fa fa-fw fa-play';
         $tab['title'][] = $edit ? $this->locale['edit'] : $this->locale['add'];
         $tab['id'][]    = 'form';
         $tab['icon'][]  = 'fa fa-'.($edit ? 'pencil' : 'plus');
-        $tab['title'][] = $this->locale['VID_001'];
+        $tab['title'][] = $this->locale['vid_001'];
         $tab['id'][]    = 'categories';
         $tab['icon'][]  = 'fa fa-folder';
-        $tab['title'][] = $this->locale['VID_002'].'&nbsp;<span class="badge">'.dbcount("(submit_id)", DB_SUBMISSIONS, "submit_type='v'").'</span>';
+        $tab['title'][] = $this->locale['vid_002'].'&nbsp;<span class="badge">'.dbcount("(submit_id)", DB_SUBMISSIONS, "submit_type='v'").'</span>';
         $tab['id'][]    = 'submissions';
         $tab['icon'][]  = 'fa fa-inbox';
-        $tab['title'][] = $this->locale['VID_003'];
+        $tab['title'][] = $this->locale['vid_003'];
         $tab['id'][]    = 'settings';
         $tab['icon'][]  = 'fa fa-cogs';
 
@@ -200,7 +199,7 @@ class VideosAdmin {
             if (dbcount("(video_cat_id)", DB_VIDEO_CATS)) {
                     require_once 'admin/videos.php';
                 } else {
-                    echo '<div class="well text-center">'.$this->locale['VID_004'].'</div>';
+                    echo '<div class="well text-center">'.$this->locale['vid_004'].'</div>';
                 }
                 break;
             case 'categories':
@@ -213,7 +212,7 @@ class VideosAdmin {
                 require_once 'admin/video_settings.php';
                 break;
             default:
-                $this->Listing();
+                $this->listing();
                 break;
         }
         echo closetab();
@@ -223,6 +222,6 @@ class VideosAdmin {
 }
 
 $vid = new VideosAdmin();
-$vid->DisplayAdmin();
+$vid->displayAdmin();
 
 require_once THEMES.'templates/footer.php';

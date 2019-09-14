@@ -19,7 +19,7 @@ defined('IN_FUSION') || exit;
 
 if (!function_exists('render_videos')) {
     function render_videos($info) {
-        opentable(fusion_get_locale('VID_title'));
+        opentable(fusion_get_locale('vid_title'));
 
         echo render_breadcrumbs();
 
@@ -135,7 +135,7 @@ if (!function_exists('display_video_index')) {
                 echo '<div class="text-center m-t-10 m-b-10">'.$info['video_nav'].'</div>';
             }
         } else {
-            echo '<div class="well text-center">'.$locale['VID_075'].'</div>';
+            echo '<div class="well text-center">'.$locale['vid_075'].'</div>';
         }
     }
 }
@@ -165,24 +165,24 @@ if (!function_exists('display_video_menu')) {
 
         ob_start();
         echo '<ul class="block">';
-            echo '<li><a href="'.VIDEOS.'videos.php">'.$locale['VID_067'].'</a></li>';
+            echo '<li><a href="'.VIDEOS.'videos.php">'.$locale['vid_067'].'</a></li>';
             foreach ($info['video_filter'] as $filter_key => $filter) {
                 echo '<li'.(isset($_GET['type']) && $_GET['type'] == $filter_key ? ' class="active strong"' : '').'><a href="'.$filter['link'].'">'.$filter['title'].'</a></li>';
             }
         echo '</ul>';
 
-        openside($locale['VID_001']);
+        openside($locale['vid_001']);
         echo '<ul class="block">';
             $video_cat_menu = display_video_cats($info['video_categories']);
             if (!empty($video_cat_menu)) {
                 echo $video_cat_menu;
             } else {
-                echo '<li>'.$locale['VID_072'].'</li>';
+                echo '<li>'.$locale['vid_072'].'</li>';
             }
         echo '</ul>';
         closeside();
 
-        openside($locale['VID_073']);
+        openside($locale['vid_073']);
             echo '<ul class="block">';
             if (!empty($info['video_author'])) {
                 foreach ($info['video_author'] as $author_id => $author_info) {
@@ -191,7 +191,7 @@ if (!function_exists('display_video_menu')) {
                     echo '</li>';
                 }
             } else {
-                echo '<li>'.$locale['VID_074'].'</li>';
+                echo '<li>'.$locale['vid_074'].'</li>';
             }
         echo '</ul>';
         closeside();

@@ -20,9 +20,9 @@ defined('IN_FUSION') || exit;
 $locale = fusion_get_locale('', VID_LOCALE);
 
 // Infusion general information
-$inf_title       = $locale['VID_title'];
-$inf_description = $locale['VID_desc'];
-$inf_version     = '1.1.2';
+$inf_title       = $locale['vid_title'];
+$inf_description = $locale['vid_desc'];
+$inf_version     = '1.1.3';
 $inf_developer   = 'RobiNN';
 $inf_email       = 'kelcakrobo@gmail.com';
 $inf_weburl      = 'https://github.com/RobiNN1';
@@ -77,7 +77,7 @@ $inf_newtable[] = DB_VIDEO_CATS." (
 ) ENGINE=MyISAM DEFAULT CHARSET=UTF8 COLLATE=utf8_unicode_ci";
 
 // Insert panel
-$inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction, panel_languages) VALUES('".$locale['VID_latest']."', 'latest_videos_panel', '', '3', '5', 'file', '0', '1', '1', '', '3', '".fusion_get_settings('enabled_languages')."')";
+$inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction, panel_languages) VALUES('".$locale['vid_latest']."', 'latest_videos_panel', '', '3', '5', 'file', '0', '1', '1', '', '3', '".fusion_get_settings('enabled_languages')."')";
 
 // Insert settings
 $settings = [
@@ -97,28 +97,32 @@ foreach ($settings as $name => $value) {
 
 // Multilanguage table
 $inf_mlt[] = [
-    'title'  => $locale['VID_title'],
+    'title'  => $locale['vid_title'],
     'rights' => 'VL',
 ];
 
 // Multilanguage links
-$enabled_languages = makefilelist(VIDEOS.'locale', ".|..", TRUE, 'folders');
+$enabled_languages = makefilelist(LOCALE, '.|..', TRUE, 'folders');
 if (!empty($enabled_languages)) {
     foreach ($enabled_languages as $language) {
-        include VIDEOS.'locale/'.$language.'/videos.php';
+        if (file_exists(INFUSIONS.'videos/locale/'.$language.'/videos.php')) {
+            include INFUSIONS.'videos/locale/'.$language.'/videos.php';
+        } else {
+            include INFUSIONS.'videos/locale/English/videos.php';
+        }
 
         $mlt_adminpanel[$language][] = [
             'rights'   => 'VID',
             'image'    => $inf_image,
-            'title'    => $locale['VID_title'],
+            'title'    => $locale['vid_title'],
             'panel'    => 'admin.php',
             'page'     => 1,
             'language' => $language
         ];
 
         // Add
-        $mlt_insertdbrow[$language][] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES('".$locale['VID_title']."', 'infusions/videos/videos.php', '0', '2', '0', '2', '1', '".$language."')";
-        $mlt_insertdbrow[$language][] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES ('".$locale['VID_submit']."', 'submit.php?stype=v', ".USER_LEVEL_MEMBER.", '1', '0', '27', '1', '".$language."')";
+        $mlt_insertdbrow[$language][] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES('".$locale['vid_title']."', 'infusions/videos/videos.php', '0', '2', '0', '2', '1', '".$language."')";
+        $mlt_insertdbrow[$language][] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES ('".$locale['vid_submit']."', 'submit.php?stype=v', ".USER_LEVEL_MEMBER.", '1', '0', '27', '1', '".$language."')";
 
         // Delete
         $mlt_deldbrow[$language][] = DB_SITE_LINKS." WHERE link_url='infusions/videos/videos.php' AND link_language='".$language."'";
@@ -130,14 +134,14 @@ if (!empty($enabled_languages)) {
     $inf_adminpanel[] = [
         'rights'   => 'VID',
         'image'    => $inf_image,
-        'title'    => $locale['VID_title'],
+        'title'    => $locale['vid_title'],
         'panel'    => 'admin.php',
         'page'     => 1,
         'language' => LANGUAGE
     ];
 
-    $inf_insertdbrow[] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES('".$locale['VID_title']."', 'infusions/videos/videos.php', '0', '2', '0', '2', '1', '".LANGUAGE."')";
-    $inf_insertdbrow[] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES ('".$locale['VID_submit']."', 'submit.php?stype=v', ".USER_LEVEL_MEMBER.", '1', '0', '27', '1', '".LANGUAGE."')";
+    $inf_insertdbrow[] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES('".$locale['vid_title']."', 'infusions/videos/videos.php', '0', '2', '0', '2', '1', '".LANGUAGE."')";
+    $inf_insertdbrow[] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES ('".$locale['vid_submit']."', 'submit.php?stype=v', ".USER_LEVEL_MEMBER.", '1', '0', '27', '1', '".LANGUAGE."')";
 }
 
 // Uninstallation

@@ -15,17 +15,17 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['TEAM_title'] = 'Team';
-$locale['TEAM_desc'] = 'Team Liste';
-$locale['TEAM_title_admin'] = 'Team Admin';
-$locale['TEAM_001'] = 'Navn';
-$locale['TEAM_002'] = 'Position';
-$locale['TEAM_003'] = 'Erhverv';
-$locale['TEAM_004'] = 'Tilmeldt';
-$locale['TEAM_005'] = 'PB';
-$locale['TEAM_006'] = 'Handlinger';
-$locale['TEAM_007'] = 'Ingen brugere';
-$locale['TEAM_008'] = 'Vælg bruger';
-$locale['TEAM_009'] = 'Bruger tilføjet';
-$locale['TEAM_010'] = 'Bruger opdateret';
-$locale['TEAM_011'] = 'Bruger slettet';
+$locale['tm_title'] = 'Team';
+$locale['tm_desc'] = 'Team Liste';
+$locale['tm_title_admin'] = 'Team Admin';
+$locale['tm_001'] = 'Navn';
+$locale['tm_002'] = 'Position';
+$locale['tm_003'] = 'Erhverv';
+$locale['tm_004'] = 'Tilmeldt';
+$locale['tm_005'] = 'PB';
+$locale['tm_006'] = 'Handlinger';
+$locale['tm_007'] = 'Ingen brugere';
+$locale['tm_008'] = 'Vælg bruger';
+$locale['tm_009'] = 'Bruger tilføjet';
+$locale['tm_010'] = 'Bruger opdateret';
+$locale['tm_011'] = 'Bruger slettet';

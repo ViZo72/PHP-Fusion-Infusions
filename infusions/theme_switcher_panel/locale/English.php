@@ -15,6 +15,6 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['TS_01'] = 'Theme Switcher';
-$locale['TS_02'] = 'Theme has been changed';
-$locale['TS_03'] = 'Change';
+$locale['tsw_01'] = 'Theme Switcher';
+$locale['tsw_02'] = 'Theme has been changed';
+$locale['tsw_03'] = 'Change';

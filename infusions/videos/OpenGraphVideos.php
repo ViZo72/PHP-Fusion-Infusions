@@ -33,7 +33,7 @@ class OpenGraphVideos extends \PHPFusion\OpenGraph {
 
             require_once VIDEOS.'functions.php';
 
-            $info['image'] = GetVideoThumb($data);
+            $info['image'] = get_video_thumb($data);
         }
 
         self::setValues($info);
@@ -51,7 +51,7 @@ class OpenGraphVideos extends \PHPFusion\OpenGraph {
             $info['title'] = $data['video_cat_name'].' - '.$settings['sitename'];
             $info['description'] = $data['video_cat_description'] ? fusion_first_words(strip_tags(html_entity_decode($data['video_cat_description'])), 50) : $settings['description'];
             $info['type'] = 'website';
-            $info['image'] = $settings['siteurl'].'images/favicons/mstile-150x150.png';
+            $info['image'] = defined('THEME_ICON') ? THEME_ICON.'mstile-150x150.png' : $settings['siteurl'].'images/favicons/mstile-150x150.png';
         }
 
         self::setValues($info);

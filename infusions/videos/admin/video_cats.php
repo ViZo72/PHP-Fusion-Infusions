@@ -34,12 +34,12 @@ if ((isset($_GET['action']) && $_GET['action'] == 'delete') && (isset($_GET['cat
     if (dbcount("(video_cat)", DB_VIDEOS, "video_cat='".intval($_GET['cat_id'])."'")
         || dbcount("(video_cat_id)", DB_VIDEO_CATS, "video_cat_parent='".intval($_GET['cat_id'])."'")
     ) {
-        addNotice('danger', $locale['VID_032']);
+        addNotice('danger', $locale['vid_032']);
         redirect(clean_request('cat_view=1', ['section', 'aid'], TRUE));
     } else {
 
         dbquery("DELETE FROM ".DB_VIDEO_CATS." WHERE video_cat_id='".intval($_GET['cat_id'])."'");
-        addNotice('success', $locale['VID_notice_05']);
+        addNotice('success', $locale['vid_notice_05']);
         redirect(clean_request('cat_view=1', ['section', 'aid'], TRUE));
     }
 }
@@ -79,23 +79,23 @@ if (isset($_POST['save_cat'])) {
         if (!dbcount("(video_cat_id)", DB_VIDEO_CATS, $category_name_check['when_updating'])) {
             if (\defender::safe()) {
                 dbquery_insert(DB_VIDEO_CATS, $data, 'update');
-                addNotice('success', $locale['VID_notice_06']);
+                addNotice('success', $locale['vid_notice_06']);
                 redirect(clean_request('cat_view=1', ['section', 'aid'], TRUE));
             }
         } else {
             \defender::stop();
-            addNotice('danger', $locale['VID_notice_07']);
+            addNotice('danger', $locale['vid_notice_07']);
         }
     } else {
         if (!dbcount("(video_cat_id)", DB_VIDEO_CATS, $category_name_check['when_saving'])) {
             if (\defender::safe()) {
                 dbquery_insert(DB_VIDEO_CATS, $data, 'save');
-                addNotice('success', $locale['VID_notice_08']);
+                addNotice('success', $locale['vid_notice_08']);
                 redirect(clean_request('cat_view=1', ['section', 'aid'], TRUE));
             }
         } else {
             \defender::stop();
-            addNotice('danger', $locale['VID_notice_07']);
+            addNotice('danger', $locale['vid_notice_07']);
         }
     }
 }
@@ -123,10 +123,10 @@ if ((isset($_GET['action']) && $_GET['action'] == 'edit') && (isset($_GET['cat_i
     }
 }
 
-$tab_cats['title'][] = $locale['VID_043'];
+$tab_cats['title'][] = $locale['vid_043'];
 $tab_cats['id'][]    = 'form';
 $tab_cats['icon'][]  = '';
-$tab_cats['title'][] = $locale['VID_044'];
+$tab_cats['title'][] = $locale['vid_044'];
 $tab_cats['id'][]    = 'cats';
 $tab_cats['icon'][]  = '';
 $tab_cats_active = tab_active($tab_cats, isset($_GET['cat_view']) ? 1 : 0);
@@ -138,23 +138,23 @@ echo opentab($tab_cats, $tab_cats_active, 'categories', FALSE, 'nav-tabs m-b-10'
         echo '<div class="col-xs-12 col-sm-8">';
             openside('');
             echo form_hidden('video_cat_id', '', $data['video_cat_id']);
-            echo form_text('video_cat_name', $locale['VID_033'], $data['video_cat_name'], [
+            echo form_text('video_cat_name', $locale['vid_033'], $data['video_cat_name'], [
                 'required'   => TRUE,
-                'error_text' => $locale['VID_034']
+                'error_text' => $locale['vid_034']
             ]);
-            echo form_textarea('video_cat_description', $locale['VID_035'], $data['video_cat_description'], [
+            echo form_textarea('video_cat_description', $locale['vid_035'], $data['video_cat_description'], [
                 'resize'   => 0,
                 'autosize' => TRUE,
             ]);
 
             echo '<div class="row">';
                 echo '<div class="col-xs-12 col-sm-7">';
-                    echo '<label class="control-label">'.$locale['VID_037'].'</label>';
+                    echo '<label class="control-label">'.$locale['vid_037'].'</label>';
                     echo form_select('video_cat_sort_by', '', $data['video_cat_sort_by'], [
                         'options'     => [
-                            '1' => $locale['VID_038'],
-                            '2' => $locale['VID_010'],
-                            '3' => $locale['VID_039']
+                            '1' => $locale['vid_038'],
+                            '2' => $locale['vid_010'],
+                            '3' => $locale['vid_039']
                         ],
                         'class'       => 'pull-left',
                         'inner_width' => '200px',
@@ -165,7 +165,7 @@ echo opentab($tab_cats, $tab_cats_active, 'categories', FALSE, 'nav-tabs m-b-10'
                 echo '<div class="col-xs-12 col-sm-5">';
                     echo '<label class="control-label"><!-- --></label>';
                     echo form_select('video_cat_sort_order', '', $data['video_cat_sort_order'], [
-                        'options'     => ['ASC' => $locale['VID_040'], 'DESC' => $locale['VID_041']],
+                        'options'     => ['ASC' => $locale['vid_040'], 'DESC' => $locale['vid_041']],
                         'inner_width' => '200px',
                         'inline'      => TRUE
                     ]);
@@ -177,7 +177,7 @@ echo opentab($tab_cats, $tab_cats_active, 'categories', FALSE, 'nav-tabs m-b-10'
 
         echo '<div class="col-xs-12 col-sm-4">';
             openside('');
-            echo form_select_tree('video_cat_parent', $locale['VID_042'], $data['video_cat_parent'], [
+            echo form_select_tree('video_cat_parent', $locale['vid_042'], $data['video_cat_parent'], [
                 'disable_opts'  => $data['video_cat_hidden'],
                 'hide_disabled' => TRUE,
                 'width'         => '100%'
@@ -232,7 +232,7 @@ echo opentab($tab_cats, $tab_cats_active, 'categories', FALSE, 'nav-tabs m-b-10'
             }
         echo '</div>';
     } else {
-        echo '<div class="well text-center">'.$locale['VID_045'].'</div>';
+        echo '<div class="well text-center">'.$locale['vid_045'].'</div>';
     }
     echo closetabbody();
 echo closetab();

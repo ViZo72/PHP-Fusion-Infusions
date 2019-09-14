@@ -1,6 +1,6 @@
 # Videos
 
-![Version](https://img.shields.io/badge/Version-1.1.2-blue.svg)
+![Version](https://img.shields.io/badge/Version-1.1.3-blue.svg)
 
 You can use custom video (.flv, .mp4, .mov and many others types, can be added in the settings), URL, YouTube or if you want custom embed code.
 

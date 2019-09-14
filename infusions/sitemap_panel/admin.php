@@ -23,6 +23,6 @@ require_once INFUSIONS.'sitemap_panel/autoloader.php';
 pageAccess('SMG');
 
 $smg = new SitemapGenerator();
-$smg->DisplayAdmin();
+$smg->displayAdmin();
 
 require_once THEMES.'templates/footer.php';

@@ -18,25 +18,26 @@
 require_once dirname(__FILE__).'/../../maincore.php';
 require_once THEMES.'templates/header.php';
 
-$locale = fusion_get_locale('', TEAM_LOCALE);
+$locale = fusion_get_locale('', TM_LOCALE);
 
-add_to_title($locale['TEAM_title']);
-add_breadcrumb(['link' => INFUSIONS.'team/team.php', 'title' => $locale['TEAM_title']]);
+add_to_title($locale['tm_title']);
+add_breadcrumb(['link' => INFUSIONS.'team/team.php', 'title' => $locale['tm_title']]);
 
-opentable($locale['TEAM_title']);
+opentable($locale['tm_title']);
 
 $result = dbquery("SELECT t.*, u.user_id, u.user_name, u.user_status, u.user_avatar, u.user_level, u.user_joined
     FROM ".DB_TEAM." t
     LEFT JOIN ".DB_USERS." u ON t.userid=u.user_id
-");
+    ".(multilang_table('TM') ? " WHERE language='".LANGUAGE."'" : '')
+);
 
 echo '<div class="table-responsive"><table class="table table-striped table-bordered">';
     echo '<thead><tr>';
-        echo '<td>'.$locale['TEAM_001'].'</td>';
-        echo '<td>'.$locale['TEAM_002'].'</td>';
-        echo '<td>'.$locale['TEAM_003'].'</td>';
-        echo '<td>'.$locale['TEAM_004'].'</td>';
-        if (iMEMBER) echo '<td>'.$locale['TEAM_005'].'</td>';
+        echo '<td>'.$locale['tm_001'].'</td>';
+        echo '<td>'.$locale['tm_002'].'</td>';
+        echo '<td>'.$locale['tm_003'].'</td>';
+        echo '<td>'.$locale['tm_004'].'</td>';
+        if (iMEMBER) echo '<td>'.$locale['tm_005'].'</td>';
     echo '</tr></thead>';
 
     if (dbrows($result)) {
@@ -53,7 +54,7 @@ echo '<div class="table-responsive"><table class="table table-striped table-bord
             echo '</tr>';
         }
     } else {
-        echo '<tr><td colspan="5" class="text-center">'.$locale['TEAM_007'].'</td></tr>';
+        echo '<tr><td colspan="5" class="text-center">'.$locale['tm_007'].'</td></tr>';
     }
 echo '</table></div>';
 

@@ -20,9 +20,9 @@ defined('IN_FUSION') || exit;
 $locale = fusion_get_locale('', AV_LOCALE);
 
 // Infusion general information
-$inf_title       = $locale['AV_title'];
-$inf_description = $locale['AV_desc'];
-$inf_version     = '1.0.1';
+$inf_title       = $locale['av_title'];
+$inf_description = $locale['av_desc'];
+$inf_version     = '1.0.2';
 $inf_developer   = 'RobiNN';
 $inf_email       = 'kelcakrobo@gmail.com';
 $inf_weburl      = 'https://github.com/RobiNN1';
@@ -34,9 +34,9 @@ $inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, pan
 
 // Insert settings
 $settings = [
-    'actual_version'    => '9.0 - 27.4. 2017',
-    'phpfusion_dl_link' => 'https://sourceforge.net/projects/php-fusion/files/PHP-Fusion%20Archives/9.x/PHP-Fusion%209.0.zip/download',
-    'translate_dl_link' => 'https://github.com/php-fusion/PHP-Fusion-9-Locale'
+    'actual_version'    => '9.03.00 - 14.2. 2019',
+    'phpfusion_dl_link' => 'https://sourceforge.net/projects/php-fusion/files/PHP-Fusion%20Archives/9.x/PHP-Fusion%209.03.00.zip/download',
+    'translate_dl_link' => 'https://github.com/php-fusion/locales'
 ];
 
 foreach ($settings as $name => $value) {
@@ -44,10 +44,14 @@ foreach ($settings as $name => $value) {
 }
 
 // Multilanguage links
-$enabled_languages = makefilelist(LOCALE, ".|..", TRUE, "folders");
+$enabled_languages = makefilelist(LOCALE, '.|..', TRUE, 'folders');
 if (!empty($enabled_languages)) {
     foreach ($enabled_languages as $language) {
-        include INFUSIONS.'actual_version_panel/locale/'.$language.'.php';
+        if (file_exists(INFUSIONS.'actual_version_panel/locale/'.$language.'.php')) {
+            include INFUSIONS.'actual_version_panel/locale/'.$language.'.php';
+        } else {
+            include INFUSIONS.'actual_version_panel/locale/English.php';
+        }
 
         $mlt_adminpanel[$language][] = [
             'rights'   => 'AV',

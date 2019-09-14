@@ -6,7 +6,7 @@
 +--------------------------------------------------------+
 | Filename: most_read_news_panel.php
 | Author: RobiNN
-| Version: 1.0.0
+| Version: 1.0.1
 +--------------------------------------------------------+
 | This program is released as free software under the
 | Affero GPL license. You can redistribute it and/or
@@ -24,20 +24,20 @@ if (file_exists(INFUSIONS.'most_read_news_panel/locale/'.LANGUAGE.'.php')) {
     $locale = fusion_get_locale('', INFUSIONS.'most_read_news_panel/locale/English.php');
 }
 
-add_to_head('<style type="text/css">
-.most-read-news .nav-pills>li {float: none;display: inline-block;}
-.most-read-news .nav-pills>li>a {padding: 0 5px;}
-.most-read-news .nav-pills>li>a:hover,.most-read-news .nav-pills>li>a:focus {background-color: transparent;color: inherit;}
-.most-read-news .nav-pills>li.active>a,.most-read-news .nav-pills>li.active>a:hover,.most-read-news .nav-pills>li.active>a:focus {background-color: transparent;color: inherit;font-weight: bold;}
-.most-read-news hr {margin-top: 5px;margin-bottom: 5px;}
-</style>');
+add_to_css('
+    .most-read-news .nav-pills>li {float: none;display: inline-block;}
+    .most-read-news .nav-pills>li>a {padding: 0 5px;}
+    .most-read-news .nav-pills>li>a:hover,.most-read-news .nav-pills>li>a:focus {background-color: transparent;color: inherit;}
+    .most-read-news .nav-pills>li.active>a,.most-read-news .nav-pills>li.active>a:hover,.most-read-news .nav-pills>li.active>a:focus {background-color: transparent;color: inherit;font-weight: bold;}
+    .most-read-news hr {margin-top: 5px;margin-bottom: 5px;}
+');
 
-openside($locale['MRN_01']);
+openside($locale['mrn_01']);
 echo '<div class="most-read-news">';
     echo '<ul class="nav nav-pills text-center" role="tablist">';
-        echo '<li role="presentation" class="active"><a href="#news-7days" aria-controls="news-7days" role="tab" data-toggle="tab">'.$locale['MRN_02'].'</a></li>';
-        echo '<li role="presentation"><a href="#news-14days" aria-controls="news-14days" role="tab" data-toggle="tab">'.$locale['MRN_03'].'</a></li>';
-        echo '<li role="presentation"><a href="#news-30days" aria-controls="news-30days" role="tab" data-toggle="tab">'.$locale['MRN_04'].'</a></li>';
+        echo '<li role="presentation" class="active"><a href="#news-7days" aria-controls="news-7days" role="tab" data-toggle="tab">'.$locale['mrn_02'].'</a></li>';
+        echo '<li role="presentation"><a href="#news-14days" aria-controls="news-14days" role="tab" data-toggle="tab">'.$locale['mrn_03'].'</a></li>';
+        echo '<li role="presentation"><a href="#news-30days" aria-controls="news-30days" role="tab" data-toggle="tab">'.$locale['mrn_04'].'</a></li>';
     echo '</ul>';
 
     echo '<div class="tab-content m-t-5">';
@@ -60,7 +60,7 @@ echo '<div class="most-read-news">';
                 }
                 echo '</ul>';
             } else {
-                echo '<div class="text-center">'.$locale['MRN_05'].'</div>';
+                echo '<div class="text-center">'.$locale['mrn_05'].'</div>';
             }
 
         echo '</div>';
@@ -84,7 +84,7 @@ echo '<div class="most-read-news">';
                 }
                 echo '</ul>';
             } else {
-                echo '<div class="text-center">'.$locale['MRN_05'].'</div>';
+                echo '<div class="text-center">'.$locale['mrn_05'].'</div>';
             }
         echo '</div>';
 
@@ -107,7 +107,7 @@ echo '<div class="most-read-news">';
                 }
                 echo '</ul>';
             } else {
-                echo '<div class="text-center">'.$locale['MRN_05'].'</div>';
+                echo '<div class="text-center">'.$locale['mrn_05'].'</div>';
             }
         echo '</div>';
     echo '</div>';

@@ -32,21 +32,21 @@ if (defined('VIDEOS_EXIST')) {
     $locale = fusion_get_locale('', VID_LOCALE);
 
     if (dbrows($result)) {
-        openside($locale['VID_latest']);
+        openside($locale['vid_latest']);
         echo '<div class="'.($side_panel == TRUE ? 'list-group' : 'row equal-height').'">';
 
         while ($data = dbarray($result)) {
             echo '<div class="'.($side_panel == TRUE ? 'list-group-item' : 'col-xs-12 col-sm-4 col-md-3').'">';
                 echo '<div'.($side_panel == TRUE ? ' class="pull-left m-r-15"' : '').'>';
                     echo '<a href="'.VIDEOS.'videos.php?video_id='.$data['video_id'].'" class="display-inline-block image-wrap thumb text-center overflow-hide m-2">';
-                        echo '<img style="object-fit: contain;height: 100px; width: 100px;" class="img-responsive" src="'.GetVideoThumb($data).'" alt="'.$data['video_title'].'"/>';
+                        echo '<img style="object-fit: contain;height: 100px; width: 100px;" class="img-responsive" src="'.get_video_thumb($data).'" alt="'.$data['video_title'].'"/>';
                      echo '</a>';
                 echo '</div>';
 
                 echo '<div class="overflow-hide">';
                     echo '<a href="'.VIDEOS.'videos.php?video_id='.$data['video_id'].'"><span class="strong text-dark">'.$data['video_title'].'</span></a><br/>';
                     echo '<div>';
-                        echo '<span><i class="fa fa-fw fa-folder"></i> '.$locale['VID_009'].' <a class="badge" href="'.VIDEOS.'videos.php?cat_id='.$data['video_cat_id'].'">'.$data['video_cat_name'].'</a></span>';
+                        echo '<span><i class="fa fa-fw fa-folder"></i> '.$locale['vid_009'].' <a class="badge" href="'.VIDEOS.'videos.php?cat_id='.$data['video_cat_id'].'">'.$data['video_cat_name'].'</a></span>';
                         echo '<br/><span><i class="fa fa-fw fa-user"></i> '.profile_link($data['user_id'], $data['user_name'], $data['user_status']).'</span>';
                         echo '<br/><span><i class="fa fa-fw fa-clock-o"></i> '.$data['video_length'].'</span>';
                         echo '<br/><span><i class="fa fa-fw fa-calendar"></i> '.showdate('shortdate', $data['video_datestamp']).'</span>';

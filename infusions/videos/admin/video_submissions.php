@@ -70,7 +70,7 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
 
                 dbquery_insert(DB_VIDEOS, $callback_data, 'save');
                 dbquery("DELETE FROM ".DB_SUBMISSIONS." WHERE submit_id='".intval($_GET['submit_id'])."'");
-                addNotice('success', $locale['VID_047']);
+                addNotice('success', $locale['vid_047']);
                 redirect(clean_request('', ['submit_id'], FALSE));
             }
         } else  {
@@ -96,7 +96,7 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
                 }
 
                 dbquery("DELETE FROM ".DB_SUBMISSIONS." WHERE submit_id='".intval($callback_data['submit_id'])."'");
-                addNotice('success', $locale['VID_048']);
+                addNotice('success', $locale['vid_048']);
             }
             redirect(clean_request('', ['submit_id'], FALSE));
         } else {
@@ -137,8 +137,8 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
                     echo '</div>';
 
                     echo '<div class="overflow-hide">';
-                        echo $locale['VID_049'].profile_link($data['user_id'], $data['user_name'], $data['user_status']).'<br/>';
-                        echo $locale['VID_050'].timer($data['submit_datestamp']).' - '.showdate('shortdate', $data['submit_datestamp']);
+                        echo $locale['vid_049'].profile_link($data['user_id'], $data['user_name'], $data['user_status']).'<br/>';
+                        echo $locale['vid_050'].timer($data['submit_datestamp']).' - '.showdate('shortdate', $data['submit_datestamp']);
                     echo '</div>';
                 echo '</div>';
 
@@ -148,13 +148,13 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
                         echo form_hidden('submit_id', '', $data['submit_id']);
                         echo form_hidden('video_datestamp', '', $callback_data['video_datestamp']);
 
-                        echo form_text('video_title', $locale['VID_010'], $callback_data['video_title'], [
+                        echo form_text('video_title', $locale['vid_010'], $callback_data['video_title'], [
                             'required'   => TRUE,
                             'inline'     => TRUE,
-                            'error_text' => $locale['VID_011']
+                            'error_text' => $locale['vid_011']
                         ]);
-                        echo form_select('video_keywords',  $locale['VID_012'], $callback_data['video_keywords'], [
-                            'placeholder' =>  $locale['VID_013'],
+                        echo form_select('video_keywords',  $locale['vid_012'], $callback_data['video_keywords'], [
+                            'placeholder' =>  $locale['vid_013'],
                             'max_length'  => 320,
                             'inline'      => TRUE,
                             'width'       => '100%',
@@ -162,13 +162,13 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
                             'tags'        => 1,
                             'multiple'    => 1
                         ]);
-                        echo form_text('video_length', $locale['VID_013a'], $callback_data['video_length'], [
+                        echo form_text('video_length', $locale['vid_013a'], $callback_data['video_length'], [
                             'required'    => TRUE,
                             'inline'      => TRUE,
                             'placeholder' => '00:00',
-                            'error_text'  => $locale['VID_013b']
+                            'error_text'  => $locale['vid_013b']
                         ]);
-                        echo form_textarea('video_description', $locale['VID_014'], $callback_data['video_description'], [
+                        echo form_textarea('video_description', $locale['vid_014'], $callback_data['video_description'], [
                             'no_resize' => TRUE,
                             'form_name' => 'inputform',
                             'type'      => fusion_get_settings('tinymce_enabled') ? 'tinymce' : 'html',
@@ -190,29 +190,29 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
                             }
 
                             echo '<div class="overflow-hide p-l-10">';
-                                echo form_select('video_type', $locale['VID_017a'], $callback_data['video_type'], [
+                                echo form_select('video_type', $locale['vid_017a'], $callback_data['video_type'], [
                                     'options'  => [
-                                        'file'    => $locale['VID_018'],
-                                        'url'     => $locale['VID_019'],
+                                        'file'    => $locale['vid_018'],
+                                        'url'     => $locale['vid_019'],
                                         'youtube' => 'YouTube',
-                                        'embed'   => $locale['VID_020']
+                                        'embed'   => $locale['vid_020']
                                     ],
                                     'required' => TRUE,
                                     'inline'   => TRUE
                                 ]);
                                 if (!empty($callback_data['video_file'])) {
-                                    echo '<strong>'.$locale['VID_021'].'</strong>';
+                                    echo '<strong>'.$locale['vid_021'].'</strong>';
                                     echo '<a class="btn btn-default" href="'.VIDEOS.'submissions/'.$callback_data['video_file'].'">../'.$callback_data['video_file'].'</a>';
                                     echo form_hidden('video_file', '', $callback_data['video_file']);
                                     echo form_hidden('video_url', '', '');
                                     echo form_hidden('video_embed', '', '');
                                 } else if (!empty($callback_data['video_url'])) {
-                                    echo '<strong>'.$locale['VID_019'].'</strong>';
+                                    echo '<strong>'.$locale['vid_019'].'</strong>';
                                     echo form_text('video_url', '', $callback_data['video_url']);
                                     echo form_hidden('video_file', '', '');
                                     echo form_hidden('video_embed', '', '');
                                 } else {
-                                    echo '<strong>'.$locale['VID_020'].'</strong>';
+                                    echo '<strong>'.$locale['vid_020'].'</strong>';
                                     echo form_textarea('video_embed', '', $callback_data['video_embed']);
                                     echo form_hidden('video_file', '', '');
                                     echo form_hidden('video_url', '', '');
@@ -230,38 +230,38 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
                                 $sys = $locale['ratings'];
                             }
 
-                            echo '<div class="well">'.sprintf($locale['VID_026'], $sys).'</div>';
+                            echo '<div class="well">'.sprintf($locale['vid_026'], $sys).'</div>';
                         }
 
-                        echo form_select_tree('video_cat', $locale['VID_009'], $callback_data['video_cat'], [
+                        echo form_select_tree('video_cat', $locale['vid_009'], $callback_data['video_cat'], [
                             'no_root'     => 1,
                             'placeholder' => $locale['choose'],
                             'width'       => '100%',
                             'query'       => (multilang_table('VL') ? "WHERE video_cat_language='".LANGUAGE."'" : '')
                         ], DB_VIDEO_CATS, 'video_cat_name', 'video_cat_id', 'video_cat_parent');
 
-                        echo form_select('video_visibility', $locale['VID_027'], $callback_data['video_visibility'], [
+                        echo form_select('video_visibility', $locale['vid_027'], $callback_data['video_visibility'], [
                             'options'     => fusion_get_groups(),
                             'placeholder' => $locale['choose'],
                             'width'       => '100%'
                         ]);
-                        echo form_button('publish', $locale['VID_051'], $locale['VID_051'], ['class' => 'btn-success btn-sm', 'icon' => 'fa fa-hdd-o']);
+                        echo form_button('publish', $locale['vid_051'], $locale['vid_051'], ['class' => 'btn-success btn-sm', 'icon' => 'fa fa-hdd-o']);
                         closeside();
 
                         openside('');
-                            echo form_checkbox('video_allow_comments', $locale['VID_028'], $callback_data['video_allow_comments'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
-                            echo form_checkbox('video_allow_ratings', $locale['VID_029'], $callback_data['video_allow_ratings'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
+                            echo form_checkbox('video_allow_comments', $locale['vid_028'], $callback_data['video_allow_comments'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
+                            echo form_checkbox('video_allow_ratings', $locale['vid_029'], $callback_data['video_allow_ratings'], ['class' => 'm-b-0', 'reverse_label' => TRUE]);
 
                             if (isset($_GET['action']) && $_GET['action'] == 'edit') {
-                                echo form_checkbox('update_datestamp', $locale['VID_030'], '', ['class' => 'm-b-0', 'reverse_label' => TRUE]);
+                                echo form_checkbox('update_datestamp', $locale['vid_030'], '', ['class' => 'm-b-0', 'reverse_label' => TRUE]);
                             }
                         closeside();
                     echo '</div>';
 
                 echo '</div>';
 
-                echo form_button('publish', $locale['VID_051'], $locale['VID_051'], ['class' => 'btn-success m-r-10', 'icon' => 'fa fa-hdd-o']);
-                echo form_button('delete', $locale['VID_052'], $locale['VID_052'], ['class' => 'btn-danger', 'icon' => 'fa fa-trash']);
+                echo form_button('publish', $locale['vid_051'], $locale['vid_051'], ['class' => 'btn-success m-r-10', 'icon' => 'fa fa-hdd-o']);
+                echo form_button('delete', $locale['vid_052'], $locale['vid_052'], ['class' => 'btn-danger', 'icon' => 'fa fa-trash']);
                 echo closeform();
             }
         }
@@ -277,14 +277,14 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
     $rows = dbrows($result);
 
     if ($rows > 0) {
-        echo '<div class="well">'.sprintf($locale['VID_053'], format_word($rows, $locale['fmt_submission'])).'</div>';
+        echo '<div class="well">'.sprintf($locale['vid_053'], format_word($rows, $locale['fmt_submission'])).'</div>';
 
         echo '<div class="table-responsive"><table class="table table-striped">';
             echo '<thead><tr>';
-                echo '<th>'.$locale['VID_054'].'</th>';
-                echo '<th>'.$locale['VID_055'].'</th>';
-                echo '<th>'.$locale['VID_056'].'</th>';
-                echo '<th>'.$locale['VID_057'].'</th>';
+                echo '<th>'.$locale['vid_054'].'</th>';
+                echo '<th>'.$locale['vid_055'].'</th>';
+                echo '<th>'.$locale['vid_056'].'</th>';
+                echo '<th>'.$locale['vid_057'].'</th>';
             echo '</tr></thead>';
             echo '<tbody>';
                 while ($callback_data = dbarray($result)) {
@@ -299,6 +299,6 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
             echo '</tbody>';
         echo '</table></div>';
     } else {
-        echo '<div class="well text-center m-t-20">'.$locale['VID_058'].'</div>';
+        echo '<div class="well text-center m-t-20">'.$locale['vid_058'].'</div>';
     }
 }

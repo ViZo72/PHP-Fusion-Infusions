@@ -15,8 +15,8 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['MRB_01'] = 'Most Read Blogs';
-$locale['MRB_02'] = '7 Days';
-$locale['MRB_03'] = '14 Days';
-$locale['MRB_04'] = '30 Days';
-$locale['MRB_05'] = 'No Blogs';
+$locale['mrb_01'] = 'Most Read Blogs';
+$locale['mrb_02'] = '7 Days';
+$locale['mrb_03'] = '14 Days';
+$locale['mrb_04'] = '30 Days';
+$locale['mrb_05'] = 'No Blogs';

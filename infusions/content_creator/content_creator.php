@@ -20,8 +20,6 @@ require_once THEMES.'templates/admin_header.php';
 
 pageAccess('CC');
 
-use \PHPFusion\BreadCrumbs;
-
 class ContentCreator {
     private $locale = [];
     private $snippet = '';
@@ -49,8 +47,8 @@ class ContentCreator {
         $this->users = dbcount('(user_id)', DB_USERS, 'user_status = 0');
     }
 
-    private function NumField($id, $value = 20) {
-        $form_text = form_text('num_'.$id, $this->locale['CC_001'], $value, [
+    private function numField($id, $value = 20) {
+        $form_text = form_text('num_'.$id, $this->locale['cc_001'], $value, [
             'type'        => 'number',
             'number_min'  => 1,
             'number_max'  => 2000,
@@ -62,17 +60,17 @@ class ContentCreator {
         return $form_text;
     }
 
-    private function Button($id, $delete = FALSE) {
+    private function button($id, $delete = FALSE) {
         if ($delete == TRUE) {
             $button = form_button('delete_'.$id, $this->locale['delete'], $this->locale['delete'], ['class' => 'btn-sm btn-danger']);
         } else {
-            $button = form_button('create_'.$id, $this->locale['CC_001'], $this->locale['CC_001'], ['class' => 'btn-sm btn-default']);
+            $button = form_button('create_'.$id, $this->locale['cc_001'], $this->locale['cc_001'], ['class' => 'btn-sm btn-default']);
         }
 
         return $button;
     }
 
-    private function RandomName() {
+    private function randomName() {
         $length = 8;
         $name = '';
         $characters = array_merge(range('A', 'Z'), range('a', 'z'), range('0', '9'));
@@ -86,7 +84,7 @@ class ContentCreator {
         return $name;
     }
 
-    private function RandomIP() {
+    private function randomIp() {
         $num1 = mt_rand(0, 255);
         $num2 = mt_rand(0, 255);
         $num3 = mt_rand(0, 255);
@@ -97,25 +95,25 @@ class ContentCreator {
         return $ip;
     }
 
-    private function Notice($num, $delete = FALSE) {
+    private function notice($num, $delete = FALSE) {
         if ($delete == TRUE) {
-            addNotice('success', $this->locale['CC_002']);
+            addNotice('success', $this->locale['cc_002']);
         } else {
-            addNotice('success', $this->locale['CC_003'].' ('.$num.')');
+            addNotice('success', $this->locale['cc_003'].' ('.$num.')');
         }
 
         redirect(FUSION_REQUEST);
     }
 
-    private function Query($table, $insert, $values) {
+    private function query($table, $insert, $values) {
         dbquery("INSERT INTO  ".$table." (".$insert.") VALUES ".$values);
     }
 
-    private function Delete($table) {
+    private function delete($table) {
         dbquery("TRUNCATE TABLE ".$table);
     }
 
-    private function Users() {
+    private function users() {
         $admin = !isset($_POST['create_admins']) ? TRUE : FALSE;
         $mailnames = ['gmail.com', 'hotmail.com', 'yahoo.com', 'outlook.com', 'yandex.com', 'protonmail.com', 'aol.com'];
         $password = '8a724b7684e0254527cf990012e93b6ec988e71a612419da0938a78e096c79be'; // test123456
@@ -136,8 +134,8 @@ class ContentCreator {
             $num = $admin ? $num_users : $num_admins;
 
             for ($i = 1; $i <= $num; $i++) {
-                $username = $this->RandomName();
-                $ip = $this->RandomIP();
+                $username = $this->randomName();
+                $ip = $this->randomIp();
                 $mail = strtolower($username.'@'.$mailnames[rand(1, 6)]);
                 $joined_rand = rand(0, (time() / 2));
                 $joined = time() - $joined_rand;
@@ -149,70 +147,70 @@ class ContentCreator {
 
             dbquery($query);
 
-            $this->Notice($num);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_users'])) {
             dbquery("DELETE FROM ".DB_USERS." WHERE user_id != 1 AND user_level = ".USER_LEVEL_MEMBER."");
-            $this->Notice('', TRUE);
+            $this->notice('', TRUE);
         }
 
         if (isset($_POST['delete_admins'])) {
             dbquery("DELETE FROM ".DB_USERS." WHERE user_id != 1 AND user_level = ".USER_LEVEL_ADMIN."");
-            $this->Notice('', TRUE);
+            $this->notice('', TRUE);
         }
     }
 
-    private function UserGroups() {
+    private function userGroups() {
         if (isset($_POST['create_user_groups'])) {
             $num = $_POST['num_user_groups'];
             $insert = 'group_name, group_description';
             $values = '';
 
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "('".$this->locale['CC_006']." ".$i."', '".$this->locale['CC_007']."')";
+                $values .= "('".$this->locale['cc_006']." ".$i."', '".$this->locale['cc_007']."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_USER_GROUPS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_USER_GROUPS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_user_groups'])) {
-            $this->Delete(DB_USER_GROUPS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_USER_GROUPS);
+            $this->notice('', TRUE);
         }
     }
 
-    private function PrivateMessages() {
+    private function privateMessages() {
         if (isset($_POST['create_private_messages'])) {
             $num = $_POST['num_private_messages'];
             for ($i = 1; $i <= $num; $i++) {
-                send_pm(rand(1, $this->users / 2), rand($this->users / 2, $this->users), $this->locale['CC_041'].' '.$i, $this->message_text);
+                send_pm(rand(1, $this->users / 2), rand($this->users / 2, $this->users), $this->locale['cc_041'].' '.$i, $this->message_text);
             }
 
-            $this->Notice($num);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_private_messages'])) {
-            $this->Delete(DB_MESSAGES);
-            $this->Notice('', TRUE);
+            $this->delete(DB_MESSAGES);
+            $this->notice('', TRUE);
         }
     }
 
-    private function Articles() {
+    private function articles() {
         if (isset($_POST['create_article_cats'])) {
             $num = $_POST['num_article_cats'];
             $insert = 'article_cat_parent, article_cat_name, article_cat_description, article_cat_visibility, article_cat_status, article_cat_language';
             $values = '';
 
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "(0, '".$this->locale['CC_009']." ".$i."', '".$this->locale['CC_007']."', 0, 1, '".LANGUAGE."')";
+                $values .= "(0, '".$this->locale['cc_009']." ".$i."', '".$this->locale['cc_007']."', 0, 1, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_ARTICLE_CATS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_ARTICLE_CATS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['create_articles'])) {
@@ -223,38 +221,38 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $article_cats = dbcount('(article_cat_id)', DB_ARTICLE_CATS);
                 $article_cats = rand(1, $article_cats);
-                $values .= "('".$this->locale['CC_010']." ".$i."', ".$article_cats.", '".$this->snippet."', '".$this->body."', 'y', '".rand(1, $this->users)."', '".(time() - rand(0, time() / 2))."', '".rand(1, 10000)."', 1, 1, '".LANGUAGE."')";
+                $values .= "('".$this->locale['cc_010']." ".$i."', ".$article_cats.", '".$this->snippet."', '".$this->body."', 'y', '".rand(1, $this->users)."', '".(time() - rand(0, time() / 2))."', '".rand(1, 10000)."', 1, 1, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_ARTICLES, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_ARTICLES, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_article_cats'])) {
-            $this->Delete(DB_ARTICLE_CATS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_ARTICLE_CATS);
+            $this->notice('', TRUE);
         }
 
         if (isset($_POST['delete_articles'])) {
-            $this->Delete(DB_ARTICLES);
-            $this->Notice('', TRUE);
+            $this->delete(DB_ARTICLES);
+            $this->notice('', TRUE);
         }
     }
 
-    private function Blogs() {
+    private function blog() {
         if (isset($_POST['create_blog_cats'])) {
             $num = $_POST['num_blog_cats'];
             $insert = 'blog_cat_parent, blog_cat_name, blog_cat_language';
             $values = '';
 
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "(0, '".$this->locale['CC_009']." ".$i."', '".LANGUAGE."')";
+                $values .= "(0, '".$this->locale['cc_009']." ".$i."', '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_BLOG_CATS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_BLOG_CATS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['create_blogs'])) {
@@ -265,26 +263,26 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $blog_cats = dbcount('(blog_cat_id)', DB_BLOG_CATS);
                 $blog_cats = rand(1, $blog_cats);
-                $values .= "('".$this->locale['CC_013']." ".$i."', ".$blog_cats.", '".$this->snippet."', '".$this->body."', 'y', '".rand(1, $this->users)."', '".(time() - rand(0, time() / 2))."', '".rand(1, 10000)."', 1, 1, '".LANGUAGE."')";
+                $values .= "('".$this->locale['cc_013']." ".$i."', ".$blog_cats.", '".$this->snippet."', '".$this->body."', 'y', '".rand(1, $this->users)."', '".(time() - rand(0, time() / 2))."', '".rand(1, 10000)."', 1, 1, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_BLOG, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_BLOG, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_blog_cats'])) {
-            $this->Delete(DB_BLOG_CATS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_BLOG_CATS);
+            $this->notice('', TRUE);
         }
 
         if (isset($_POST['delete_blogs'])) {
-            $this->Delete(DB_BLOG);
-            $this->Notice('', TRUE);
+            $this->delete(DB_BLOG);
+            $this->notice('', TRUE);
         }
     }
 
-    private function Comments_Ratings() {
+    private function commentsAndRatings() {
         $type = [];
         $max_items = [];
 
@@ -325,18 +323,18 @@ class ContentCreator {
 
             $values = '';
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "('".rand(1, $max_items[rand(1, count($max_items))])."', '".$type[rand(1, count($type))]."', '".rand(1, $this->users)."', '".$this->locale['CC_048']." ".$i."', '".$this->shout_text[rand(1, 5)]."', '".(time() - rand(0, time() / 2))."', '".$this->RandomIP()."', 0)";
+                $values .= "('".rand(1, $max_items[rand(1, count($max_items))])."', '".$type[rand(1, count($type))]."', '".rand(1, $this->users)."', '".$this->locale['cc_048']." ".$i."', '".$this->shout_text[rand(1, 5)]."', '".(time() - rand(0, time() / 2))."', '".$this->randomIp()."', 0)";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_COMMENTS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_COMMENTS, $insert, $values);
+            $this->notice($num);
         }
 
 
         if (isset($_POST['delete_ratings'])) {
-            $this->Delete(DB_COMMENTS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_COMMENTS);
+            $this->notice('', TRUE);
         }
 
         if (isset($_POST['create_ratings'])) {
@@ -346,22 +344,22 @@ class ContentCreator {
 
             $values = '';
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "('".rand(1, $max_items[rand(1, count($max_items))])."', '".$type[rand(1, count($type))]."', '".rand(1, $this->users)."', '".rand(1, 5)."', '".(time() - rand(0, time() / 2))."', '".$this->RandomIP()."', 4)";
+                $values .= "('".rand(1, $max_items[rand(1, count($max_items))])."', '".$type[rand(1, count($type))]."', '".rand(1, $this->users)."', '".rand(1, 5)."', '".(time() - rand(0, time() / 2))."', '".$this->randomIp()."', 4)";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_RATINGS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_RATINGS, $insert, $values);
+            $this->notice($num);
         }
 
 
         if (isset($_POST['delete_ratings'])) {
-            $this->Delete(DB_RATINGS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_RATINGS);
+            $this->notice('', TRUE);
         }
     }
 
-    private function CustomPages() {
+    private function customPages() {
         if (isset($_POST['create_custom_pages'])) {
             $num = $_POST['num_custom_pages'];
 
@@ -369,34 +367,34 @@ class ContentCreator {
 
             $values = '';
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "('".$this->locale['CC_016']." ".$i."', 0, '".$this->body."', 1, 1, '".(time() - rand(0, time() / 2))."', '".LANGUAGE."')";
+                $values .= "('".$this->locale['cc_016']." ".$i."', 0, '".$this->body."', 1, 1, '".(time() - rand(0, time() / 2))."', '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_CUSTOM_PAGES, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_CUSTOM_PAGES, $insert, $values);
+            $this->notice($num);
         }
 
 
         if (isset($_POST['delete_custom_pages'])) {
-            $this->Delete(DB_CUSTOM_PAGES);
-            $this->Notice('', TRUE);
+            $this->delete(DB_CUSTOM_PAGES);
+            $this->notice('', TRUE);
         }
     }
 
-    private function Downloads() {
+    private function downloads() {
         if (isset($_POST['create_download_cats'])) {
             $num = $_POST['num_download_cats'];
             $insert = 'download_cat_parent, download_cat_name, download_cat_description, download_cat_sorting, download_cat_language';
             $values = '';
 
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "(0, '".$this->locale['CC_009']." ".$i."', '".$this->locale['CC_007']."', 'download_id ASC', '".LANGUAGE."')";
+                $values .= "(0, '".$this->locale['cc_009']." ".$i."', '".$this->locale['cc_007']."', 'download_id ASC', '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_DOWNLOAD_CATS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_DOWNLOAD_CATS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['create_downloads'])) {
@@ -407,38 +405,38 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $download_cats = dbcount('(download_cat_id)', DB_DOWNLOAD_CATS);
                 $download_cats = rand(1, $download_cats);
-                $values .= "('".rand(1, $this->users)."', '".$this->locale['CC_018']." ".$i."', '".$this->short_text."', '".$this->body."', 'https://www.php-fusion.co.uk/home.php', ".$download_cats.", '".(time() - rand(0, time() / 2))."', 0, ".rand(1, 10000).", 1, 1)";
+                $values .= "('".rand(1, $this->users)."', '".$this->locale['cc_018']." ".$i."', '".$this->short_text."', '".$this->body."', 'https://www.php-fusion.co.uk/home.php', ".$download_cats.", '".(time() - rand(0, time() / 2))."', 0, ".rand(1, 10000).", 1, 1)";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_DOWNLOADS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_DOWNLOADS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_download_cats'])) {
-            $this->Delete(DB_DOWNLOAD_CATS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_DOWNLOAD_CATS);
+            $this->notice('', TRUE);
         }
 
         if (isset($_POST['delete_downloads'])) {
-            $this->Delete(DB_DOWNLOADS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_DOWNLOADS);
+            $this->notice('', TRUE);
         }
     }
 
-    private function Faqs() {
+    private function faq() {
         if (isset($_POST['create_faq_cats'])) {
             $num = $_POST['num_faq_cats'];
             $insert = 'faq_cat_name, faq_cat_description, faq_cat_language';
             $values = '';
 
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "('".$this->locale['CC_009']." ".$i."', '".$this->locale['CC_007']."', '".LANGUAGE."')";
+                $values .= "('".$this->locale['cc_009']." ".$i."', '".$this->locale['cc_007']."', '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_FAQ_CATS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_FAQ_CATS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['create_faqs'])) {
@@ -449,26 +447,26 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $faq_cats = dbcount('(faq_cat_id)', DB_FAQ_CATS);
                 $faq_cats = rand(1, $faq_cats);
-                $values .= "(".$faq_cats.", '".$this->locale['CC_021']." ".$i."', '".$this->short_text."', 'y', '".rand(1, $this->users)."', '".(time() - rand(0, time() / 2))."', 0, 1, '".LANGUAGE."')";
+                $values .= "(".$faq_cats.", '".$this->locale['cc_021']." ".$i."', '".$this->short_text."', 'y', '".rand(1, $this->users)."', '".(time() - rand(0, time() / 2))."', 0, 1, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_FAQS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_FAQS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_faq_cats'])) {
-            $this->Delete(DB_FAQ_CATS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_FAQ_CATS);
+            $this->notice('', TRUE);
         }
 
         if (isset($_POST['delete_faqs'])) {
-            $this->Delete(DB_FAQS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_FAQS);
+            $this->notice('', TRUE);
         }
     }
 
-    private function Forums() {
+    private function forum() {
         if (isset($_POST['create_forums'])) {
             $num = $_POST['num_forums'];
             $insert = 'forum_name, forum_type, forum_description, forum_post, forum_reply, forum_language';
@@ -476,54 +474,54 @@ class ContentCreator {
 
             for ($i = 1; $i <= $num; $i++) {
                 $type = rand(1, 4);
-                $values .= "('".$this->locale['CC_044']." ".$i."', '".$type."', '".$this->locale['CC_007']."', '".USER_LEVEL_MEMBER."', '".USER_LEVEL_MEMBER."', '".LANGUAGE."')";
+                $values .= "('".$this->locale['cc_044']." ".$i."', '".$type."', '".$this->locale['cc_007']."', '".USER_LEVEL_MEMBER."', '".USER_LEVEL_MEMBER."', '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_FORUMS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_FORUMS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_forums'])) {
-            $this->Delete(DB_FORUMS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_FORUMS);
+            $this->notice('', TRUE);
         }
     }
 
-    private function Gallery() {
+    private function gallery() {
         if (isset($_POST['create_photo_albums'])) {
             $num = $_POST['num_photo_albums'];
             $insert = 'album_title, album_description, album_user, album_datestamp, album_language';
             $values = '';
 
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "('".$this->locale['CC_046']." ".$i."', '".$this->locale['CC_007']."', '".rand(1, $this->users)."', '".(time() - rand(0, time() / 2))."', '".LANGUAGE."')";
+                $values .= "('".$this->locale['cc_046']." ".$i."', '".$this->locale['cc_007']."', '".rand(1, $this->users)."', '".(time() - rand(0, time() / 2))."', '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_PHOTO_ALBUMS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_PHOTO_ALBUMS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_photo_albums'])) {
-            $this->Delete(DB_PHOTO_ALBUMS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_PHOTO_ALBUMS);
+            $this->notice('', TRUE);
         }
     }
 
-    private function News() {
+    private function news() {
         if (isset($_POST['create_news_cats'])) {
             $num = $_POST['num_news_cats'];
             $insert = 'news_cat_parent, news_cat_name, news_cat_visibility, news_cat_language';
             $values = '';
 
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "(0, '".$this->locale['CC_009']." ".$i."', 0, '".LANGUAGE."')";
+                $values .= "(0, '".$this->locale['cc_009']." ".$i."', 0, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_NEWS_CATS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_NEWS_CATS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['create_news'])) {
@@ -534,80 +532,80 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $news_cats = dbcount('(news_cat_id)', DB_NEWS_CATS);
                 $news_cats = rand(1, $news_cats);
-                $values .= "('".$this->locale['CC_024']." ".$i."', ".$news_cats.", '".$this->snippet."', '".$this->body."', 'y', '".rand(1, $this->users)."', '".(time() - rand(0, time() / 2))."', 0, ".rand(1, 10000).", 1, 1, '".LANGUAGE."')";
+                $values .= "('".$this->locale['cc_024']." ".$i."', ".$news_cats.", '".$this->snippet."', '".$this->body."', 'y', '".rand(1, $this->users)."', '".(time() - rand(0, time() / 2))."', 0, ".rand(1, 10000).", 1, 1, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_NEWS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_NEWS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_news_cats'])) {
-            $this->Delete(DB_NEWS_CATS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_NEWS_CATS);
+            $this->notice('', TRUE);
         }
 
         if (isset($_POST['delete_news'])) {
-            $this->Delete(DB_NEWS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_NEWS);
+            $this->notice('', TRUE);
         }
     }
 
-    private function Polls() {
+    private function polls() {
         if (isset($_POST['create_polls'])) {
             $num = $_POST['num_polls'];
             $insert = 'poll_title, poll_opt, poll_started, poll_ended, poll_visibility';
             $values = '';
 
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "('".serialize([LANGUAGE => $this->locale['CC_027'].' '.$i])."', '".serialize([[LANGUAGE => $this->locale['CC_028']], [LANGUAGE => $this->locale['CC_029']]])."', '".(time() - rand(0, time() / 2))."', 0, 0)";
+                $values .= "('".serialize([LANGUAGE => $this->locale['cc_027'].' '.$i])."', '".serialize([[LANGUAGE => $this->locale['cc_028']], [LANGUAGE => $this->locale['cc_029']]])."', '".(time() - rand(0, time() / 2))."', 0, 0)";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_POLLS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_POLLS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_polls'])) {
-            $this->Delete(DB_POLLS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_POLLS);
+            $this->notice('', TRUE);
         }
     }
 
-    private function Shouts() {
+    private function shouts() {
         if (isset($_POST['create_shouts'])) {
             $num = $_POST['num_shouts'];
             $insert = 'shout_name, shout_message, shout_datestamp, shout_ip, shout_ip_type, shout_hidden, shout_language';
             $values = '';
 
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "('".rand(1, $this->users)."', '".$this->shout_text[rand(1, 5)]."', '".(time() - rand(0, time() / 2))."', '".$this->RandomIP()."', 4, 0, '".LANGUAGE."')";
+                $values .= "('".rand(1, $this->users)."', '".$this->shout_text[rand(1, 5)]."', '".(time() - rand(0, time() / 2))."', '".$this->randomIp()."', 4, 0, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_SHOUTBOX, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_SHOUTBOX, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_shouts'])) {
-            $this->Delete(DB_SHOUTBOX);
-            $this->Notice('', TRUE);
+            $this->delete(DB_SHOUTBOX);
+            $this->notice('', TRUE);
         }
     }
 
-    private function Videos() {
+    private function videos() {
         if (isset($_POST['create_video_cats'])) {
             $num = $_POST['num_video_cats'];
             $insert = 'video_cat_parent, video_cat_name, video_cat_description, video_cat_sorting, video_cat_language';
             $values = '';
 
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "(0, '".$this->locale['CC_009']." ".$i."', '".$this->locale['CC_007']."', 'video_id ASC', '".LANGUAGE."')";
+                $values .= "(0, '".$this->locale['cc_009']." ".$i."', '".$this->locale['cc_007']."', 'video_id ASC', '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_VIDEO_CATS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_VIDEO_CATS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['create_videos'])) {
@@ -624,38 +622,38 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $video_cats = dbcount('(video_cat_id)', DB_VIDEO_CATS);
                 $video_cats = rand(1, $video_cats);
-                $values .= "(".$video_cats.", '".rand(1, $this->users)."', '".$this->locale['CC_050']." ".$i."', '".$this->body."', '".rand(0, 60).":".rand(0, 60)."', '".(time() - rand(0, time() / 2))."', 0, 'youtube', '".$video_urls[rand(1, 3)]."', ".rand(1, 10000).", 1, 1)";
+                $values .= "(".$video_cats.", '".rand(1, $this->users)."', '".$this->locale['cc_050']." ".$i."', '".$this->body."', '".rand(0, 60).":".rand(0, 60)."', '".(time() - rand(0, time() / 2))."', 0, 'youtube', '".$video_urls[rand(1, 3)]."', ".rand(1, 10000).", 1, 1)";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_VIDEOS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_VIDEOS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_video_cats'])) {
-            $this->Delete(DB_VIDEO_CATS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_VIDEO_CATS);
+            $this->notice('', TRUE);
         }
 
         if (isset($_POST['delete_videos'])) {
-            $this->Delete(DB_VIDEOS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_VIDEOS);
+            $this->notice('', TRUE);
         }
     }
 
-    private function Weblinks() {
+    private function weblinks() {
         if (isset($_POST['create_weblink_cats'])) {
             $num = $_POST['num_weblink_cats'];
             $insert = 'weblink_cat_parent, weblink_cat_name, weblink_cat_description, weblink_cat_status, weblink_cat_visibility, weblink_cat_language';
             $values = '';
 
             for ($i = 1; $i <= $num; $i++) {
-                $values .= "(0, '".$this->locale['CC_009']." ".$i."', '".$this->locale['CC_007']."', 1, 0, '".LANGUAGE."')";
+                $values .= "(0, '".$this->locale['cc_009']." ".$i."', '".$this->locale['cc_007']."', 1, 0, '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_WEBLINK_CATS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_WEBLINK_CATS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['create_weblinks'])) {
@@ -666,321 +664,321 @@ class ContentCreator {
             for ($i = 1; $i <= $num; $i++) {
                 $weblink_cats = dbcount('(weblink_cat_id)', DB_WEBLINK_CATS);
                 $weblink_cats = rand(1, $weblink_cats);
-                $values .= "('".$this->locale['CC_033']." ".$i."', '".$this->locale['CC_007']."', 'http://".strtolower($this->RandomName()).".com', ".$weblink_cats.", '".(time() - rand(0, time() / 2))."', 0, 1, ".rand(1, 10000).", '".LANGUAGE."')";
+                $values .= "('".$this->locale['cc_033']." ".$i."', '".$this->locale['cc_007']."', 'http://".strtolower($this->randomName()).".com', ".$weblink_cats.", '".(time() - rand(0, time() / 2))."', 0, 1, ".rand(1, 10000).", '".LANGUAGE."')";
                 $values .= $i < $num ? ', ' : ';';
             }
 
-            $this->Query(DB_WEBLINKS, $insert, $values);
-            $this->Notice($num);
+            $this->query(DB_WEBLINKS, $insert, $values);
+            $this->notice($num);
         }
 
         if (isset($_POST['delete_weblink_cats'])) {
-            $this->Delete(DB_WEBLINK_CATS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_WEBLINK_CATS);
+            $this->notice('', TRUE);
         }
 
         if (isset($_POST['delete_weblinks'])) {
-            $this->Delete(DB_WEBLINKS);
-            $this->Notice('', TRUE);
+            $this->delete(DB_WEBLINKS);
+            $this->notice('', TRUE);
         }
     }
 
-    public function DisplayAdmin() {
-        add_to_title($this->locale['CC_title']);
+    public function displayAdmin() {
+        add_to_title($this->locale['cc_title']);
 
-        BreadCrumbs::getInstance()->addBreadCrumb([
+        add_breadcrumb([
             'link'  => INFUSIONS.'content_creator/content_creator.php'.fusion_get_aidlink(),
-            'title' => $this->locale['CC_title']
+            'title' => $this->locale['cc_title']
         ]);
 
-        opentable($this->locale['CC_title']);
+        opentable($this->locale['cc_title']);
 
         echo '<div class="well">';
-        echo '<strong class="text-danger">'.$this->locale['CC_037'].'</strong><br />';
-        echo $this->locale['CC_038'].'<br />';
-        echo $this->locale['CC_039'].': <strong>test123456</strong><br />';
-        echo $this->locale['CC_040'].': <strong> test123456789</strong>';
+        echo '<strong class="text-danger">'.$this->locale['cc_037'].'</strong><br />';
+        echo $this->locale['cc_038'].'<br />';
+        echo $this->locale['cc_039'].': <strong>test123456</strong><br />';
+        echo $this->locale['cc_040'].': <strong> test123456789</strong>';
         echo '</div>';
 
         echo openform('content', 'post', FUSION_REQUEST);
 
         echo '<div class="table-responsive"><table class="table table-striped">';
         echo '<tbody>';
-        $this->Users();
+        $this->users();
         $total_users = dbcount('(user_id)', DB_USERS, 'user_status=0');
-        echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_042'].': '.$total_users.'</td></tr>';
+        echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_042'].': '.$total_users.'</td></tr>';
         echo '<tr>';
-        echo '<td>'.$this->NumField('users', 50).'</td>';
-        echo '<td>'.$this->Button('users').'</td>';
+        echo '<td>'.$this->numField('users', 50).'</td>';
+        echo '<td>'.$this->button('users').'</td>';
         $users = dbcount('(user_id)', DB_USERS, 'user_status=0 AND user_level='.USER_LEVEL_MEMBER.'');
-        echo '<td>'.$this->locale['CC_004'].': '.$users.'</td>';
-        echo '<td>'.$this->Button('users', TRUE).'</td>';
+        echo '<td>'.$this->locale['cc_004'].': '.$users.'</td>';
+        echo '<td>'.$this->button('users', TRUE).'</td>';
         echo '</tr>';
 
         echo '<tr>';
-        echo '<td>'.$this->NumField('admins', 5).'</td>';
-        echo '<td>'.$this->Button('admins').'</td>';
+        echo '<td>'.$this->numField('admins', 5).'</td>';
+        echo '<td>'.$this->button('admins').'</td>';
         $admins = dbcount('(user_id)', DB_USERS, 'user_status=0 AND user_level='.USER_LEVEL_ADMIN.' OR user_level='.USER_LEVEL_SUPER_ADMIN.'');
-        echo '<td>'.$this->locale['CC_005'].': '.$admins.'</td>';
-        echo '<td>'.$this->Button('admins', TRUE).'</td>';
+        echo '<td>'.$this->locale['cc_005'].': '.$admins.'</td>';
+        echo '<td>'.$this->button('admins', TRUE).'</td>';
         echo '</tr>';
 
         echo '<tr>';
-        $this->UserGroups();
-        echo '<td>'.$this->NumField('user_groups', 5).'</td>';
-        echo '<td>'.$this->Button('user_groups').'</td>';
+        $this->userGroups();
+        echo '<td>'.$this->numField('user_groups', 5).'</td>';
+        echo '<td>'.$this->button('user_groups').'</td>';
         $user_groups = dbcount('(group_id)', DB_USER_GROUPS);
-        echo '<td>'.$this->locale['CC_008'].': '.$user_groups.'</td>';
-        echo '<td>'.$this->Button('user_groups', TRUE).'</td>';
+        echo '<td>'.$this->locale['cc_008'].': '.$user_groups.'</td>';
+        echo '<td>'.$this->button('user_groups', TRUE).'</td>';
         echo '</tr>';
 
         echo '<tr>';
-        $this->PrivateMessages();
-        echo '<td>'.$this->NumField('private_messages', 50).'</td>';
-        echo '<td>'.$this->Button('private_messages').'</td>';
+        $this->privateMessages();
+        echo '<td>'.$this->numField('private_messages', 50).'</td>';
+        echo '<td>'.$this->button('private_messages').'</td>';
         $private_messages = dbcount('(message_id)', DB_MESSAGES) / 2;
-        echo '<td>'.$this->locale['CC_041'].': '.$private_messages.'</td>';
-        echo '<td>'.$this->Button('private_messages', TRUE).'</td>';
+        echo '<td>'.$this->locale['cc_041'].': '.$private_messages.'</td>';
+        echo '<td>'.$this->button('private_messages', TRUE).'</td>';
         echo '</tr>';
 
         if (defined('ARTICLES_EXIST')) {
-            $this->Articles();
-            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_012'].'</td></tr>';
+            $this->articles();
+            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_012'].'</td></tr>';
             echo '<tr>';
-            echo '<td>'.$this->NumField('article_cats', 5).'</td>';
-            echo '<td>'.$this->Button('article_cats').'</td>';
+            echo '<td>'.$this->numField('article_cats', 5).'</td>';
+            echo '<td>'.$this->button('article_cats').'</td>';
             $article_cats = dbcount('(article_cat_id)', DB_ARTICLE_CATS);
-            echo '<td>'.$this->locale['CC_011'].': '.$article_cats.'</td>';
-            echo '<td>'.$this->Button('article_cats', TRUE).'</td>';
+            echo '<td>'.$this->locale['cc_011'].': '.$article_cats.'</td>';
+            echo '<td>'.$this->button('article_cats', TRUE).'</td>';
             echo '</tr>';
             if (!empty($article_cats)) {
                 echo '<tr>';
-                echo '<td>'.$this->NumField('articles').'</td>';
-                echo '<td>'.$this->Button('articles').'</td>';
+                echo '<td>'.$this->numField('articles').'</td>';
+                echo '<td>'.$this->button('articles').'</td>';
                 $articles = dbcount('(article_id)', DB_ARTICLES);
-                echo '<td>'.$this->locale['CC_012'].': '.$articles.'</td>';
-                echo '<td>'.$this->Button('articles', TRUE).'</td>';
+                echo '<td>'.$this->locale['cc_012'].': '.$articles.'</td>';
+                echo '<td>'.$this->button('articles', TRUE).'</td>';
                 echo '</tr>';
             } else {
-                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['CC_036'], $this->locale['CC_011']).'</td></tr>';
+                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['cc_036'], $this->locale['cc_011']).'</td></tr>';
             }
         }
 
         if (defined('BLOG_EXIST')) {
-            $this->Blogs();
-            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_015'].'</td></tr>';
+            $this->blog();
+            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_015'].'</td></tr>';
             echo '<tr>';
-            echo '<td>'.$this->NumField('blog_cats', 5).'</td>';
-            echo '<td>'.$this->Button('blog_cats').'</td>';
+            echo '<td>'.$this->numField('blog_cats', 5).'</td>';
+            echo '<td>'.$this->button('blog_cats').'</td>';
             $blog_cats = dbcount('(blog_cat_id)', DB_BLOG_CATS);
-            echo '<td>'.$this->locale['CC_014'].': '.$blog_cats.'</td>';
-            echo '<td>'.$this->Button('blog_cats', TRUE).'</td>';
+            echo '<td>'.$this->locale['cc_014'].': '.$blog_cats.'</td>';
+            echo '<td>'.$this->button('blog_cats', TRUE).'</td>';
             echo '</tr>';
             if (!empty($blog_cats)) {
                 echo '<tr>';
-                echo '<td>'.$this->NumField('blogs').'</td>';
-                echo '<td>'.$this->Button('blogs').'</td>';
+                echo '<td>'.$this->numField('blogs').'</td>';
+                echo '<td>'.$this->button('blogs').'</td>';
                 $blogs = dbcount('(blog_id)', DB_BLOG);
-                echo '<td>'.$this->locale['CC_015'].': '.$blogs.'</td>';
-                echo '<td>'.$this->Button('blogs', TRUE).'</td>';
+                echo '<td>'.$this->locale['cc_015'].': '.$blogs.'</td>';
+                echo '<td>'.$this->button('blogs', TRUE).'</td>';
                 echo '</tr>';
             } else {
-                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['CC_036'], $this->locale['CC_014']).'</td></tr>';
+                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['cc_036'], $this->locale['cc_014']).'</td></tr>';
             }
         }
 
-        echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_017'].'</td></tr>';
+        echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_017'].'</td></tr>';
         echo '<tr>';
-        $this->CustomPages();
-        echo '<td>'.$this->NumField('custom_pages', 5).'</td>';
-        echo '<td>'.$this->Button('custom_pages').'</td>';
+        $this->customPages();
+        echo '<td>'.$this->numField('custom_pages', 5).'</td>';
+        echo '<td>'.$this->button('custom_pages').'</td>';
         $custom_pages = dbcount('(page_id)', DB_CUSTOM_PAGES);
-        echo '<td>'.$this->locale['CC_017'].': '.$custom_pages.'</td>';
-        echo '<td>'.$this->Button('custom_pages', TRUE).'</td>';
+        echo '<td>'.$this->locale['cc_017'].': '.$custom_pages.'</td>';
+        echo '<td>'.$this->button('custom_pages', TRUE).'</td>';
         echo '</tr>';
 
         if (defined('DOWNLOADS_EXIST')) {
-            $this->Downloads();
-            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_020'].'</td></tr>';
+            $this->downloads();
+            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_020'].'</td></tr>';
             echo '<tr>';
-            echo '<td>'.$this->NumField('download_cats', 5).'</td>';
-            echo '<td>'.$this->Button('download_cats').'</td>';
+            echo '<td>'.$this->numField('download_cats', 5).'</td>';
+            echo '<td>'.$this->button('download_cats').'</td>';
             $download_cats = dbcount('(download_cat_id)', DB_DOWNLOAD_CATS);
-            echo '<td>'.$this->locale['CC_019'].': '.$download_cats.'</td>';
-            echo '<td>'.$this->Button('download_cats', TRUE).'</td>';
+            echo '<td>'.$this->locale['cc_019'].': '.$download_cats.'</td>';
+            echo '<td>'.$this->button('download_cats', TRUE).'</td>';
             echo '</tr>';
             if (!empty($download_cats)) {
                 echo '<tr>';
-                echo '<td>'.$this->NumField('downloads').'</td>';
-                echo '<td>'.$this->Button('downloads').'</td>';
+                echo '<td>'.$this->numField('downloads').'</td>';
+                echo '<td>'.$this->button('downloads').'</td>';
                 $downloads = dbcount('(download_id)', DB_DOWNLOADS);
-                echo '<td>'.$this->locale['CC_020'].': '.$downloads.'</td>';
-                echo '<td>'.$this->Button('downloads', TRUE).'</td>';
+                echo '<td>'.$this->locale['cc_020'].': '.$downloads.'</td>';
+                echo '<td>'.$this->button('downloads', TRUE).'</td>';
                 echo '</tr>';
             } else {
-                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['CC_036'], $this->locale['CC_019']).'</td></tr>';
+                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['cc_036'], $this->locale['cc_019']).'</td></tr>';
             }
         }
 
         if (defined('FAQ_EXIST')) {
-            $this->Faqs();
-            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_023'].'</td></tr>';
+            $this->faq();
+            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_023'].'</td></tr>';
             echo '<tr>';
-            echo '<td>'.$this->NumField('faq_cats', 5).'</td>';
-            echo '<td>'.$this->Button('faq_cats').'</td>';
+            echo '<td>'.$this->numField('faq_cats', 5).'</td>';
+            echo '<td>'.$this->button('faq_cats').'</td>';
             $faq_cats = dbcount('(faq_cat_id)', DB_FAQ_CATS);
-            echo '<td>'.$this->locale['CC_022'].': '.$faq_cats.'</td>';
-            echo '<td>'.$this->Button('faq_cats', TRUE).'</td>';
+            echo '<td>'.$this->locale['cc_022'].': '.$faq_cats.'</td>';
+            echo '<td>'.$this->button('faq_cats', TRUE).'</td>';
             echo '</tr>';
             if (!empty($faq_cats)) {
                 echo '<tr>';
-                echo '<td>'.$this->NumField('faqs').'</td>';
-                echo '<td>'.$this->Button('faqs').'</td>';
+                echo '<td>'.$this->numField('faqs').'</td>';
+                echo '<td>'.$this->button('faqs').'</td>';
                 $faqs = dbcount('(faq_id)', DB_FAQS);
-                echo '<td>'.$this->locale['CC_023'].': '.$faqs.'</td>';
-                echo '<td>'.$this->Button('faqs', TRUE).'</td>';
+                echo '<td>'.$this->locale['cc_023'].': '.$faqs.'</td>';
+                echo '<td>'.$this->button('faqs', TRUE).'</td>';
                 echo '</tr>';
             } else {
-                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['CC_036'], $this->locale['CC_022']).'</td></tr>';
+                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['cc_036'], $this->locale['cc_022']).'</td></tr>';
             }
         }
 
         if (defined('FORUM_EXIST')) {
-            $this->Forums();
-            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_043'].'</td></tr>';
+            $this->forum();
+            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_043'].'</td></tr>';
             echo '<tr>';
-            echo '<td>'.$this->NumField('forums', 5).'</td>';
-            echo '<td>'.$this->Button('forums').'</td>';
+            echo '<td>'.$this->numField('forums', 5).'</td>';
+            echo '<td>'.$this->button('forums').'</td>';
             $forums = dbcount('(forum_id)', DB_FORUMS);
-            echo '<td>'.$this->locale['CC_043'].': '.$forums.'</td>';
-            echo '<td>'.$this->Button('forums', TRUE).'</td>';
+            echo '<td>'.$this->locale['cc_043'].': '.$forums.'</td>';
+            echo '<td>'.$this->button('forums', TRUE).'</td>';
             echo '</tr>';
         }
 
         if (defined('GALLERY_EXIST')) {
-            $this->Gallery();
-            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_045'].'</td></tr>';
+            $this->gallery();
+            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_045'].'</td></tr>';
             echo '<tr>';
-            echo '<td>'.$this->NumField('photo_albums', 5).'</td>';
-            echo '<td>'.$this->Button('photo_albums').'</td>';
+            echo '<td>'.$this->numField('photo_albums', 5).'</td>';
+            echo '<td>'.$this->button('photo_albums').'</td>';
             $photo_albums = dbcount('(album_id)', DB_PHOTO_ALBUMS);
-            echo '<td>'.$this->locale['CC_045'].': '.$photo_albums.'</td>';
-            echo '<td>'.$this->Button('photo_albums', TRUE).'</td>';
+            echo '<td>'.$this->locale['cc_045'].': '.$photo_albums.'</td>';
+            echo '<td>'.$this->button('photo_albums', TRUE).'</td>';
             echo '</tr>';
         }
 
         if (defined('NEWS_EXIST')) {
-            $this->News();
-            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_026'].'</td></tr>';
+            $this->news();
+            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_026'].'</td></tr>';
             echo '<tr>';
-            echo '<td>'.$this->NumField('news_cats', 5).'</td>';
-            echo '<td>'.$this->Button('news_cats').'</td>';
+            echo '<td>'.$this->numField('news_cats', 5).'</td>';
+            echo '<td>'.$this->button('news_cats').'</td>';
             $news_cats = dbcount('(news_cat_id)', DB_NEWS_CATS);
-            echo '<td>'.$this->locale['CC_025'].': '.$news_cats.'</td>';
-            echo '<td>'.$this->Button('news_cats', TRUE).'</td>';
+            echo '<td>'.$this->locale['cc_025'].': '.$news_cats.'</td>';
+            echo '<td>'.$this->button('news_cats', TRUE).'</td>';
             echo '</tr>';
 
             if (!empty($news_cats)) {
                 echo '<tr>';
-                echo '<td>'.$this->NumField('news').'</td>';
-                echo '<td>'.$this->Button('news').'</td>';
+                echo '<td>'.$this->numField('news').'</td>';
+                echo '<td>'.$this->button('news').'</td>';
                 $news = dbcount('(news_id)', DB_NEWS);
-                echo '<td>'.$this->locale['CC_026'].': '.$news.'</td>';
-                echo '<td>'.$this->Button('news', TRUE).'</td>';
+                echo '<td>'.$this->locale['cc_026'].': '.$news.'</td>';
+                echo '<td>'.$this->button('news', TRUE).'</td>';
                 echo '</tr>';
             } else {
-                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['CC_036'], $this->locale['CC_025']).'</td></tr>';
+                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['cc_036'], $this->locale['cc_025']).'</td></tr>';
             }
         }
 
         if (defined('MEMBER_POLL_PANEL_EXIST')) {
-            $this->Polls();
-            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_030'].'</td></tr>';
+            $this->polls();
+            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_030'].'</td></tr>';
             echo '<tr>';
-            echo '<td>'.$this->NumField('polls', 5).'</td>';
-            echo '<td>'.$this->Button('polls').'</td>';
+            echo '<td>'.$this->numField('polls', 5).'</td>';
+            echo '<td>'.$this->button('polls').'</td>';
             $polls = dbcount('(poll_id)', DB_POLLS);
-            echo '<td>'.$this->locale['CC_030'].': '.$polls.'</td>';
-            echo '<td>'.$this->Button('polls', TRUE).'</td>';
+            echo '<td>'.$this->locale['cc_030'].': '.$polls.'</td>';
+            echo '<td>'.$this->button('polls', TRUE).'</td>';
             echo '</tr>';
         }
 
         if (defined('SHOUTBOX_PANEL_EXIST')) {
-            $this->Shouts();
-            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_032'].'</td></tr>';
+            $this->shouts();
+            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_032'].'</td></tr>';
             echo '<tr>';
-            echo '<td>'.$this->NumField('shouts').'</td>';
-            echo '<td>'.$this->Button('shouts').'</td>';
+            echo '<td>'.$this->numField('shouts').'</td>';
+            echo '<td>'.$this->button('shouts').'</td>';
             $shouts = dbcount('(shout_id)', DB_SHOUTBOX);
-            echo '<td>'.$this->locale['CC_031'].': '.$shouts.'</td>';
-            echo '<td>'.$this->Button('shouts', TRUE).'</td>';
+            echo '<td>'.$this->locale['cc_031'].': '.$shouts.'</td>';
+            echo '<td>'.$this->button('shouts', TRUE).'</td>';
             echo '</tr>';
         }
 
         if (defined('VIDEOS_EXIST')) {
-            $this->Videos();
-            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_052'].'</td></tr>';
+            $this->videos();
+            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_052'].'</td></tr>';
             echo '<tr>';
-            echo '<td>'.$this->NumField('video_cats', 5).'</td>';
-            echo '<td>'.$this->Button('video_cats').'</td>';
+            echo '<td>'.$this->numField('video_cats', 5).'</td>';
+            echo '<td>'.$this->button('video_cats').'</td>';
             $video_cats = dbcount('(video_cat_id)', DB_VIDEO_CATS);
-            echo '<td>'.$this->locale['CC_051'].': '.$video_cats.'</td>';
-            echo '<td>'.$this->Button('video_cats', TRUE).'</td>';
+            echo '<td>'.$this->locale['cc_051'].': '.$video_cats.'</td>';
+            echo '<td>'.$this->button('video_cats', TRUE).'</td>';
             echo '</tr>';
 
             if (!empty($video_cats)) {
                 echo '<tr>';
-                echo '<td>'.$this->NumField('videos').'</td>';
-                echo '<td>'.$this->Button('videos').'</td>';
+                echo '<td>'.$this->numField('videos').'</td>';
+                echo '<td>'.$this->button('videos').'</td>';
                 $videos = dbcount('(video_id)', DB_VIDEOS);
-                echo '<td>'.$this->locale['CC_052'].': '.$videos.'</td>';
-                echo '<td>'.$this->Button('videos', TRUE).'</td>';
+                echo '<td>'.$this->locale['cc_052'].': '.$videos.'</td>';
+                echo '<td>'.$this->button('videos', TRUE).'</td>';
                 echo '</tr>';
             } else {
-                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['CC_036'], $this->locale['CC_051']).'</td></tr>';
+                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['cc_036'], $this->locale['cc_051']).'</td></tr>';
             }
         }
 
         if (defined('WEBLINKS_EXIST')) {
-            $this->Weblinks();
-            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_035'].'</td></tr>';
+            $this->weblinks();
+            echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_035'].'</td></tr>';
             echo '<tr>';
-            echo '<td>'.$this->NumField('weblink_cats', 5).'</td>';
-            echo '<td>'.$this->Button('weblink_cats').'</td>';
+            echo '<td>'.$this->numField('weblink_cats', 5).'</td>';
+            echo '<td>'.$this->button('weblink_cats').'</td>';
             $weblink_cats = dbcount('(weblink_cat_id)', DB_WEBLINK_CATS);
-            echo '<td>'.$this->locale['CC_034'].': '.$weblink_cats.'</td>';
-            echo '<td>'.$this->Button('weblink_cats', TRUE).'</td>';
+            echo '<td>'.$this->locale['cc_034'].': '.$weblink_cats.'</td>';
+            echo '<td>'.$this->button('weblink_cats', TRUE).'</td>';
             echo '</tr>';
 
             if (!empty($weblink_cats)) {
                 echo '<tr>';
-                echo '<td>'.$this->NumField('weblinks').'</td>';
-                echo '<td>'.$this->Button('weblinks').'</td>';
+                echo '<td>'.$this->numField('weblinks').'</td>';
+                echo '<td>'.$this->button('weblinks').'</td>';
                 $weblinks = dbcount('(weblink_id)', DB_WEBLINKS);
-                echo '<td>'.$this->locale['CC_035'].': '.$weblinks.'</td>';
-                echo '<td>'.$this->Button('weblinks', TRUE).'</td>';
+                echo '<td>'.$this->locale['cc_035'].': '.$weblinks.'</td>';
+                echo '<td>'.$this->button('weblinks', TRUE).'</td>';
                 echo '</tr>';
             } else {
-                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['CC_036'], $this->locale['CC_034']).'</td></tr>';
+                echo '<tr><td colspan="4" class="warning text-center">'.sprintf($this->locale['cc_036'], $this->locale['cc_034']).'</td></tr>';
             }
         }
 
-        echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['CC_047'].' &amp; '.$this->locale['CC_049'].'</td></tr>';
-        $this->Comments_Ratings();
+        echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_047'].' &amp; '.$this->locale['cc_049'].'</td></tr>';
+        $this->commentsAndRatings();
         echo '<tr>';
-        echo '<td>'.$this->NumField('comments', 50).'</td>';
-        echo '<td>'.$this->Button('comments').'</td>';
+        echo '<td>'.$this->numField('comments', 50).'</td>';
+        echo '<td>'.$this->button('comments').'</td>';
         $comments = dbcount('(comment_id)', DB_COMMENTS);
-        echo '<td>'.$this->locale['CC_047'].': '.$comments.'</td>';
-        echo '<td>'.$this->Button('comments', TRUE).'</td>';
+        echo '<td>'.$this->locale['cc_047'].': '.$comments.'</td>';
+        echo '<td>'.$this->button('comments', TRUE).'</td>';
         echo '</tr>';
 
         echo '<tr>';
-        echo '<td>'.$this->NumField('ratings', 50).'</td>';
-        echo '<td>'.$this->Button('ratings').'</td>';
+        echo '<td>'.$this->numField('ratings', 50).'</td>';
+        echo '<td>'.$this->button('ratings').'</td>';
         $ratings = dbcount('(rating_id)', DB_RATINGS);
-        echo '<td>'.$this->locale['CC_049'].': '.$ratings.'</td>';
-        echo '<td>'.$this->Button('ratings', TRUE).'</td>';
+        echo '<td>'.$this->locale['cc_049'].': '.$ratings.'</td>';
+        echo '<td>'.$this->button('ratings', TRUE).'</td>';
         echo '</tr>';
 
         echo '</tbody>';
@@ -992,6 +990,6 @@ class ContentCreator {
 }
 
 $cc = new ContentCreator();
-$cc->DisplayAdmin();
+$cc->displayAdmin();
 
 require_once THEMES.'templates/footer.php';

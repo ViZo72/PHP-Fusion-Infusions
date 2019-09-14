@@ -15,15 +15,15 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['AV_title'] = 'Aktuelle Version';
-$locale['AV_desc'] = 'Aktuelle Version Panel';
-$locale['AV_001'] = 'Download';
-$locale['AV_002'] = 'Oversættelse';
+$locale['av_title'] = 'Aktuelle Version';
+$locale['av_desc'] = 'Aktuelle Version Panel';
+$locale['av_001'] = 'Download';
+$locale['av_002'] = 'Oversættelse';
 // Administration
-$locale['AV_100'] = 'Aktuelle PHP-Fusion Version';
-$locale['AV_101'] = 'Downloadlink til PHP-Fusion';
-$locale['AV_102'] = 'Downloadlink til Oversættelse';
-$locale['AV_103'] = 'PHP-Fusion er et letvægts open source content management system (CMS) skrevet i PHP.
+$locale['av_100'] = 'Aktuelle PHP-Fusion Version';
+$locale['av_101'] = 'Downloadlink til PHP-Fusion';
+$locale['av_102'] = 'Downloadlink til Oversættelse';
+$locale['av_103'] = 'PHP-Fusion er et letvægts open source content management system (CMS) skrevet i PHP.
 PHP-Fusion anvender en MySQL-database til at opbevare din hjemmesides indhold og inkluderer et enkelt men alligevel omfattende administrationsmodul til at vedligeholde dine hjemmesider.
 PHP-Fusion indeholder de mest almindelige features du også vil kunne finde i mange andre content management system pakker.';
-$locale['AV_notice'] = 'Indstillinger er blevet opdateret';
+$locale['av_notice'] = 'Indstillinger er blevet opdateret';

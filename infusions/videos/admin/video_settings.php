@@ -43,7 +43,7 @@ if (isset($_POST['savesettings'])) {
             }
         }
 
-        addNotice('success', $locale['VID_notice_09']);
+        addNotice('success', $locale['vid_notice_09']);
     }
 
     redirect(FUSION_SELF.fusion_get_aidlink().'&amp;section=settings');
@@ -55,13 +55,13 @@ $calc_b = $this->video_settings['video_max_b'] / $calc_c;
 $calc_cc = calculate_byte($this->video_settings['video_screen_max_b']);
 $calc_bb = $this->video_settings['video_screen_max_b'] / $calc_cc;
 
-echo '<div class="well m-t-10">'.$locale['VID_059'].'</div>';
+echo '<div class="well m-t-10">'.$locale['vid_059'].'</div>';
 
 echo openform('settingsform', 'post', FUSION_REQUEST);
 echo '<div class="row">';
     echo '<div class="col-xs-12 col-sm-8">';
         openside('');
-        echo form_text('video_pagination', $locale['VID_060'], $this->video_settings['video_pagination'], [
+        echo form_text('video_pagination', $locale['vid_060'], $this->video_settings['video_pagination'], [
             'max_length'  => 4,
             'type'        => 'number',
             'inline'      => TRUE,
@@ -72,7 +72,7 @@ echo '<div class="row">';
 
         openside('');
             echo '<div class="display-block overflow-hide">';
-                echo '<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 p-l-0" for="video_screen_max_w">'.$locale['VID_061'].'</label>';
+                echo '<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 p-l-0" for="video_screen_max_w">'.$locale['vid_061'].'</label>';
                 echo '<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">';
                     echo form_text('video_screen_max_w', '', $this->video_settings['video_screen_max_w'], [
                         'class'      => 'pull-left',
@@ -87,12 +87,12 @@ echo '<div class="row">';
                         'type'       => 'number',
                         'width'      => '150px'
                     ]);
-                    echo '<small class="mid-opacity text-uppercase pull-left m-t-10 m-l-5">('.$locale['VID_062'].')</small>';
+                    echo '<small class="mid-opacity text-uppercase pull-left m-t-10 m-l-5">('.$locale['vid_062'].')</small>';
                 echo '</div>';
             echo '</div>';
 
             echo '<div class="display-block overflow-hide">';
-                echo '<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 p-l-0" for="calc_bb">'.$locale['VID_063'].'</label>';
+                echo '<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 p-l-0" for="calc_bb">'.$locale['vid_063'].'</label>';
                 echo '<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">';
                     echo form_text('calc_bb', '', $calc_bb, [
                         'required'   => TRUE,
@@ -113,7 +113,7 @@ echo '<div class="row">';
             echo '</div>';
 
             echo '<div class="display-block overflow-hide">';
-                echo '<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 p-l-0" for="calc_b">'.$locale['VID_064'].'</label>';
+                echo '<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 p-l-0" for="calc_b">'.$locale['vid_064'].'</label>';
                     echo '<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">';
                     echo form_text('calc_b', '', $calc_b, [
                         'required'   => TRUE,
@@ -137,12 +137,12 @@ echo '<div class="row">';
 
     echo '<div class="col-xs-12 col-sm-4">';
         openside('');
-        echo form_select('video_allow_submission', $locale['VID_065'], $this->video_settings['video_allow_submission'], [
+        echo form_select('video_allow_submission', $locale['vid_065'], $this->video_settings['video_allow_submission'], [
             'inline'  => TRUE,
             'options' => [$locale['disable'], $locale['enable']]
         ]);
 
-        echo form_select('video_allow_likes', $locale['VID_083'], $this->video_settings['video_allow_likes'], [
+        echo form_select('video_allow_likes', $locale['vid_083'], $this->video_settings['video_allow_likes'], [
             'inline'  => TRUE,
             'options' => [$locale['disable'], $locale['enable']]
         ]);
@@ -157,7 +157,7 @@ echo '<div class="row">';
         }
 
         openside();
-        echo form_select('video_types[]', $locale['VID_066'], $this->video_settings['video_types'], [
+        echo form_select('video_types[]', $locale['vid_066'], $this->video_settings['video_types'], [
             'options'     => $mime_opts,
             'input_id'    => 'vdtype',
             'placeholder' => $locale['choose'],

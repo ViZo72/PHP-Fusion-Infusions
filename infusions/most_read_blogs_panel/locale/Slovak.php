@@ -15,8 +15,8 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-$locale['MRB_01'] = 'Najčítanejšie blogy';
-$locale['MRB_02'] = '7 dní';
-$locale['MRB_03'] = '14 dní';
-$locale['MRB_04'] = '30 dní';
-$locale['MRB_05'] = 'Žiadne blogy';
+$locale['mrb_01'] = 'Najčítanejšie blogy';
+$locale['mrb_02'] = '7 dní';
+$locale['mrb_03'] = '14 dní';
+$locale['mrb_04'] = '30 dní';
+$locale['mrb_05'] = 'Žiadne blogy';

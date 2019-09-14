@@ -6,7 +6,7 @@
 +--------------------------------------------------------+
 | Filename: theme_switcher_panel/theme_switcher_panel.php
 | Author: RobiNN
-| Version: 1.0.3
+| Version: 1.0.4
 +--------------------------------------------------------+
 | This program is released as free software under the
 | Affero GPL license. You can redistribute it and/or
@@ -56,12 +56,12 @@ if (isset($_POST['change'])) {
     if (\defender::safe()) {
         setcookie(COOKIE_PREFIX.'theme', $theme);
 
-        addNotice('success', $locale['TS_02']);
+        addNotice('success', $locale['tsw_02']);
         redirect(FUSION_REQUEST);
     }
 }
 
-openside($locale['TS_01']);
+openside($locale['tsw_01']);
 
 add_to_jquery('
     $("#theme").bind("change", function () {
@@ -91,6 +91,6 @@ echo openform('themeswitcher', 'post', FUSION_SELF);
         'width'          => '100%',
         'inline'         => TRUE
     ]);
-    echo form_button('change', $locale['TS_03'], 'change');
+    echo form_button('change', $locale['tsw_03'], 'change');
 echo closeform();
 closeside();
