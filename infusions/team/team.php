@@ -16,14 +16,20 @@
 | written permission from the original author(s).
 +--------------------------------------------------------*/
 require_once dirname(__FILE__).'/../../maincore.php';
+
+if (!defined('TEAM_EXIST')) {
+    redirect(BASEDIR.'error.php?code=404');
+}
+
 require_once THEMES.'templates/header.php';
+require_once TEAM.'templates/team.php';
 
 $locale = fusion_get_locale('', TM_LOCALE);
 
 add_to_title($locale['tm_title']);
 add_breadcrumb(['link' => INFUSIONS.'team/team.php', 'title' => $locale['tm_title']]);
 
-opentable($locale['tm_title']);
+$info = [];
 
 $result = dbquery("SELECT t.*, u.user_id, u.user_name, u.user_status, u.user_avatar, u.user_level, u.user_joined
     FROM ".DB_TEAM." t
@@ -31,33 +37,12 @@ $result = dbquery("SELECT t.*, u.user_id, u.user_name, u.user_status, u.user_ava
     ".(multilang_table('TM') ? " WHERE language='".LANGUAGE."'" : '')
 );
 
-echo '<div class="table-responsive"><table class="table table-striped table-bordered">';
-    echo '<thead><tr>';
-        echo '<td>'.$locale['tm_001'].'</td>';
-        echo '<td>'.$locale['tm_002'].'</td>';
-        echo '<td>'.$locale['tm_003'].'</td>';
-        echo '<td>'.$locale['tm_004'].'</td>';
-        if (iMEMBER) echo '<td>'.$locale['tm_005'].'</td>';
-    echo '</tr></thead>';
-
-    if (dbrows($result)) {
-        while ($data = dbarray($result)) {
-            echo '<tr>';
-                echo '<td>';
-                    echo display_avatar($data, '35px', '', false, 'img-circle m-r-5');
-                    echo profile_link($data['user_id'], $data['user_name'], $data['user_status']);
-                echo '</td>';
-                echo '<td>'.$data['position'].'</td>';
-                echo '<td>'.$data['profession'].'</td>';
-                echo '<td>'.showdate('shortdate', $data['user_joined']).'</td>';
-                if (iMEMBER) echo '<td><a href="'.BASEDIR.'messages.php?msg_send='.$data['user_id'].'"><i class="fa fa-envelope fa-fw fa-2x"></i></a></td>';
-            echo '</tr>';
-        }
-    } else {
-        echo '<tr><td colspan="5" class="text-center">'.$locale['tm_007'].'</td></tr>';
+if (dbrows($result)) {
+    while ($data = dbarray($result)) {
+        $info[] = $data;
     }
-echo '</table></div>';
+}
 
-closetable();
+render_team($info);
 
 require_once THEMES.'templates/footer.php';

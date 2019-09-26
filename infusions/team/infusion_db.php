@@ -25,6 +25,10 @@ if (!defined('TM_LOCALE')) {
     }
 }
 
+if (!defined('TEAM')) {
+    define('TEAM', INFUSIONS.'team/');
+}
+
 if (!defined('DB_TEAM')) {
     define('DB_TEAM', DB_PREFIX.'team');
 }
