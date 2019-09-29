@@ -130,7 +130,7 @@ class VideosAdmin {
 
                             echo '<div class="m-t-5">';
                                 echo '<a class="m-r-10" href="'.FUSION_SELF.$aidlink.'&amp;action=edit&amp;section=form&amp;video_id='.$data['video_id'].'">'.$this->locale['edit'].'</a>';
-                                echo '<a  class="m-r-10" href="'.FUSION_SELF.$aidlink.'&amp;action=delete&amp;section=form&amp;video_id='.$data['video_id'].'">'.$this->locale['delete'].'</a>';
+                                echo '<a class="m-r-10" href="'.FUSION_SELF.$aidlink.'&amp;action=delete&amp;section=form&amp;video_id='.$data['video_id'].'">'.$this->locale['delete'].'</a>';
                             echo '</div>';
                         echo '</div>';
                         echo '</div></div>';
