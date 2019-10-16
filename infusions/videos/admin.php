@@ -44,7 +44,7 @@ class VideosAdmin {
 
         $cat_opts['all'] = $this->locale['vid_005'];
 
-        $categories = dbquery("SELECT video_cat_id, video_cat_name FROM ".DB_VIDEO_CATS." ".(multilang_table('VL') ? "WHERE video_cat_language='".LANGUAGE."'" : ""));
+        $categories = dbquery("SELECT video_cat_id, video_cat_name FROM ".DB_VIDEO_CATS." ".(multilang_table('VL') ? "WHERE ".in_group('video_cat_language', LANGUAGE) : ""));
 
         if (dbrows($categories) > 0) {
             while ($cat_data = dbarray($categories)) {
@@ -59,7 +59,7 @@ class VideosAdmin {
             }
         }
 
-        $lang_filter = multilang_table('VL') ? "video_cat_language='".LANGUAGE."'" : '';
+        $lang_filter = multilang_table('VL') ? "".in_group('video_cat_language', LANGUAGE) : '';
 
         if ($cat_filter && $lang_filter) {
             $filter = $cat_filter." AND ".$lang_filter;

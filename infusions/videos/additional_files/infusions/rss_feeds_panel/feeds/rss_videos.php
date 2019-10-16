@@ -29,7 +29,7 @@ if (db_exists(DB_VIDEOS) && db_exists(DB_VIDEO_CATS)) {
     $result = dbquery("SELECT vc.*, v.*
         FROM ".DB_VIDEO_CATS." vc
         RIGHT JOIN ".DB_VIDEOS." v ON vc.video_cat_id=v.video_cat
-        WHERE ".groupaccess('video_visibility').(multilang_table('VL') ? " AND video_cat_language='".LANGUAGE."'" : '')."
+        WHERE ".groupaccess('video_visibility').(multilang_table('VL') ? " AND ".in_group('video_cat_language', LANGUAGE) : '')."
         ORDER BY v.video_views DESC
         LIMIT 0, 10
     ");

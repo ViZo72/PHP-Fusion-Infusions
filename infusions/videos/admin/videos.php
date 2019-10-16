@@ -374,7 +374,7 @@ echo '<div class="row">';
             'no_root'     => 1,
             'placeholder' => $locale['choose'],
             'width'       => '100%',
-            'query'       => (multilang_table('VL') ? "WHERE video_cat_language='".LANGUAGE."'" : '')
+            'query'       => (multilang_table('VL') ? "WHERE ".in_group('video_cat_language', LANGUAGE) : '')
         ], DB_VIDEO_CATS, 'video_cat_name', 'video_cat_id', 'video_cat_parent');
         echo form_select('video_visibility', $locale['vid_027'], $data['video_visibility'], [
             'options'     => fusion_get_groups(),

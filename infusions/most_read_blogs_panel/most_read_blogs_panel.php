@@ -45,7 +45,7 @@ echo '<div class="most-read-blogs">';
             $result_7days = dbquery("SELECT blog_id, blog_subject, blog_reads, blog_datestamp, blog_draft
                 FROM ".DB_BLOG."
                 WHERE blog_draft = 0 AND blog_datestamp > '".strtotime('-7 day')."'
-                ".(multilang_table('BL') ? " AND blog_language='".LANGUAGE."' AND " : '').groupaccess('blog_visibility')."
+                ".(multilang_table('BL') ? " AND ".in_group('blog_language', LANGUAGE)." AND " : '').groupaccess('blog_visibility')."
                 ORDER BY blog_reads DESC
                 LIMIT 15
             ");
@@ -69,7 +69,7 @@ echo '<div class="most-read-blogs">';
             $result_14days = dbquery("SELECT blog_id, blog_subject, blog_reads, blog_datestamp, blog_draft
                 FROM ".DB_BLOG."
                 WHERE blog_draft = 0 AND blog_datestamp > '".strtotime('-14 day')."'
-                ".(multilang_table('BL') ? " AND blog_language='".LANGUAGE."' AND " : '').groupaccess('blog_visibility')."
+                ".(multilang_table('BL') ? " AND ".in_group('blog_language', LANGUAGE)." AND " : '').groupaccess('blog_visibility')."
                 ORDER BY blog_reads DESC
                 LIMIT 15
             ");
@@ -92,7 +92,7 @@ echo '<div class="most-read-blogs">';
             $result_30days = dbquery("SELECT blog_id, blog_subject, blog_reads, blog_datestamp, blog_draft
                 FROM ".DB_BLOG."
                 WHERE blog_draft = 0 AND blog_datestamp > '".strtotime('-30 day')."'
-                ".(multilang_table('BL') ? " AND blog_language='".LANGUAGE."' AND " : '').groupaccess('blog_visibility')."
+                ".(multilang_table('BL') ? " AND ".in_group('blog_language', LANGUAGE)." AND " : '').groupaccess('blog_visibility')."
                 ORDER BY blog_reads DESC
                 LIMIT 15
             ");

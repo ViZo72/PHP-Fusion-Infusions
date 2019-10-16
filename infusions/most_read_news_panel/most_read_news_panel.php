@@ -45,7 +45,7 @@ echo '<div class="most-read-news">';
             $result_7days = dbquery("SELECT news_id, news_subject, news_reads, news_datestamp, news_draft
                 FROM ".DB_NEWS."
                 WHERE news_draft = 0 AND news_datestamp > '".strtotime('-7 day')."'
-                ".(multilang_table('NS') ? " AND news_language='".LANGUAGE."' AND " : '').groupaccess('news_visibility')."
+                ".(multilang_table('NS') ? " AND ".in_group('news_language', LANGUAGE)." AND " : '').groupaccess('news_visibility')."
                 ORDER BY news_reads DESC
                 LIMIT 15
             ");
@@ -69,7 +69,7 @@ echo '<div class="most-read-news">';
             $result_14days = dbquery("SELECT news_id, news_subject, news_reads, news_datestamp, news_draft
                 FROM ".DB_NEWS."
                 WHERE news_draft = 0 AND news_datestamp > '".strtotime('-14 day')."'
-                ".(multilang_table('NS') ? " AND news_language='".LANGUAGE."' AND " : '').groupaccess('news_visibility')."
+                ".(multilang_table('NS') ? " AND ".in_group('news_language', LANGUAGE)." AND " : '').groupaccess('news_visibility')."
                 ORDER BY news_reads DESC
                 LIMIT 15
             ");
@@ -92,7 +92,7 @@ echo '<div class="most-read-news">';
             $result_30days = dbquery("SELECT news_id, news_subject, news_reads, news_datestamp, news_draft
                 FROM ".DB_NEWS."
                 WHERE news_draft = 0 AND news_datestamp > '".strtotime('-30 day')."'
-                ".(multilang_table('NS') ? " AND news_language='".LANGUAGE."' AND " : '').groupaccess('news_visibility')."
+                ".(multilang_table('NS') ? " AND ".in_group('news_language', LANGUAGE)." AND " : '').groupaccess('news_visibility')."
                 ORDER BY news_reads DESC
                 LIMIT 15
             ");

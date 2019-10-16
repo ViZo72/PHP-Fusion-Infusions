@@ -34,7 +34,7 @@ $info = [];
 $result = dbquery("SELECT t.*, u.user_id, u.user_name, u.user_status, u.user_avatar, u.user_level, u.user_joined
     FROM ".DB_TEAM." t
     LEFT JOIN ".DB_USERS." u ON t.userid=u.user_id
-    ".(multilang_table('TM') ? " WHERE language='".LANGUAGE."'" : '')
+    ".(multilang_table('TM') ? " WHERE ".in_group('t.language', LANGUAGE) : '')
 );
 
 if (dbrows($result)) {

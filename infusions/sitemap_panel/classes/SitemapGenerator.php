@@ -113,7 +113,7 @@ class SitemapGenerator {
             $result = dbquery("SELECT article_cat_id, article_cat_status, article_cat_visibility, article_cat_language
                 FROM ".DB_ARTICLE_CATS."
                 WHERE article_cat_status=1 AND ".groupaccess('article_cat_visibility')."
-                ".(multilang_table('AR') ? " AND article_cat_language='".LANGUAGE."'" : '')."
+                ".(multilang_table('AR') ? " AND ".in_group('article_cat_language', LANGUAGE) : '')."
                 ORDER BY article_cat_id ASC
             ");
 
@@ -126,7 +126,7 @@ class SitemapGenerator {
             $result = dbquery("SELECT a.article_id, a.article_datestamp, a.article_language, a.article_visibility, a.article_draft
                 FROM ".DB_ARTICLES." AS a
                 LEFT JOIN ".DB_ARTICLE_CATS." AS ac ON a.article_cat=ac.article_cat_id
-                ".(multilang_table('AR') ? "WHERE a.article_language='".LANGUAGE."' AND ac.article_cat_language='".LANGUAGE."' AND " : "WHERE ")."
+                ".(multilang_table('AR') ? "WHERE ".in_group('a.article_language', LANGUAGE)." AND ".in_group('ac.article_cat_language', LANGUAGE)." AND " : "WHERE ")."
                 a.article_draft=0 AND ".groupaccess('a.article_visibility')." AND ac.article_cat_status=1 AND ".groupaccess('ac.article_cat_visibility')."
                 ORDER BY article_datestamp DESC
             ");
@@ -156,7 +156,7 @@ class SitemapGenerator {
         if ($cats == TRUE) {
             $result = dbquery("SELECT blog_cat_id, blog_cat_language
                 FROM ".DB_BLOG_CATS."
-                ".(multilang_column('BL') ? "WHERE blog_cat_language='".LANGUAGE."'" : '')."
+                ".(multilang_column('BL') ? "WHERE ".in_group('blog_cat_language', LANGUAGE) : '')."
             ");
 
             if (dbrows($result) > 0) {
@@ -169,7 +169,7 @@ class SitemapGenerator {
         } else {
             $result = dbquery("SELECT blog_id, blog_datestamp, blog_language, blog_visibility, blog_draft
                 FROM ".DB_BLOG."
-                ".(multilang_table('BL') ? "WHERE blog_language='".LANGUAGE."' AND" : 'WHERE')." ".groupaccess('blog_visibility')." AND blog_draft=0
+                ".(multilang_table('BL') ? "WHERE ".in_group('blog_language', LANGUAGE)." AND" : 'WHERE')." ".groupaccess('blog_visibility')." AND blog_draft=0
                 AND (blog_start=0 || blog_start<=".TIME.") AND (blog_end=0 || blog_end>=".TIME.")
                 ORDER BY blog_datestamp DESC
             ");
@@ -214,7 +214,7 @@ class SitemapGenerator {
         if ($cats == TRUE) {
             $result = dbquery("SELECT download_cat_id, download_cat_language
                 FROM ".DB_DOWNLOAD_CATS."
-                ".(multilang_table('DL') ? " WHERE download_cat_language='".LANGUAGE."'" : '')."
+                ".(multilang_table('DL') ? " WHERE ".in_group('download_cat_language', LANGUAGE) : '')."
             ");
 
             if (dbrows($result) > 0) {
@@ -242,7 +242,7 @@ class SitemapGenerator {
 
         $result = dbquery("SELECT faq_cat_id, faq_cat_language
             FROM ".DB_FAQ_CATS."
-            ".(multilang_table('FQ') ? " WHERE faq_cat_language='".LANGUAGE."' " : '')."
+            ".(multilang_table('FQ') ? " WHERE ".in_group('faq_cat_language', LANGUAGE) : '')."
         ");
 
         if (dbrows($result) > 0) {
@@ -262,7 +262,7 @@ class SitemapGenerator {
         $result_tags = dbquery("SELECT tag_id, tag_status, tag_language
             FROM ".DB_FORUM_TAGS."
             WHERE tag_status=1
-            ".(multilang_table('FO') ? "AND tag_language='".LANGUAGE."'" : '')."
+            ".(multilang_table('FO') ? "AND ".in_group('tag_language', LANGUAGE) : '')."
         ");
 
         if (dbrows($result_tags) > 0) {
@@ -273,7 +273,7 @@ class SitemapGenerator {
 
         $result_forums = dbquery("SELECT forum_id, forum_access, forum_language
             FROM ".DB_FORUMS."
-            ".(multilang_table('FO') ? " WHERE forum_language='".LANGUAGE."' AND " : ' WHERE ').groupaccess('forum_access')."
+            ".(multilang_table('FO') ? " WHERE ".in_group('forum_language', LANGUAGE)." AND " : ' WHERE ').groupaccess('forum_access')."
         ");
 
         if (dbrows($result_forums) > 0) {
@@ -344,7 +344,7 @@ class SitemapGenerator {
             $result = dbquery("SELECT news_cat_id, news_cat_visibility, news_cat_language
                 FROM ".DB_NEWS_CATS."
                 WHERE ".groupaccess('news_cat_visibility')."
-                ".(multilang_table('NS') ? " AND news_cat_language='".LANGUAGE."'" : '')."
+                ".(multilang_table('NS') ? " AND ".in_group('news_cat_language', LANGUAGE) : '')."
                 ORDER BY news_cat_id ASC
             ");
 
@@ -356,7 +356,7 @@ class SitemapGenerator {
         } else {
             $result = dbquery("SELECT news_id, news_datestamp, news_language, news_visibility, news_draft
                 FROM ".DB_NEWS."
-                ".(multilang_table('NS') ? "WHERE news_language='".LANGUAGE."' AND " : "WHERE ").groupaccess('news_visibility')." AND news_draft=0
+                ".(multilang_table('NS') ? "WHERE ".in_group('news_language', LANGUAGE)." AND " : "WHERE ").groupaccess('news_visibility')." AND news_draft=0
                 AND (news_start=0 || news_start<='".TIME."') AND (news_end=0 || news_end>='".TIME."')
                 ORDER BY news_datestamp DESC
             ");
@@ -387,7 +387,7 @@ class SitemapGenerator {
         if ($cats == TRUE) {
             $result = dbquery("SELECT video_cat_id, video_cat_language
                 FROM ".DB_VIDEO_CATS."
-                ".(multilang_table('VL') ? " WHERE video_cat_language='".LANGUAGE."'" : '')."
+                ".(multilang_table('VL') ? " WHERE ".in_group('video_cat_language', LANGUAGE) : '')."
                 ORDER BY video_cat_id ASC
             ");
 
@@ -400,7 +400,7 @@ class SitemapGenerator {
             $result = dbquery("SELECT v.*, vc.*
                 FROM ".DB_VIDEOS." v
                 INNER JOIN ".DB_VIDEO_CATS." vc ON v.video_cat=vc.video_cat_id
-                ".(multilang_table('VL') ? "WHERE vc.video_cat_language='".LANGUAGE."' AND" : "WHERE")." ".groupaccess('video_visibility')."
+                ".(multilang_table('VL') ? "WHERE ".in_group('vc.video_cat_language', LANGUAGE)." AND" : "WHERE")." ".groupaccess('video_visibility')."
                 ORDER BY v.video_datestamp DESC
             ");
 
@@ -460,7 +460,7 @@ class SitemapGenerator {
             $result = dbquery("SELECT weblink_cat_id, weblink_cat_visibility, weblink_cat_language
                 FROM ".DB_WEBLINK_CATS."
                 WHERE ".groupaccess('weblink_cat_visibility')."
-                ".(multilang_table('WL') ? " AND weblink_cat_language='".LANGUAGE."'" : '')."
+                ".(multilang_table('WL') ? " AND ".in_group('weblink_cat_language', LANGUAGE) : '')."
                 ORDER BY weblink_cat_id ASC
             ");
 

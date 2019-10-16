@@ -62,7 +62,7 @@ if (db_exists(DB_VIDEOS)) {
             $query = "SELECT v.*, vc.*
                 FROM ".DB_VIDEOS." v
                 INNER JOIN ".DB_VIDEO_CATS." vc ON v.video_cat=vc.video_cat_id
-                ".(multilang_table('VL') ? "WHERE vc.video_cat_language='".LANGUAGE."' AND " : "WHERE ")
+                ".(multilang_table('VL') ? "WHERE ".in_group('vc.video_cat_language', LANGUAGE)." AND " : "WHERE ")
                 .groupaccess('video_visibility')." AND ".Search_Engine::search_conditions('videos').$date_search;
 
             $result = dbquery($query, Search_Engine::get_param('search_param'));
@@ -79,7 +79,7 @@ if (db_exists(DB_VIDEOS)) {
                 FROM ".DB_VIDEOS." v
                 INNER JOIN ".DB_VIDEO_CATS." vc ON v.video_cat=vc.video_cat_id
                 LEFT JOIN ".DB_USERS." u ON v.video_user=u.user_id
-                ".(multilang_table('VL') ? "WHERE vc.video_cat_language='".LANGUAGE."' AND " : "WHERE ")."
+                ".(multilang_table('VL') ? "WHERE ".in_group('vc.video_cat_language', LANGUAGE)." AND " : "WHERE ")."
                 ".Search_Engine::search_conditions('videos').$date_search.$sortby.$limit, Search_Engine::get_param('search_param'));
 
             $search_result = '';

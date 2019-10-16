@@ -113,11 +113,13 @@ switch ($_GET['section']) {
         echo form_text('profession', $locale['tm_003'], $data['profession'], ['inline' => TRUE]);
 
         if (multilang_table('TM')) {
-            echo form_select('language', $locale['global_ML100'], $data['language'], [
+            echo form_select('language[]', $locale['global_ML100'], $data['language'], [
                 'options'     => fusion_get_enabled_languages(),
                 'placeholder' => $locale['choose'],
                 'width'       => '100%',
-                'inline'      => TRUE
+                'inline'      => TRUE,
+                'multiple'    => TRUE,
+                'delimeter'   => '.'
             ]);
         } else {
             echo form_hidden('language', '', $data['language']);
@@ -130,7 +132,7 @@ switch ($_GET['section']) {
         $result = dbquery("SELECT t.*, u.user_id, u.user_name, u.user_status, u.user_avatar, u.user_level, u.user_joined
             FROM ".DB_TEAM." t
             LEFT JOIN ".DB_USERS." u ON t.userid=u.user_id
-            ".(multilang_table('TM') ? " WHERE language='".LANGUAGE."'" : '')
+            ".(multilang_table('TM') ? " WHERE ".in_group('language', LANGUAGE) : '')
         );
 
         echo '<div class="table-responsive"><table class="table table-striped table-bordered">';

@@ -102,7 +102,7 @@ if (isset($_GET['video_id'])) {
             INNER JOIN ".DB_VIDEO_CATS." vc ON v.video_cat=vc.video_cat_id
             LEFT JOIN ".DB_USERS." u ON v.video_user=u.user_id
             LEFT JOIN ".DB_RATINGS." r ON r.rating_item_id = v.video_id AND r.rating_type='V'
-            ".(multilang_table('VL') ? "WHERE vc.video_cat_language='".LANGUAGE."' AND" : 'WHERE')." ".groupaccess('video_visibility')." AND v.video_id='".intval($_GET['video_id'])."'
+            ".(multilang_table('VL') ? "WHERE ".in_group('vc.video_cat_language', LANGUAGE)." AND" : 'WHERE')." ".groupaccess('video_visibility')." AND v.video_id='".intval($_GET['video_id'])."'
             GROUP BY v.video_id
         ");
 
@@ -246,7 +246,7 @@ if (isset($_GET['video_id'])) {
         set_title($locale['vid_title']);
         set_meta('name', $locale['vid_title']);
 
-        $res = dbarray(dbquery("SELECT * FROM ".DB_VIDEO_CATS.(multilang_table('VL') ? " WHERE video_cat_language='".LANGUAGE."' AND " : " WHERE ")."video_cat_id='".intval($_GET['cat_id'])."'"));
+        $res = dbarray(dbquery("SELECT * FROM ".DB_VIDEO_CATS.(multilang_table('VL') ? " WHERE ".in_group('video_cat_language', LANGUAGE)." AND " : " WHERE ")."video_cat_id='".intval($_GET['cat_id'])."'"));
         if (!empty($res)) {
             $info += $res;
         } else {
@@ -285,7 +285,7 @@ if (isset($_GET['video_id'])) {
                 INNER JOIN ".DB_VIDEO_CATS." vc ON v.video_cat=vc.video_cat_id
                 LEFT JOIN ".DB_USERS." u ON v.video_user=u.user_id
                 ".(!empty($filter_join) ? $filter_join : '')."
-                ".(multilang_table('VL') ? " WHERE video_cat_language='".LANGUAGE."' AND " : " WHERE ")." ".groupaccess('video_visibility')."
+                ".(multilang_table('VL') ? " WHERE ".in_group('video_cat_language', LANGUAGE)." AND " : " WHERE ")." ".groupaccess('video_visibility')."
                 AND v.video_cat = '".intval($_GET['cat_id'])."'
                 GROUP BY v.video_id
                 ORDER BY ".(!empty($filter_condition) ? $filter_condition : 'vc.video_cat_sorting')."
@@ -308,7 +308,7 @@ if (isset($_GET['video_id'])) {
                 INNER JOIN ".DB_VIDEO_CATS." vc ON v.video_cat=vc.video_cat_id
                 LEFT JOIN ".DB_USERS." u ON v.video_user=u.user_id
                 ".(!empty($filter_join) ? $filter_join : '')."
-                ".(multilang_table('VL') ? "WHERE vc.video_cat_language = '".LANGUAGE."' AND" : "WHERE")." ".groupaccess('video_visibility')."
+                ".(multilang_table('VL') ? "WHERE ".in_group('vc.video_cat_language', LANGUAGE)." AND" : "WHERE")." ".groupaccess('video_visibility')."
                 ".$condition."
                 GROUP BY v.video_id
                 ORDER BY ".($filter_condition ? $filter_condition : "vc.video_cat_sorting")."
@@ -366,7 +366,7 @@ render_videos($info);
 require_once THEMES.'templates/footer.php';
 
 function get_video_cats() {
-    $data = dbquery_tree_full(DB_VIDEO_CATS, 'video_cat_id', 'video_cat_parent', (multilang_table('VL') ? "WHERE video_cat_language='".LANGUAGE."'" : ''));
+    $data = dbquery_tree_full(DB_VIDEO_CATS, 'video_cat_id', 'video_cat_parent', (multilang_table('VL') ? "WHERE ".in_group('video_cat_language', LANGUAGE) : ''));
 
     foreach ($data as $index => $cat_data) {
         foreach ($cat_data as $video_cat_id => $cat) {
@@ -415,7 +415,7 @@ function video_cats_breadcrumbs($index) {
     function breadcrumb_arrays($index, $id) {
         $crumb = [];
         if (isset($index[get_parent($index, $id)])) {
-            $_name = dbarray(dbquery("SELECT video_cat_id, video_cat_name, video_cat_parent FROM ".DB_VIDEO_CATS.(multilang_table('VL') ? " WHERE video_cat_language='".LANGUAGE."' AND " : " WHERE ")." video_cat_id='".intval($id)."'"));
+            $_name = dbarray(dbquery("SELECT video_cat_id, video_cat_name, video_cat_parent FROM ".DB_VIDEO_CATS.(multilang_table('VL') ? " WHERE ".in_group('video_cat_language', LANGUAGE)." AND " : " WHERE ")." video_cat_id='".intval($id)."'"));
 
             $crumb = [
                 'link'  => INFUSIONS.'videos/videos.php?cat_id='.$_name['video_cat_id'],
@@ -460,7 +460,7 @@ function video_cats_breadcrumbs($index) {
 }
 
 function get_video_cats_index() {
-    return dbquery_tree(DB_VIDEO_CATS, 'video_cat_id', 'video_cat_parent',"".(multilang_table('VL') ? "WHERE video_cat_language='".LANGUAGE."'" : '')."");
+    return dbquery_tree(DB_VIDEO_CATS, 'video_cat_id', 'video_cat_parent',"".(multilang_table('VL') ? "WHERE ".in_group('video_cat_language', LANGUAGE) : '')."");
 }
 
 function rating_db($id, $type) {

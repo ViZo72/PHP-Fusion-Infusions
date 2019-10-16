@@ -101,7 +101,7 @@ if (isset($_POST['save_cat'])) {
 }
 
 if ((isset($_GET['action']) && $_GET['action'] == 'edit') && (isset($_GET['cat_id']) && isnum($_GET['cat_id']))) {
-    $result = dbquery("SELECT * FROM ".DB_VIDEO_CATS." ".(multilang_table('VL') ? "WHERE video_cat_language='".LANGUAGE."' AND" : "WHERE")." video_cat_id='".$_GET['cat_id']."'");
+    $result = dbquery("SELECT * FROM ".DB_VIDEO_CATS." ".(multilang_table('VL') ? "WHERE ".in_group('video_cat_language', LANGUAGE)." AND" : "WHERE")." video_cat_id='".$_GET['cat_id']."'");
 
     if (dbrows($result)) {
         $data = dbarray($result);
@@ -184,10 +184,12 @@ echo opentab($tab_cats, $tab_cats_active, 'categories', FALSE, 'nav-tabs m-b-10'
             ], DB_VIDEO_CATS, 'video_cat_name', 'video_cat_id', 'video_cat_parent');
 
             if (multilang_table('VL')) {
-                echo form_select('video_cat_language', $locale['global_ML100'], $data['video_cat_language'], [
+                echo form_select('video_cat_language[]', $locale['global_ML100'], $data['video_cat_language'], [
                     'options'     => fusion_get_enabled_languages(),
                     'placeholder' => $locale['choose'],
-                    'width'       => '100%'
+                    'width'       => '100%',
+                    'multiple'    => TRUE,
+                    'delimeter'   => '.'
                 ]);
             } else {
                 echo form_hidden('video_cat_language', '', $data['video_cat_language']);
@@ -206,7 +208,7 @@ echo opentab($tab_cats, $tab_cats_active, 'categories', FALSE, 'nav-tabs m-b-10'
         FROM ".DB_VIDEO_CATS." vc_
         LEFT JOIN ".DB_VIDEO_CATS." vc ON vc.video_cat_parent=vc_.video_cat_id
         LEFT JOIN ".DB_VIDEOS." v ON v.video_cat=vc_.video_cat_id
-        ".(multilang_table('VL') ? "WHERE vc_.video_cat_language='".LANGUAGE."'" : '')."
+        ".(multilang_table('VL') ? "WHERE ".in_group('vc_.video_cat_language', LANGUAGE) : '')."
         GROUP by vc_.video_cat_id
         ORDER BY vc_.video_cat_name
     ");
@@ -241,7 +243,7 @@ function get_video_cat_path($item_id) {
     $full_path = '';
 
     while ($item_id > 0) {
-        $result = dbquery("SELECT video_cat_id, video_cat_name, video_cat_parent FROM ".DB_VIDEO_CATS." WHERE video_cat_id='".$item_id."'".(multilang_table('VL') ? " AND video_cat_language='".LANGUAGE."'" : ''));
+        $result = dbquery("SELECT video_cat_id, video_cat_name, video_cat_parent FROM ".DB_VIDEO_CATS." WHERE video_cat_id='".$item_id."'".(multilang_table('VL') ? " AND ".in_group('video_cat_language', LANGUAGE) : ''));
 
         if (dbrows($result)) {
             $data = dbarray($result);

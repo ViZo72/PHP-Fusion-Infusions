@@ -105,7 +105,7 @@ if (iMEMBER && $video_settings['video_allow_submission']) {
             echo '<p><a href="'.BASEDIR.'index.php">'.str_replace('[SITENAME]', fusion_get_settings('sitename'), $locale['vid_081']).'</a></p>';
         echo '</div>';
     } else {
-        if (dbcount("(video_cat_id)", DB_VIDEO_CATS, multilang_table('VL') ? "video_cat_language='".LANGUAGE."'" : '')) {
+        if (dbcount("(video_cat_id)", DB_VIDEO_CATS, multilang_table('VL') ? in_group('video_cat_language', LANGUAGE) : '')) {
             echo openform('submit_form', 'post', BASEDIR.'submit.php?stype=v', ['enctype' => TRUE]);
 
             echo '<div class="panel panel-default"><div class="panel-body">';
@@ -121,7 +121,7 @@ if (iMEMBER && $video_settings['video_allow_submission']) {
                     'inline'      => TRUE,
                     'no_root'     => TRUE,
                     'placeholder' => $locale['choose'],
-                    'query'       => (multilang_table('VL') ? "WHERE video_cat_language='".LANGUAGE."'" : '')
+                    'query'       => (multilang_table('VL') ? "WHERE ".in_group('video_cat_language', LANGUAGE) : '')
                 ], DB_VIDEO_CATS, 'video_cat_name', 'video_cat_id', 'video_cat_parent');
 
                 echo form_select('video_keywords', $locale['vid_012'], $criteria_array['video_keywords'], [
