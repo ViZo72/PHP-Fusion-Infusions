@@ -427,7 +427,7 @@ class SitemapGenerator {
 
                     $player = '';
                     if ($data['video_type'] == 'youtube' || $data['video_type'] == 'vimeo' && !empty($data['video_url'])) {
-                        $video_data = GetVideoData($data['video_url'], $data['video_type']);
+                        $video_data = get_video_data($data['video_url'], $data['video_type']);
 
                         if ($data['video_type'] == 'youtube') {
                             $player = 'https://www.youtube.com/embed/'.$video_data['video_id'];
