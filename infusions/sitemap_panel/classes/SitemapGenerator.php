@@ -438,7 +438,7 @@ class SitemapGenerator {
 
                     $this->sitemap->setVideoOptions(TRUE, [
                         'title'       => $data['video_title'],
-                        'thumbnail'   => GetVideoThumb($data, TRUE),
+                        'thumbnail'   => get_video_thumb($data, TRUE),
                         'description' => $data['video_description'],
                         'video'       => $video,
                         'views'       => $data['video_views'],
