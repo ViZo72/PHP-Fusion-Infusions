@@ -1,6 +1,6 @@
 # PHP-Fusion v9 Infusions
 
-##### Note: Not all infusions are fully compatible with all released versions of PHP-Fusion v9
+#### Not all infusions are fully compatible with older PHP-Fusion releases.
 
 - ### Infusions:
     - [Actual Version Panel](infusions/actual_version_panel)
