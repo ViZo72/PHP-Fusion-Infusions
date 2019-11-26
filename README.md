@@ -7,7 +7,7 @@
     - [Content Creator](infusions/content_creator)
     - [Most Read Blogs Panel](infusions/most_read_blogs_panel)
     - [Most Read News Panel](infusions/most_read_news_panel)
-    - [RSS Viewer](rss_viewer_panel)
+    - [RSS Viewer](infusions/rss_viewer_panel)
     - [Sitemap Generator](infusions/sitemap_panel)
     - [Snow Effect](infusions/snow_panel)
     - [Team](infusions/team)
