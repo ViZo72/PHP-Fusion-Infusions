@@ -82,7 +82,7 @@ $inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, pan
 // Insert settings
 $settings = [
     'video_max_b'            => 52428800,
-    'video_types'            => '.flv,.mp4,.mov,.f4v,.3gp,.3g2,.mp3,.flac',
+    'video_types'            => '.flv,.mp4,.mov,.avi',
     'video_screen_max_b'     => 153600,
     'video_screen_max_w'     => 1024,
     'video_screen_max_h'     => 768,
