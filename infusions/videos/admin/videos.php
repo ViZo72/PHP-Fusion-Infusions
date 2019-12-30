@@ -346,7 +346,6 @@ echo '<div class="row">';
                 'max_byte'        => $this->video_settings['video_screen_max_b'],
                 'type'            => 'image',
                 'delete_original' => FALSE,
-                'valid_ext'       => implode('.', array_keys(img_mimeTypes())),
                 'width'           => '100%',
                 'inline'          => TRUE,
                 'template'        => 'thumbnail',

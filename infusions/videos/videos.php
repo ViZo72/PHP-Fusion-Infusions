@@ -114,58 +114,62 @@ if (isset($_GET['video_id'])) {
 
             $data = dbarray($result);
 
+            $data['video_user_like_type'] = '';
+
             if (iMEMBER) {
                 $like_type_result = dbquery("SELECT * FROM ".DB_VIDEO_LIKES." WHERE video_id=:video_id AND like_user=:user_id", [
                     ':video_id' => $data['video_id'],
                     ':user_id'  => $userdata['user_id']
                 ]);
 
-                $like_type_data = dbarray($like_type_result);
-                $data['video_user_like_type'] = $like_type = $like_type_data['like_type'];
+                if (dbrows($like_type_result) > 0) {
+                    $like_type_data = dbarray($like_type_result);
+                    $data['video_user_like_type'] = $like_type = $like_type_data['like_type'];
 
-                if (isset($_GET['action'])) {
-                    if (\defender::safe()) {
-                        switch ($_GET['action']) {
-                            case 'like':
-                                if (dbrows($like_type_result) == 0) {
-                                    dbquery_insert(DB_VIDEO_LIKES, [
-                                        'video_id'  => $data['video_id'],
-                                        'like_user' => $userdata['user_id'],
-                                        'like_type' => 'like'
-                                    ], 'save');
-                                }
-                                if ($like_type === 'dislike') {
-                                    dbquery("UPDATE ".DB_VIDEO_LIKES." SET like_type='like' WHERE video_id=:video_id AND like_user=:user_id", [
-                                        ':video_id' => $data['video_id'],
-                                        ':user_id'  => $userdata['user_id']
-                                    ]);
-                                }
-                                break;
-                            case 'dislike':
-                                if (dbrows($like_type_result) == 0) {
-                                    dbquery_insert(DB_VIDEO_LIKES, [
-                                        'video_id'  => $data['video_id'],
-                                        'like_user' => $userdata['user_id'],
-                                        'like_type' => 'dislike'
-                                    ], 'save');
-                                }
-                                if ($like_type === 'like') {
-                                    dbquery("UPDATE ".DB_VIDEO_LIKES." SET like_type='dislike' WHERE video_id=:video_id AND like_user=:user_id", [
-                                        ':video_id' => $data['video_id'],
-                                        ':user_id'  => $userdata['user_id']
-                                    ]);
-                                }
-                                break;
-                            case 'unlike':
-                            case 'undislike':
-                                dbquery("DELETE FROM ".DB_VIDEO_LIKES." WHERE video_id=:video_id AND like_user=:user_id", [':video_id' => $data['video_id'], ':user_id' => $userdata['user_id']]);
-                                break;
-                            default:
-                                break;
+                    if (isset($_GET['action'])) {
+                        if (\defender::safe()) {
+                            switch ($_GET['action']) {
+                                case 'like':
+                                    if (dbrows($like_type_result) == 0) {
+                                        dbquery_insert(DB_VIDEO_LIKES, [
+                                            'video_id'  => $data['video_id'],
+                                            'like_user' => $userdata['user_id'],
+                                            'like_type' => 'like'
+                                        ], 'save');
+                                    }
+                                    if ($like_type === 'dislike') {
+                                        dbquery("UPDATE ".DB_VIDEO_LIKES." SET like_type='like' WHERE video_id=:video_id AND like_user=:user_id", [
+                                            ':video_id' => $data['video_id'],
+                                            ':user_id'  => $userdata['user_id']
+                                        ]);
+                                    }
+                                    break;
+                                case 'dislike':
+                                    if (dbrows($like_type_result) == 0) {
+                                        dbquery_insert(DB_VIDEO_LIKES, [
+                                            'video_id'  => $data['video_id'],
+                                            'like_user' => $userdata['user_id'],
+                                            'like_type' => 'dislike'
+                                        ], 'save');
+                                    }
+                                    if ($like_type === 'like') {
+                                        dbquery("UPDATE ".DB_VIDEO_LIKES." SET like_type='dislike' WHERE video_id=:video_id AND like_user=:user_id", [
+                                            ':video_id' => $data['video_id'],
+                                            ':user_id'  => $userdata['user_id']
+                                        ]);
+                                    }
+                                    break;
+                                case 'unlike':
+                                case 'undislike':
+                                    dbquery("DELETE FROM ".DB_VIDEO_LIKES." WHERE video_id=:video_id AND like_user=:user_id", [':video_id' => $data['video_id'], ':user_id' => $userdata['user_id']]);
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
-                    }
 
-                    redirect(INFUSIONS.'videos/videos.php?video_id='.$data['video_id']);
+                        redirect(INFUSIONS.'videos/videos.php?video_id='.$data['video_id']);
+                    }
                 }
             }
 
