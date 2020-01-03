@@ -859,7 +859,7 @@ class SitemapGenerator {
         }
 
         if (isset($_POST['save_changes'])) {
-            $modules = [
+            $available_modules = [
                 'customlinks',
                 'profiles',
                 'articles',
@@ -881,11 +881,13 @@ class SitemapGenerator {
                 'weblink_cats'
             ];
 
-            foreach ($modules as $name) {
+            $modules = [];
+
+            foreach ($available_modules as $name) {
                 $modules[$name] = [
                     'enabled'   => isset($_POST['enabled_'.$name]) ? 1 : 0,
                     'frequency' => form_sanitizer(isset($_POST['frequency_'.$name]) ? $_POST['frequency_'.$name] : '', '', 'frequency_'.$name),
-                    'priority'  => form_sanitizer(isset($_POST['priority_'.$name]) ? $_POST['priority_'.$name] : '', '', 'priority_weblink_cats')
+                    'priority'  => form_sanitizer(isset($_POST['priority_'.$name]) ? $_POST['priority_'.$name] : '', '', 'priority_'.$name)
                 ];
             }
 
@@ -893,9 +895,9 @@ class SitemapGenerator {
                 foreach ($modules as $name => $data) {
                     $db = [
                         'name'      => $name,
-                        'enabled'   => !empty($data['enabled']) ? $data['enabled'] : '',
-                        'frequency' => !empty($data['frequency']) ? $data['frequency'] : '',
-                        'priority'  => !empty($data['priority']) ? $data['priority'] : ''
+                        'enabled'   => $data['enabled'],
+                        'frequency' => $data['frequency'],
+                        'priority'  => $data['priority']
                     ];
 
                     dbquery_insert(DB_SITEMAP, $db, 'update', ['primary_key' => 'name']);
