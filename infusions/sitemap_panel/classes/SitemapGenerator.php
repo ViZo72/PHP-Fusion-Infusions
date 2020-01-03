@@ -844,9 +844,7 @@ class SitemapGenerator {
         $result = dbquery("SELECT * FROM ".DB_SITEMAP." WHERE name=:name", [':name' => $module]);
 
         if (dbrows($result) > 0) {
-            $data = dbarray($result);
-
-            return $data;
+            return dbarray($result);
         } else {
             return NULL;
         }
@@ -862,110 +860,42 @@ class SitemapGenerator {
 
         if (isset($_POST['save_changes'])) {
             $modules = [
-                'customlinks'    => [
-                    'enabled'   => isset($_POST['enabled_customlinks']) ? 1 : 0,
-                    'frequency' => isset($_POST['frequency_customlinks']) ? form_sanitizer($_POST['frequency_customlinks'], '', 'frequency_customlinks') : '',
-                    'priority'  => isset($_POST['priority_customlinks']) ? form_sanitizer($_POST['priority_customlinks'], '', 'priority_customlinks') : ''
-                ],
-                'profiles'       => [
-                    'enabled'   => isset($_POST['enabled_profiles']) ? 1 : 0,
-                    'frequency' => isset($_POST['frequency_profiles']) ? form_sanitizer($_POST['frequency_profiles'], '', 'frequency_profiles') : '',
-                    'priority'  => isset($_POST['priority_profiles']) ? form_sanitizer($_POST['priority_profiles'], '', 'priority_profiles') : ''
-                ],
-                'articles'       => [
-                    'enabled'   => isset($_POST['enabled_articles']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_articles'], '', 'frequency_articles'),
-                    'priority'  => form_sanitizer($_POST['priority_articles'], '', 'priority_articles')
-                ],
-                'article_cats'   => [
-                    'enabled'   => isset($_POST['enabled_article_cats']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_article_cats'], '', 'frequency_article_cats'),
-                    'priority'  => form_sanitizer($_POST['priority_article_cats'], '', 'priority_article_cats')
-                ],
-                'blogs'          => [
-                    'enabled'   => isset($_POST['enabled_blogs']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_blogs'], '', 'frequency_blogs'),
-                    'priority'  => form_sanitizer($_POST['priority_blogs'], '', 'priority_blogs')
-                ],
-                'blog_cats'      => [
-                    'enabled'   => isset($_POST['enabled_blog_cats']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_blog_cats'], '', 'frequency_blog_cats'),
-                    'priority'  => form_sanitizer($_POST['priority_blog_cats'], '', 'priority_blog_cats')
-                ],
-                'custompages'    => [
-                    'enabled'   => isset($_POST['enabled_custompages']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_custompages'], '', 'frequency_custompages'),
-                    'priority'  => form_sanitizer($_POST['priority_custompages'], '', 'priority_custompages')
-                ],
-                'downloads'      => [
-                    'enabled'   => isset($_POST['enabled_downloads']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_downloads'], '', 'frequency_downloads'),
-                    'priority'  => form_sanitizer($_POST['priority_downloads'], '', 'priority_downloads')
-                ],
-                'download_cats'  => [
-                    'enabled'   => isset($_POST['enabled_download_cats']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_download_cats'], '', 'frequency_download_cats'),
-                    'priority'  => form_sanitizer($_POST['priority_download_cats'], '', 'priority_download_cats')
-                ],
-                'faq_cats'       => [
-                    'enabled'   => isset($_POST['enabled_faq_cats']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_faq_cats'], '', 'frequency_faq_cats'),
-                    'priority'  => form_sanitizer($_POST['priority_faq_cats'], '', 'priority_faq_cats')
-                ],
-                'forum'          => [
-                    'enabled'   => isset($_POST['enabled_forum']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_forum'], '', 'frequency_forum'),
-                    'priority'  => form_sanitizer($_POST['priority_forum'], '', 'priority_forum')
-                ],
-                'gallery'        => [
-                    'enabled'   => isset($_POST['enabled_gallery']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_gallery'], '', 'frequency_gallery'),
-                    'priority'  => form_sanitizer($_POST['priority_gallery'], '', 'priority_gallery')
-                ],
-                'gallery_albums' => [
-                    'enabled'   => isset($_POST['enabled_gallery_albums']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_gallery_albums'], '', 'frequency_gallery_albums'),
-                    'priority'  => form_sanitizer($_POST['priority_gallery_albums'], '', 'priority_gallery_albums')
-                ],
-                'news'           => [
-                    'enabled'   => isset($_POST['enabled_news']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_news'], '', 'frequency_news'),
-                    'priority'  => form_sanitizer($_POST['priority_news'], '', 'priority_news')
-                ],
-                'news_cats'      => [
-                    'enabled'   => isset($_POST['enabled_news_cats']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_news_cats'], '', 'frequency_news_cats'),
-                    'priority'  => form_sanitizer($_POST['priority_news_cats'], '', 'priority_news_cats')
-                ],
-                'videos'         => [
-                    'enabled'   => isset($_POST['enabled_videos']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_videos'], '', 'frequency_videos'),
-                    'priority'  => form_sanitizer($_POST['priority_videos'], '', 'priority_videos')
-                ],
-                'video_cats'    => [
-                    'enabled'   => isset($_POST['enabled_video_cats']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_video_cats'], '', 'frequency_video_cats'),
-                    'priority'  => form_sanitizer($_POST['priority_video_cats'], '', 'priority_video_cats')
-                ],
-                'weblinks'       => [
-                    'enabled'   => isset($_POST['enabled_weblinks']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_weblinks'], '', 'frequency_weblinks'),
-                    'priority'  => form_sanitizer($_POST['priority_weblinks'], '', 'priority_weblinks')
-                ],
-                'weblink_cats'   => [
-                    'enabled'   => isset($_POST['enabled_weblink_cats']) ? 1 : 0,
-                    'frequency' => form_sanitizer($_POST['frequency_weblink_cats'], '', 'frequency_weblink_cats'),
-                    'priority'  => form_sanitizer($_POST['priority_weblink_cats'], '', 'priority_weblink_cats')
-                ]
+                'customlinks',
+                'profiles',
+                'articles',
+                'article_cats',
+                'blogs',
+                'blog_cats',
+                'custompages',
+                'downloads',
+                'download_cats',
+                'faq_cats',
+                'forum',
+                'gallery',
+                'gallery_albums',
+                'news',
+                'news_cats',
+                'videos',
+                'video_cats',
+                'weblinks',
+                'weblink_cats'
             ];
+
+            foreach ($modules as $name) {
+                $modules[$name] = [
+                    'enabled'   => isset($_POST['enabled_'.$name]) ? 1 : 0,
+                    'frequency' => form_sanitizer(isset($_POST['frequency_'.$name]) ? $_POST['frequency_'.$name] : '', '', 'frequency_'.$name),
+                    'priority'  => form_sanitizer(isset($_POST['priority_'.$name]) ? $_POST['priority_'.$name] : '', '', 'priority_weblink_cats')
+                ];
+            }
 
             if (\defender::safe()) {
                 foreach ($modules as $name => $data) {
                     $db = [
                         'name'      => $name,
-                        'enabled'   => $data['enabled'],
-                        'frequency' => $data['frequency'],
-                        'priority'  => $data['priority']
+                        'enabled'   => !empty($data['enabled']) ? $data['enabled'] : '',
+                        'frequency' => !empty($data['frequency']) ? $data['frequency'] : '',
+                        'priority'  => !empty($data['priority']) ? $data['priority'] : ''
                     ];
 
                     dbquery_insert(DB_SITEMAP, $db, 'update', ['primary_key' => 'name']);
@@ -1139,7 +1069,7 @@ class SitemapGenerator {
                 'inline'  => TRUE
             ]);
 
-            echo form_button('save_settings', $this->locale['save'], 'save', ['class' => 'btn-success m-t-5']);;
+            echo form_button('save_settings', $this->locale['save'], 'save', ['class' => 'btn-success m-t-5']);
         closeside();
         echo closeform();
     }
