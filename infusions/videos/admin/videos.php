@@ -279,7 +279,7 @@ echo '<div class="row">';
                 } else {
                     echo form_fileinput('video_file', $locale['vid_021'], '', [
                         'class'       => 'm-t-10',
-                        'required'    => TRUE,
+                        // 'required'    => TRUE,
                         'width'       => '100%',
                         'upload_path' => VIDEOS.'videos/',
                         'max_byte'    => $this->video_settings['video_max_b'],
@@ -295,7 +295,7 @@ echo '<div class="row">';
             echo opentabbody($tab_video_type['title'][1], $tab_video_type['id'][1], $tab_video_type_active);
                 if (empty($data['video_file'])) {
                     echo form_text('video_url', $locale['vid_019'], $data['video_url'], [
-                        'required'    => TRUE,
+                        // 'required'    => TRUE,
                         'class'       => 'm-t-10',
                         'inline'      => TRUE,
                         'type'        => 'url',
@@ -313,7 +313,7 @@ echo '<div class="row">';
             echo opentabbody($tab_video_type['title'][2], $tab_video_type['id'][2], $tab_video_type_active);
                 if (empty($data['video_file'])) {
                     echo form_textarea('video_embed', $locale['vid_020'], $data['video_embed'], [
-                        'required'   => TRUE,
+                        // 'required'   => TRUE,
                         'inline'     => TRUE,
                         'error_text' => $locale['vid_025'],
                         'maxlength'  => '255',

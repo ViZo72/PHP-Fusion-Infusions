@@ -210,7 +210,7 @@ if (iMEMBER && $video_settings['video_allow_submission']) {
                     echo opentabbody($tab_video_type['title'][0], $tab_video_type['id'][0], $tab_video_type_active);
                         echo form_fileinput('video_file', $locale['vid_021'], $criteria_array['video_file'], [
                             'class'       => 'm-t-10',
-                            'required'    => TRUE,
+                            // 'required'    => TRUE,
                             'width'       => '100%',
                             'upload_path' => VIDEOS.'submissions/',
                             'max_byte'    => $video_settings['video_max_b'],
@@ -224,7 +224,7 @@ if (iMEMBER && $video_settings['video_allow_submission']) {
 
                     echo opentabbody($tab_video_type['title'][1], $tab_video_type['id'][1], $tab_video_type_active);
                         echo form_text('video_url', $locale['vid_019'], $criteria_array['video_url'], [
-                            'required'    => TRUE,
+                            // 'required'    => TRUE,
                             'class'       => 'm-t-10',
                             'inline'      => TRUE,
                             'error_text'  => $locale['vid_024'],
@@ -236,7 +236,7 @@ if (iMEMBER && $video_settings['video_allow_submission']) {
 
                     echo opentabbody($tab_video_type['title'][2], $tab_video_type['id'][2], $tab_video_type_active);
                         echo form_textarea('video_embed', $locale['vid_020'], $criteria_array['video_embed'], [
-                            'required'   => TRUE,
+                            // 'required'   => TRUE,
                             'inline'     => TRUE,
                             'error_text' => $locale['vid_025'],
                             'maxlength'  => '255',
