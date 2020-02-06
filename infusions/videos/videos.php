@@ -73,9 +73,6 @@ foreach ($info['allowed_filters'] as $type => $filter_name) {
 }
 
 switch ($_GET['type']) {
-    case 'recent':
-        $filter_condition = 'video_datestamp DESC';
-        break;
     case 'comments':
         $filter_condition = 'count_comment DESC';
         $filter_count = 'COUNT(c.comment_item_id) AS count_comment,';
@@ -90,7 +87,7 @@ switch ($_GET['type']) {
         $filter_condition = 'video_views DESC';
         break;
     default:
-        $filter_condition = '';
+        $filter_condition = 'video_datestamp DESC';
 }
 
 if (isset($_GET['video_id'])) {
