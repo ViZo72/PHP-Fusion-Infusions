@@ -170,7 +170,7 @@ if (isset($_GET['video_id'])) {
                 }
             }
 
-            $data['video_description'] = nl2br(parse_textarea($data['video_description'], FALSE, FALSE, TRUE, FALSE));
+            $data['video_description'] = nl2br(parse_textarea($data['video_description'], TRUE, TRUE, FALSE, FALSE));
             $data['video_post_author'] = profile_link($data['user_id'], $data['user_name'], $data['user_status']);
             $data['video_post_author_avatar'] = display_avatar($data, '45px', '', TRUE, 'img-circle');
             $data['video_post_cat'] = '<a href="'.INFUSIONS.'videos/videos.php?cat_id='.$data['video_cat_id'].'">'.$data['video_cat_name'].'</a>';

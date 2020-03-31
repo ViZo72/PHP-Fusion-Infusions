@@ -190,11 +190,7 @@ echo '<div class="row">';
         echo form_textarea('video_description', $locale['vid_014'], $data['video_description'], [
             'no_resize' => TRUE,
             'form_name' => 'inputform',
-            'type'      => fusion_get_settings('tinymce_enabled') ? 'tinymce' : 'html',
-            'tinymce'   => fusion_get_settings('tinymce_enabled') ? 'simple' : '',
-            'autosize'  => fusion_get_settings('tinymce_enabled') ? FALSE : TRUE,
-            'preview'   => fusion_get_settings('tinymce_enabled') ? FALSE : TRUE,
-            'height'    => '300px'
+            'type'      => 'bbcode'
         ]);
 
         closeside();

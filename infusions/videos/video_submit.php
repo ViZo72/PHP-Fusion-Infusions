@@ -143,8 +143,7 @@ if (iMEMBER && $video_settings['video_allow_submission']) {
                 echo form_textarea('video_description', $locale['vid_014'], $criteria_array['video_description'], [
                     'no_resize' => TRUE,
                     'form_name' => 'submit_form',
-                    'type'      => fusion_get_settings('tinymce_enabled') ? 'tinymce' : 'bbcode',
-                    'tinymce'   => fusion_get_settings('tinymce_enabled') && iADMIN ? 'advanced' : 'simple',
+                    'type'      => 'bbcode',
                     'autosize'  => TRUE
                 ]);
 
