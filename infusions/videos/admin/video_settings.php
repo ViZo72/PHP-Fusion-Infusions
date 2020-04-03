@@ -163,8 +163,7 @@ echo '<div class="row">';
             'placeholder' => $locale['choose'],
             'multiple'    => TRUE,
             'tags'        => TRUE,
-            'width'       => '100%',
-            'delimiter'   => '|'
+            'width'       => '100%'
         ]);
 
         closeside();

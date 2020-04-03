@@ -188,8 +188,7 @@ echo opentab($tab_cats, $tab_cats_active, 'categories', FALSE, 'nav-tabs m-b-10'
                     'options'     => fusion_get_enabled_languages(),
                     'placeholder' => $locale['choose'],
                     'width'       => '100%',
-                    'multiple'    => TRUE,
-                    'delimeter'   => '.'
+                    'multiple'    => TRUE
                 ]);
             } else {
                 echo form_hidden('video_cat_language', '', $data['video_cat_language']);

@@ -118,8 +118,7 @@ switch ($_GET['section']) {
                 'placeholder' => $locale['choose'],
                 'width'       => '100%',
                 'inline'      => TRUE,
-                'multiple'    => TRUE,
-                'delimeter'   => '.'
+                'multiple'    => TRUE
             ]);
         } else {
             echo form_hidden('language', '', $data['language']);
