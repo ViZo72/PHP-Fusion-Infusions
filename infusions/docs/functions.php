@@ -54,7 +54,7 @@ function validate_docs_cat($id) {
 }
 
 function parse_docs_text($text) {
-    $text = parse_textarea($text, TRUE, FALSE, TRUE, IMAGES_DOCS, TRUE);
+    $text = parse_textarea($text, TRUE, FALSE, TRUE, IMAGES, TRUE);
 
     return $text;
 }

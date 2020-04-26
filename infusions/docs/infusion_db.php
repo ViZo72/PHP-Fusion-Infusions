@@ -29,10 +29,6 @@ if (!defined('DOCS')) {
     define('DOCS', INFUSIONS.'docs/');
 }
 
-if (!defined('IMAGES_DOCS')) {
-    define('IMAGES_DOCS', INFUSIONS.'docs/images/');
-}
-
 if (!defined('DB_DOCS')) {
     define('DB_DOCS', DB_PREFIX.'docs');
 }
@@ -42,7 +38,3 @@ if (!defined('DB_DOCS_CATS')) {
 }
 
 \PHPFusion\Admins::getInstance()->setAdminPageIcons('DOCS', '<i class="admin-ico fa fa-fw fa-file-alt"></i>');
-
-\PHPFusion\Admins::getInstance()->setFolderPermissions('docs', [
-    'infusions/docs/images/' => TRUE
-]);

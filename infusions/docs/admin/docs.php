@@ -92,7 +92,7 @@ if (isset($_GET['ref']) && $_GET['ref'] == 'form') {
     ]);
 
     echo form_textarea('docs_article', $locale['docs_004'], $data['docs_article'], [
-        'path'        => IMAGES_DOCS,
+        'path'        => IMAGES,
         'form_name'   => 'docsform',
         'type'        => 'html',
         'preview'     => TRUE,
