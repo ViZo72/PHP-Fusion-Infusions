@@ -105,7 +105,7 @@ class VideosAdmin {
             }
 
             if ($total_rows > $rows) {
-                echo makepagenav($rowstart, $limit, $total_rows, $limit, clean_request('', ['aid', 'section'], TRUE).'&amp;');
+                echo makepagenav($rowstart, $limit, $total_rows, $limit, clean_request('', ['aid', 'section'], TRUE).'&');
             }
         echo '</div>';
 
@@ -124,13 +124,13 @@ class VideosAdmin {
                             echo '<span class="strong text-dark">'.$data['video_title'].'</span><br/>';
 
                             echo '<div>';
-                                echo $this->locale['vid_009'].' <a class="badge" href="'.FUSION_SELF.$aidlink.'&amp;section=categories&amp;action=edit&amp;cat_id='.$data['video_cat_id'].'">'.$data['video_cat_name'].'</a>';
+                                echo $this->locale['vid_009'].' <a class="badge" href="'.FUSION_SELF.$aidlink.'&section=categories&action=edit&cat_id='.$data['video_cat_id'].'">'.$data['video_cat_name'].'</a>';
                                 echo '<br/><span><i class="fa fa-clock-o"></i> '.$data['video_length'].'</span>';
                             echo '</div>';
 
                             echo '<div class="m-t-5">';
-                                echo '<a class="m-r-10" href="'.FUSION_SELF.$aidlink.'&amp;action=edit&amp;section=form&amp;video_id='.$data['video_id'].'">'.$this->locale['edit'].'</a>';
-                                echo '<a class="m-r-10" href="'.FUSION_SELF.$aidlink.'&amp;action=delete&amp;section=form&amp;video_id='.$data['video_id'].'">'.$this->locale['delete'].'</a>';
+                                echo '<a class="m-r-10" href="'.FUSION_SELF.$aidlink.'&action=edit&section=form&video_id='.$data['video_id'].'">'.$this->locale['edit'].'</a>';
+                                echo '<a class="m-r-10" href="'.FUSION_SELF.$aidlink.'&action=delete&section=form&video_id='.$data['video_id'].'">'.$this->locale['delete'].'</a>';
                             echo '</div>';
                         echo '</div>';
                         echo '</div></div>';

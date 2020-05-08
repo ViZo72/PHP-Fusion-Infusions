@@ -963,7 +963,7 @@ class ContentCreator {
             }
         }
 
-        echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_047'].' &amp; '.$this->locale['cc_049'].'</td></tr>';
+        echo '<tr><td colspan="4" class="info text-center strong">'.$this->locale['cc_047'].' & '.$this->locale['cc_049'].'</td></tr>';
         $this->commentsAndRatings();
         echo '<tr>';
         echo '<td>'.$this->numField('comments', 50).'</td>';

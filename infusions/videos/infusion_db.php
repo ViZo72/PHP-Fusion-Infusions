@@ -55,12 +55,12 @@ if (!empty($inf_settings['video_allow_submission']) && $inf_settings['video_allo
             'submit_link'   => 'submit.php?stype=v',
             'submit_locale' => fusion_get_locale('vid_title', VID_LOCALE),
             'title'         => fusion_get_locale('video_submit', VID_LOCALE),
-            'admin_link'    => INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&amp;section=submissions&amp;submit_id=%s'
+            'admin_link'    => INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&section=submissions&submit_id=%s'
         ]);
     } else {
         // 9.0
         \PHPFusion\Admins::getInstance()->setSubmitType('v', fusion_get_locale('vid_title', VID_LOCALE));
-        \PHPFusion\Admins::getInstance()->setSubmitLink('v', INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&amp;section=submissions&amp;submit_id=%s');
+        \PHPFusion\Admins::getInstance()->setSubmitLink('v', INFUSIONS.'videos/admin.php'.fusion_get_aidlink().'&section=submissions&submit_id=%s');
     }
 }
 

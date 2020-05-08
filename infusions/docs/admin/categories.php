@@ -182,7 +182,7 @@ if (isset($_GET['ref']) && $_GET['ref'] == 'docs_cat_form') {
     }
 
     if (isset($_POST['docs_clear'])) {
-        redirect(FUSION_SELF.fusion_get_aidlink()."&amp;section=categories");
+        redirect(FUSION_SELF.fusion_get_aidlink()."&section=categories");
     }
 
     $sql_condition = multilang_table('DOC') ? in_group('dc.docs_cat_language', LANGUAGE) : '';

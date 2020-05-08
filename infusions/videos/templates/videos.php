@@ -86,7 +86,7 @@ if (!function_exists('display_video_item')) {
             echo '<div style="font-size: 20px;">'.$data['video_post_author'].'</div>';
 
             if (iMEMBER) {
-                echo '<span><a href="'.BASEDIR.'messages.php?folder=inbox&amp;msg_send='.$data['user_id'].'">'.$locale['send_message'].'</a></span>';
+                echo '<span><a href="'.BASEDIR.'messages.php?folder=inbox&msg_send='.$data['user_id'].'">'.$locale['send_message'].'</a></span>';
             }
         echo '</div>';
 
@@ -119,7 +119,7 @@ if (!function_exists('display_video_index')) {
                         echo '</figure>';
 
                         echo '<div class="post clearfix">';
-                            echo '<h4 class="post-title"><a href="'.INFUSIONS.'videos/videos.php?cat_id='.$data['video_cat'].'&amp;video_id='.$data['video_id'].'">'.$data['video_title'].'</a></h4>';
+                            echo '<h4 class="post-title"><a href="'.INFUSIONS.'videos/videos.php?cat_id='.$data['video_cat'].'&video_id='.$data['video_id'].'">'.$data['video_title'].'</a></h4>';
                             echo '<div class="meta">';
                                 echo '<span>'.$data['video_user_link'].'</span>';
                                 echo '<span> &middot; '.$data['video_views'].' &middot; </span>';

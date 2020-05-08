@@ -154,8 +154,8 @@ switch ($_GET['section']) {
                         echo '<td>'.$data['profession'].'</td>';
                         echo '<td>'.showdate('shortdate', $data['user_joined']).'</td>';
                         echo '<td>';
-                            echo '<a href="'.FUSION_SELF.fusion_get_aidlink().'&amp;section=form&amp;action=edit&amp;team_id='.$data['team_id'].'">'.$locale['edit'].'</a> | ';
-                            echo '<a href="'.FUSION_SELF.fusion_get_aidlink().'&amp;action=delete&amp;team_id='.$data['team_id'].'">'.$locale['delete'].'</a>';
+                            echo '<a href="'.FUSION_SELF.fusion_get_aidlink().'&section=form&action=edit&team_id='.$data['team_id'].'">'.$locale['edit'].'</a> | ';
+                            echo '<a href="'.FUSION_SELF.fusion_get_aidlink().'&action=delete&team_id='.$data['team_id'].'">'.$locale['delete'].'</a>';
                         echo '</td>';
                     echo '</tr>';
                 }

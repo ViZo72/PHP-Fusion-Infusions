@@ -66,7 +66,7 @@ $filter = array_keys($info['allowed_filters']);
 $_GET['type'] = isset($_GET['type']) && in_array($_GET['type'], array_keys($info['allowed_filters'])) ? $_GET['type'] : '';
 
 foreach ($info['allowed_filters'] as $type => $filter_name) {
-    $filter_link = VIDEOS.'videos.php?'.(isset($_GET['cat_id']) ? 'cat_id='.$_GET['cat_id'].'&amp;' : '').(isset($_GET['archive']) ? 'archive='.$_GET['archive'].'&amp;' : '').'type='.$type;
+    $filter_link = VIDEOS.'videos.php?'.(isset($_GET['cat_id']) ? 'cat_id='.$_GET['cat_id'].'&' : '').(isset($_GET['archive']) ? 'archive='.$_GET['archive'].'&' : '').'type='.$type;
     $active = isset($_GET['type']) && $_GET['type'] == $type ? 1 : 0;
     $info['video_filter'][$type] = ['title' => $filter_name, 'link' => $filter_link, 'active' => $active];
     unset($filter_link);
@@ -180,8 +180,8 @@ if (isset($_GET['video_id'])) {
             $like = iMEMBER && $data['video_user_like_type'] == 'like' ? 'unlike' : 'like';
             $dislike = iMEMBER && $data['video_user_like_type'] == 'dislike' ? 'undislike' : 'dislike';
 
-            $data['video_like_url'] = INFUSIONS.'videos/videos.php?video_id='.$data['video_id'].'&amp;action='.$like;
-            $data['video_dislike_url'] = INFUSIONS.'videos/videos.php?video_id='.$data['video_id'].'&amp;action='.$dislike;
+            $data['video_like_url'] = INFUSIONS.'videos/videos.php?video_id='.$data['video_id'].'&action='.$like;
+            $data['video_dislike_url'] = INFUSIONS.'videos/videos.php?video_id='.$data['video_id'].'&action='.$dislike;
             $data['video_likes'] = get_likes($data['video_id'], 'like');
             $data['video_dislikes'] = get_likes($data['video_id'], 'dislike');
 
@@ -209,8 +209,8 @@ if (isset($_GET['video_id'])) {
             $data['admin_link'] = '';
             if (iADMIN && checkrights('VID')) {
                 $data['admin_link'] = [
-                    'edit'   => INFUSIONS.'videos/admin.php'.$aidlink.'&amp;action=edit&amp;section=form&amp;video_id='.$data['video_id'],
-                    'delete' => INFUSIONS.'videos/admin.php'.$aidlink.'&amp;action=delete&amp;section=form&amp;video_id='.$data['video_id']
+                    'edit'   => INFUSIONS.'videos/admin.php'.$aidlink.'&action=edit&section=form&video_id='.$data['video_id'],
+                    'delete' => INFUSIONS.'videos/admin.php'.$aidlink.'&action=delete&section=form&video_id='.$data['video_id']
                 ];
             }
 
@@ -322,12 +322,12 @@ if (isset($_GET['video_id'])) {
 }
 
 if (!empty($info['video_max_rows']) && ($info['video_max_rows'] > $video_settings['video_pagination']) && !isset($_GET['video_id'])) {
-    $page_nav_link = (!empty($_GET['type']) ? '?type='.$_GET['type'].'&amp;' : '');
+    $page_nav_link = (!empty($_GET['type']) ? '?type='.$_GET['type'].'&' : '');
 
     if (!empty($_GET['cat_id']) && isnum($_GET['cat_id'])) {
-        $page_nav_link = INFUSIONS.'videos/videos.php?cat_id='.$_GET['cat_id'].(!empty($_GET['type']) ? '&amp;type='.$_GET['type'] : '').'&amp;';
+        $page_nav_link = INFUSIONS.'videos/videos.php?cat_id='.$_GET['cat_id'].(!empty($_GET['type']) ? '&type='.$_GET['type'] : '').'&';
     } else if (!empty($_GET['author']) && isnum($_GET['author'])) {
-        $page_nav_link = INFUSIONS.'videos/videos.php?author='.$_GET['author'].'&amp;';
+        $page_nav_link = INFUSIONS.'videos/videos.php?author='.$_GET['author'].'&';
     }
 
     $info['video_nav'] = makepagenav($_GET['rowstart'], $video_settings['video_pagination'], $info['video_max_rows'], 3, $page_nav_link);
@@ -390,7 +390,7 @@ function get_video_comments($data) {
     $html = '';
     if (fusion_get_settings('comments_enabled') && $data['video_allow_comments']) {
         ob_start();
-        showcomments('VID', DB_VIDEOS, 'video_id', $data['video_id'], INFUSIONS.'videos/videos.php?cat_id='.$data['video_cat'].'&amp;video_id='.$data['video_id'], $data['video_allow_ratings']);
+        showcomments('VID', DB_VIDEOS, 'video_id', $data['video_id'], INFUSIONS.'videos/videos.php?cat_id='.$data['video_cat'].'&video_id='.$data['video_id'], $data['video_allow_ratings']);
         $html = ob_get_contents();
         ob_end_clean();
     }
@@ -402,7 +402,7 @@ function get_video_ratings($data) {
     $html = '';
     if (fusion_get_settings('ratings_enabled') && $data['video_allow_ratings']) {
         ob_start();
-        showratings('VID', $data['video_id'], INFUSIONS.'videos/videos.php?cat_id='.$data['video_cat'].'&amp;video_id='.$data['video_id']);
+        showratings('VID', $data['video_id'], INFUSIONS.'videos/videos.php?cat_id='.$data['video_cat'].'&video_id='.$data['video_id']);
         $html = ob_get_contents();
         ob_end_clean();
     }

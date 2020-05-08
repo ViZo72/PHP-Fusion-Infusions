@@ -46,7 +46,7 @@ if (isset($_POST['savesettings'])) {
         addNotice('success', $locale['vid_notice_09']);
     }
 
-    redirect(FUSION_SELF.fusion_get_aidlink().'&amp;section=settings');
+    redirect(FUSION_SELF.fusion_get_aidlink().'&section=settings');
 }
 
 $calc_opts = fusion_get_locale('1020', LOCALE.LOCALESET.'admin/settings.php');

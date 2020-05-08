@@ -968,14 +968,14 @@ class SitemapGenerator {
                 if (\defender::safe()) {
                     addNotice('success', $this->locale['smg_notice_01']);
 
-                    redirect(FUSION_SELF.fusion_get_aidlink().'&amp;section=links');
+                    redirect(FUSION_SELF.fusion_get_aidlink().'&section=links');
                 }
             } else {
                 dbquery_insert(DB_SITEMAP_LINKS, $this->custom_links, 'save');
 
                 if (\defender::safe()) {
                     addNotice('success', $this->locale['smg_notice_02']);
-                    redirect(FUSION_SELF.fusion_get_aidlink().'&amp;section=links');
+                    redirect(FUSION_SELF.fusion_get_aidlink().'&section=links');
                 }
             }
         }
@@ -1024,9 +1024,9 @@ class SitemapGenerator {
                         echo '<div>';
                             echo '<span class="badge">'.$data['url'].'</span> ';
                             echo '<span class="pull-right">';
-                                echo '<a href="'.FUSION_SELF.fusion_get_aidlink().'&amp;section=links&amp;action=edit&amp;link_id='.$data['link_id'].'">'.$this->locale['edit'].'</a>';
+                                echo '<a href="'.FUSION_SELF.fusion_get_aidlink().'&section=links&action=edit&link_id='.$data['link_id'].'">'.$this->locale['edit'].'</a>';
                                 echo ' | ';
-                                echo '<a href="'.FUSION_SELF.fusion_get_aidlink().'&amp;section=links&amp;action=delete&amp;link_id='.$data['link_id'].'">'.$this->locale['delete'].'</a>';
+                                echo '<a href="'.FUSION_SELF.fusion_get_aidlink().'&section=links&action=delete&link_id='.$data['link_id'].'">'.$this->locale['delete'].'</a>';
                             echo '</span>';
                         echo '</div>';
                     }

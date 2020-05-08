@@ -330,7 +330,7 @@ if (isset($_GET['ref']) && $_GET['ref'] == 'form') {
 
     if ($max_rows > $docs_rows) {
         echo '<div class="display-inline-block pull-right">';
-            echo makepagenav($rowstart, $limit, $max_rows, 3, FUSION_SELF.fusion_get_aidlink()."&docs_display=$limit&amp;");
+            echo makepagenav($rowstart, $limit, $max_rows, 3, FUSION_SELF.fusion_get_aidlink()."&docs_display=$limit&");
         echo '</div>';
     }
     echo '</div>';

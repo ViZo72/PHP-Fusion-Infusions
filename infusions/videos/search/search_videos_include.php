@@ -73,7 +73,7 @@ if (db_exists(DB_VIDEOS)) {
         }
 
         if ($rows != 0) {
-            $item_count = '<a href="'.BASEDIR.'search.php?stype=videos&amp;stext='.Search_Engine::get_param('stext').'&amp;'.Search_Engine::get_param('composevars').'">'.$rows.' '.($rows == 1 ? $locale['v401'] : $locale['v402']).' '.$locale['522'].'</a><br/>';
+            $item_count = '<a href="'.BASEDIR.'search.php?stype=videos&stext='.Search_Engine::get_param('stext').'&'.Search_Engine::get_param('composevars').'">'.$rows.' '.($rows == 1 ? $locale['v401'] : $locale['v402']).' '.$locale['522'].'</a><br/>';
 
             $result = dbquery("SELECT v.*, vc.*, u.user_id, u.user_name, u.user_status, u.user_avatar, u.user_joined, u.user_level
                 FROM ".DB_VIDEOS." v
@@ -101,7 +101,7 @@ if (db_exists(DB_VIDEOS)) {
                 $meta .= '<span class="alt">'.$locale['v404'].'</span> '.$data['video_views'].'</span>';
 
                 $search_result .= strtr(Search::render_search_item(), [
-                        '{%item_url%}'             => VIDEOS.'videos.php?cat_id='.$data['video_cat'].'&amp;video_id='.$data['video_id'].'&sref=search',
+                        '{%item_url%}'             => VIDEOS.'videos.php?cat_id='.$data['video_cat'].'&video_id='.$data['video_id'].'&sref=search',
                         '{%item_image%}'           => '<i class="fa fa-play fa-lg"></i>',
                         '{%item_title%}'           => $data['video_title'],
                         '{%item_description%}'     => $meta,
