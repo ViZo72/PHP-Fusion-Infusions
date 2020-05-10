@@ -84,7 +84,7 @@ if (isset($_POST['save_video'])) {
         'video_cat'            => form_sanitizer($_POST['video_cat'], '0', 'video_cat'),
         'video_user'           => form_sanitizer($_POST['video_user'], '', "video_user"),
         'video_title'          => form_sanitizer($_POST['video_title'], '', 'video_title'),
-        'video_description'    => form_sanitizer($_POST['video_description'], '', 'video_description'),
+        'video_description'    => form_sanitizer(descript($_POST['video_description']), '', 'video_description'),
         'video_keywords'       => form_sanitizer($_POST['video_keywords'], '', 'video_keywords'),
         'video_length'         => form_sanitizer($_POST['video_length'], '', 'video_length'),
         'video_datestamp'      => isset($_POST['update_datestamp']) || empty($_POST['video_datestamp']) ? TIME : $_POST['video_datestamp'],
@@ -392,8 +392,9 @@ echo '<div class="row">';
 echo '</div>';
 
 echo form_button('save_video', $locale['vid_031'], $locale['vid_031'], [
-    'class' => 'btn-success m-r-10',
-    'icon'  => 'fa fa-hdd-o'
+    'class'    => 'btn-success m-r-10',
+    'icon'     => 'fa fa-hdd-o',
+    'input_id' => 'savevideo'
 ]);
 
 if (isset($_GET['action']) && $_GET['action'] == 'edit') {

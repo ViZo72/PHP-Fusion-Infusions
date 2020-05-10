@@ -35,7 +35,7 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
                 'video_cat'            => form_sanitizer($_POST['video_cat'], 0, 'video_cat'),
                 'video_user'           => $callback_data['submit_user'],
                 'video_title'          => form_sanitizer($_POST['video_title'], '', 'video_title'),
-                'video_description'    => form_sanitizer($_POST['video_description'], '', 'video_description'),
+                'video_description'    => form_sanitizer(descript($_POST['video_description']), '', 'video_description'),
                 'video_keywords'       => form_sanitizer($_POST['video_keywords'], '', 'video_keywords'),
                 'video_length'         => form_sanitizer($_POST['video_length'], '', 'video_length'),
                 'video_datestamp'      => $callback_data['submit_datestamp'],
@@ -114,7 +114,7 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
                     'video_id'             => 0,
                     'video_cat'            => $submit_criteria['video_cat'],
                     'video_title'          => $submit_criteria['video_title'],
-                    'video_description'    => $submit_criteria['video_description'],
+                    'video_description'    => parse_textarea($submit_criteria['video_description']),
                     'video_keywords'       => $submit_criteria['video_keywords'],
                     'video_length'         => $submit_criteria['video_length'],
                     'video_datestamp'      => $data['submit_datestamp'],
@@ -260,7 +260,7 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
 
                 echo '</div>';
 
-                echo form_button('publish', $locale['vid_051'], $locale['vid_051'], ['class' => 'btn-success m-r-10', 'icon' => 'fa fa-hdd-o']);
+                echo form_button('publish', $locale['vid_051'], $locale['vid_051'], ['class' => 'btn-success m-r-10', 'icon' => 'fa fa-hdd-o', 'input_id' => 'publishvideo']);
                 echo form_button('delete', $locale['vid_052'], $locale['vid_052'], ['class' => 'btn-danger', 'icon' => 'fa fa-trash']);
                 echo closeform();
             }

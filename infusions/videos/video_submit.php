@@ -42,7 +42,7 @@ if (iMEMBER && $video_settings['video_allow_submission']) {
         $criteria_array = [
             'video_cat'         => form_sanitizer($_POST['video_cat'], 0, 'video_cat'),
             'video_title'       => form_sanitizer($_POST['video_title'], '', 'video_title'),
-            'video_description' => form_sanitizer($_POST['video_description'], '', 'video_description'),
+            'video_description' => form_sanitizer(descript($_POST['video_description']), '', 'video_description'),
             'video_keywords'    => form_sanitizer($_POST['video_keywords'], '', 'video_keywords'),
             'video_length'      => form_sanitizer($_POST['video_length'], '', 'video_length'),
             'video_type'        => form_sanitizer($_POST['video_type'], '', 'video_type'),
