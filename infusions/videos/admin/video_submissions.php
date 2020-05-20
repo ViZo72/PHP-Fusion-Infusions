@@ -35,7 +35,7 @@ if (isset($_GET['submit_id']) && isnum($_GET['submit_id'])) {
                 'video_cat'            => form_sanitizer($_POST['video_cat'], 0, 'video_cat'),
                 'video_user'           => $callback_data['submit_user'],
                 'video_title'          => form_sanitizer($_POST['video_title'], '', 'video_title'),
-                'video_description'    => form_sanitizer(descript($_POST['video_description']), '', 'video_description'),
+                'video_description'    => form_sanitizer($_POST['video_description'], '', 'video_description'),
                 'video_keywords'       => form_sanitizer($_POST['video_keywords'], '', 'video_keywords'),
                 'video_length'         => form_sanitizer($_POST['video_length'], '', 'video_length'),
                 'video_datestamp'      => $callback_data['submit_datestamp'],
