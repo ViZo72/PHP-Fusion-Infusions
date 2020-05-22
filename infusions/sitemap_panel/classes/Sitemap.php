@@ -8,7 +8,7 @@
 | Author: Alexander Makarov <sam@rmcreative.ru>
 | Co-Author: RobiNN - several code modifications for PHP-Fusion 9
 | Github: https://github.com/samdark/sitemap
-| Release: 2.2.0
+| Release: 2.2.1
 +--------------------------------------------------------+
 | This program is released as free software under the
 | Affero GPL license. You can redistribute it and/or
@@ -270,10 +270,10 @@ class Sitemap {
     /**
      * Adds a new item to sitemap
      *
-     * @param string|array $location location item URL
-     * @param integer      $lastModified last modification timestamp
+     * @param string|array $location        location item URL
+     * @param integer      $lastModified    last modification timestamp
      * @param string       $changeFrequency change frequency. Use one of self:: constants here
-     * @param string       $priority item's priority (0.0-1.0). Default null is equal to 0.5
+     * @param string       $priority        item's priority (0.0-1.0). Default null is equal to 0.5
      *
      * @throws \InvalidArgumentException
      */
@@ -304,10 +304,10 @@ class Sitemap {
     /**
      * Adds a new single item to sitemap
      *
-     * @param string  $location location item URL
-     * @param integer $lastModified last modification timestamp
+     * @param string  $location        location item URL
+     * @param integer $lastModified    last modification timestamp
      * @param float   $changeFrequency change frequency. Use one of self:: constants here
-     * @param string  $priority item's priority (0.0-1.0). Default null is equal to 0.5
+     * @param string  $priority        item's priority (0.0-1.0). Default null is equal to 0.5
      *
      * @throws \InvalidArgumentException
      *
@@ -374,10 +374,10 @@ class Sitemap {
     /**
      * Adds a multi-language item, based on multiple locations with alternate hrefs to sitemap
      *
-     * @param array   $locations array of language => link pairs
-     * @param integer $lastModified last modification timestamp
+     * @param array   $locations       array of language => link pairs
+     * @param integer $lastModified    last modification timestamp
      * @param float   $changeFrequency change frequency. Use one of self:: constants here
-     * @param string  $priority item's priority (0.0-1.0). Default null is equal to 0.5
+     * @param string  $priority        item's priority (0.0-1.0). Default null is equal to 0.5
      *
      * @throws \InvalidArgumentException
      *

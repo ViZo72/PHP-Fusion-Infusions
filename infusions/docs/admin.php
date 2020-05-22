@@ -20,7 +20,7 @@ require_once THEMES.'templates/admin_header.php';
 
 pageAccess('DOCS');
 
-class docsAdmin {
+class DocsAdmin {
     private $locale;
 
     public function __construct() {
@@ -87,7 +87,7 @@ class docsAdmin {
     }
 }
 
-$docs = new docsAdmin();
+$docs = new DocsAdmin();
 $docs->displayAdmin();
 
 require_once THEMES.'templates/footer.php';

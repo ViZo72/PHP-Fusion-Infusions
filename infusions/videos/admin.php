@@ -23,8 +23,8 @@ pageAccess('VID');
 
 
 class VideosAdmin {
-    private $locale = [];
-    private $video_settings = [];
+    private $locale;
+    private $video_settings;
 
     public function __construct() {
         $this->locale = fusion_get_locale('', VID_LOCALE);
@@ -92,7 +92,7 @@ class VideosAdmin {
 
                     echo '<ul class="dropdown-menu" style="max-height: 180px; width: 200px; overflow-y: auto;">';
                         foreach ($cat_opts as $cat_id => $cat_name) {
-                            $active = isset($_GET['filter_cid']) && $_GET['filter_cid'] == $cat_id ? TRUE : FALSE;
+                            $active = isset($_GET['filter_cid']) && $_GET['filter_cid'] == $cat_id;
 
                             echo '<li'.($active ? 'class="active"' : '').'>';
                                 echo '<a class="text-smaller" href="'.clean_request('filter_cid='.$cat_id, ['section', 'rowstart', 'aid'], TRUE).'">';
@@ -147,7 +147,7 @@ class VideosAdmin {
 
         add_breadcrumb(['link' => INFUSIONS.'videos/admin.php'.fusion_get_aidlink(), 'title' => $this->locale['vid_title']]);
 
-        $edit = (isset($_GET['action']) && $_GET['action'] == 'edit') && isset($_GET['video_id']) ? TRUE : FALSE;
+        $edit = (isset($_GET['action']) && $_GET['action'] == 'edit') && isset($_GET['video_id']);
 
         if (!empty($_GET['section'])) {
             switch ($_GET['section']) {

@@ -243,45 +243,46 @@ if (isset($_GET['video_id'])) {
         $condition = "AND video_user = '".intval($_GET['author'])."'";
     }
 
-    if (isset($_GET['cat_id']) && isnum($_GET['cat_id'])) {
-        set_title($locale['vid_title']);
-        set_meta('name', $locale['vid_title']);
+    if (isset($_GET['cat_id'])) {
+        if (isnum($_GET['cat_id'])) {
+            set_title($locale['vid_title']);
+            set_meta('name', $locale['vid_title']);
 
-        $res = dbarray(dbquery("SELECT * FROM ".DB_VIDEO_CATS.(multilang_table('VL') ? " WHERE ".in_group('video_cat_language', LANGUAGE)." AND " : " WHERE ")."video_cat_id='".intval($_GET['cat_id'])."'"));
-        if (!empty($res)) {
-            $info += $res;
-        } else {
-            redirect(clean_request('', ['cat_id'], FALSE));
-        }
-
-        video_cats_breadcrumbs(get_video_cats_index());
-
-        $info['video_max_rows'] = dbcount("('video_id')", DB_VIDEOS, "video_cat='".intval($_GET['cat_id'])."' AND ".groupaccess('video_visibility'));
-        $_GET['rowstart'] = (isset($_GET['rowstart']) && isnum($_GET['rowstart']) && $_GET['rowstart'] <= $info['video_max_rows']) ? $_GET['rowstart'] : 0;
-
-        if ($info['video_max_rows']) {
-            switch ($_GET['type']) {
-                case 'recent':
-                    $filter_condition = 'video_datestamp DESC';
-                    break;
-                case 'comments':
-                    $filter_condition = 'count_comment DESC';
-                    $filter_count = 'COUNT(c.comment_item_id) AS count_comment,';
-                    $filter_join = "LEFT JOIN ".DB_COMMENTS." c ON c.comment_item_id = v.video_id AND c.comment_type='VID' AND c.comment_hidden='0'";
-                    break;
-                case 'ratings':
-                    $filter_condition = 'sum_rating DESC';
-                    $filter_count = 'IF(SUM(r.rating_vote) > 0, SUM(r.rating_vote), 0) AS sum_rating, COUNT(r.rating_item_id) AS count_votes,';
-                    $filter_join = "LEFT JOIN ".DB_RATINGS." r ON r.rating_item_id = v.video_id AND r.rating_type='VID'";
-                    break;
-                case 'view':
-                    $filter_condition = 'video_views DESC';
-                    break;
-                default:
-                    $filter_condition = dbresult(dbquery("SELECT video_cat_sorting FROM ".DB_VIDEO_CATS." WHERE video_cat_id='".intval($_GET['cat_id'])."'"), 0);
+            $res = dbarray(dbquery("SELECT * FROM ".DB_VIDEO_CATS.(multilang_table('VL') ? " WHERE ".in_group('video_cat_language', LANGUAGE)." AND " : " WHERE ")."video_cat_id='".intval($_GET['cat_id'])."'"));
+            if (!empty($res)) {
+                $info += $res;
+            } else {
+                redirect(clean_request('', ['cat_id'], FALSE));
             }
 
-            $result = dbquery("SELECT v.*, vc.*, u.user_id, u.user_name, u.user_status, u.user_avatar , u.user_level, u.user_joined, ".(!empty($filter_count) ? $filter_count : '')." MAX(v.video_datestamp) as last_updated
+            video_cats_breadcrumbs(get_video_cats_index());
+
+            $info['video_max_rows'] = dbcount("('video_id')", DB_VIDEOS, "video_cat='".intval($_GET['cat_id'])."' AND ".groupaccess('video_visibility'));
+            $_GET['rowstart'] = (isset($_GET['rowstart']) && isnum($_GET['rowstart']) && $_GET['rowstart'] <= $info['video_max_rows']) ? $_GET['rowstart'] : 0;
+
+            if ($info['video_max_rows']) {
+                switch ($_GET['type']) {
+                    case 'recent':
+                        $filter_condition = 'video_datestamp DESC';
+                        break;
+                    case 'comments':
+                        $filter_condition = 'count_comment DESC';
+                        $filter_count = 'COUNT(c.comment_item_id) AS count_comment,';
+                        $filter_join = "LEFT JOIN ".DB_COMMENTS." c ON c.comment_item_id = v.video_id AND c.comment_type='VID' AND c.comment_hidden='0'";
+                        break;
+                    case 'ratings':
+                        $filter_condition = 'sum_rating DESC';
+                        $filter_count = 'IF(SUM(r.rating_vote) > 0, SUM(r.rating_vote), 0) AS sum_rating, COUNT(r.rating_item_id) AS count_votes,';
+                        $filter_join = "LEFT JOIN ".DB_RATINGS." r ON r.rating_item_id = v.video_id AND r.rating_type='VID'";
+                        break;
+                    case 'view':
+                        $filter_condition = 'video_views DESC';
+                        break;
+                    default:
+                        $filter_condition = dbresult(dbquery("SELECT video_cat_sorting FROM ".DB_VIDEO_CATS." WHERE video_cat_id='".intval($_GET['cat_id'])."'"), 0);
+                }
+
+                $result = dbquery("SELECT v.*, vc.*, u.user_id, u.user_name, u.user_status, u.user_avatar , u.user_level, u.user_joined, ".(!empty($filter_count) ? $filter_count : '')." MAX(v.video_datestamp) as last_updated
                 FROM ".DB_VIDEOS." v
                 INNER JOIN ".DB_VIDEO_CATS." vc ON v.video_cat=vc.video_cat_id
                 LEFT JOIN ".DB_USERS." u ON v.video_user=u.user_id
@@ -291,12 +292,15 @@ if (isset($_GET['video_id'])) {
                 GROUP BY v.video_id
                 ORDER BY ".(!empty($filter_condition) ? $filter_condition : 'vc.video_cat_sorting')."
                 LIMIT ".intval($_GET['rowstart']).', '.intval($video_settings['video_pagination'])
-            );
+                );
 
-            $info['video_rows'] = dbrows($result);
+                $info['video_rows'] = dbrows($result);
+            }
+
+            OpenGraphVideos::ogVideoCat($_GET['cat_id']);
+        } else {
+            redirect(VIDEOS.'videos.php');
         }
-
-        OpenGraphVideos::ogVideoCat($_GET['cat_id']);
     } else {
         set_title($locale['vid_title']);
 

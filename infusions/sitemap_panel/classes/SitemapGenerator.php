@@ -17,10 +17,10 @@
 +--------------------------------------------------------*/
 
 class SitemapGenerator {
-    private $locale = [];
-    private $settings = [];
-    private $siteurl = '';
-    private $sitemap = '';
+    private $locale;
+    private $settings;
+    private $siteurl;
+    private $sitemap;
     public $sitemap_folder = BASEDIR.'sitemaps/';
     public $sitemap_file = BASEDIR.'sitemap.xml';
     public $sitemap_settings = [];
@@ -61,8 +61,8 @@ class SitemapGenerator {
         $this->sitemap = new Sitemap($this->sitemap_file);
         $this->sitemap_settings = get_settings('sitemap_panel');
 
-        $this->customlinks = dbcount('(link_id)', DB_SITEMAP_LINKS) == 0 ? FALSE : TRUE;
-        $this->profiles = $this->settings['hide_userprofiles'] == 0 ? TRUE : FALSE;
+        $this->customlinks = dbcount('(link_id)', DB_SITEMAP_LINKS) > 0;
+        $this->profiles = $this->settings['hide_userprofiles'] == 0;
         $this->articles = function_exists('infusion_exists') ? infusion_exists('articles') : db_exists(DB_PREFIX.'articles');
         $this->blogs = function_exists('infusion_exists') ? infusion_exists('blog') : db_exists(DB_PREFIX.'blog');
         $this->downloads = function_exists('infusion_exists') ? infusion_exists('downloads') : db_exists(DB_PREFIX.'downloads');

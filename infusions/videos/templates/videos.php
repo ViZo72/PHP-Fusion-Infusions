@@ -148,7 +148,7 @@ if (!function_exists('display_video_menu')) {
             $html = '';
             if (!empty($info[$cat_id])) {
                 foreach ($info[$cat_id] as $video_cat_id => $cdata) {
-                    $active = (!empty($_GET['cat_id']) && $_GET['cat_id'] == $video_cat_id) ? TRUE : FALSE;
+                    $active = (!empty($_GET['cat_id']) && $_GET['cat_id'] == $video_cat_id);
 
                     $html .= '<li'.($active ? ' class="active strong"' : '').'>'.str_repeat('&nbsp;', $level).' '.$cdata['video_cat_link'];
                     if (!empty($info[$video_cat_id])) {

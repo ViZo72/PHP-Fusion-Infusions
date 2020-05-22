@@ -102,4 +102,3 @@ $inf_droptable[] = DB_DOCS_CATS;
 $inf_deldbrow[] = DB_ADMIN." WHERE admin_rights='DOCS'";
 $inf_deldbrow[] = DB_SITE_LINKS." WHERE link_url='infusions/docs/docs.php'";
 $inf_deldbrow[] = DB_LANGUAGE_TABLES." WHERE mlt_rights='DOCS'";
-$inf_delfiles[] = IMAGES_DOCS;

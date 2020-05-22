@@ -37,7 +37,7 @@ $data = [
     'language'   => LANGUAGE
 ];
 
-$edit = (isset($_GET['action']) && $_GET['action'] == 'edit') && isset($_GET['team_id']) ? TRUE : FALSE;
+$edit = (isset($_GET['action']) && $_GET['action'] == 'edit') && isset($_GET['team_id']);
 $allowed_section = ['list', 'form'];
 $_GET['section'] = isset($_GET['section']) && in_array($_GET['section'], $allowed_section) ? $_GET['section'] : 'list';
 

@@ -21,13 +21,13 @@ require_once THEMES.'templates/admin_header.php';
 pageAccess('CC');
 
 class ContentCreator {
-    private $locale = [];
-    private $snippet = '';
-    private $body = '';
-    private $short_text = '';
-    private $shout_text = [];
-    private $message_text = '';
-    private $users = 0;
+    private $locale;
+    private $snippet;
+    private $body;
+    private $short_text ;
+    private $shout_text;
+    private $message_text;
+    private $users;
 
     public function __construct() {
         $this->locale = fusion_get_locale('', CC_LOCALE);
@@ -48,7 +48,7 @@ class ContentCreator {
     }
 
     private function numField($id, $value = 20) {
-        $form_text = form_text('num_'.$id, $this->locale['cc_001'], $value, [
+        return form_text('num_'.$id, $this->locale['cc_001'], $value, [
             'type'        => 'number',
             'number_min'  => 1,
             'number_max'  => 2000,
@@ -56,8 +56,6 @@ class ContentCreator {
             'class'       => 'm-b-0',
             'inner_class' => 'input-sm'
         ]);
-
-        return $form_text;
     }
 
     private function button($id, $delete = FALSE) {
@@ -90,9 +88,7 @@ class ContentCreator {
         $num3 = mt_rand(0, 255);
         $num4 = mt_rand(0, 255);
 
-        $ip = $num1.'.'.$num2.'.'.$num3.'.'.$num4;
-
-        return $ip;
+        return $num1.'.'.$num2.'.'.$num3.'.'.$num4;
     }
 
     private function notice($num, $delete = FALSE) {
@@ -114,7 +110,7 @@ class ContentCreator {
     }
 
     private function users() {
-        $admin = !isset($_POST['create_admins']) ? TRUE : FALSE;
+        $admin = !isset($_POST['create_admins']);
         $mailnames = ['gmail.com', 'hotmail.com', 'yahoo.com', 'outlook.com', 'yandex.com', 'protonmail.com', 'aol.com'];
         $password = '8a724b7684e0254527cf990012e93b6ec988e71a612419da0938a78e096c79be'; // test123456
         $salt = '2038a428a612fef1930f9cbfc34ac617931d9ac5';
